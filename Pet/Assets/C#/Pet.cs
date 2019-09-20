@@ -9,4 +9,6 @@ public interface Pet
 
     //return the current health remaining
     int GetHealth();
+
+    void TakenDamage(int damage);
 }

@@ -5,6 +5,10 @@ using UnityEngine;
 public class Cat : MonoBehaviour, Pet
 {
     // Start is called before the first frame update
+    public void TakeDamage(int damage)
+    {
+
+    }
 
     public int GetHealth()
     {

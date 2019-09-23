@@ -4,21 +4,37 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 
+//this script should tell the ghost/pet that they entered
+//the center of the object
+//and be able to tell them where is the other end of the
+//door.
 public class DoorControl : MonoBehaviour
 {
     public DoorControl targetDoor;
-    public bool onWayDoor = false;
-    public bool woodDoor = false;
-    public bool stairs = false;
-    private bool playerNearby = false;
-    private bool controlEnabled = true;
-    private static GameObject player;
+    //public bool onWayDoor = false;
+    //public bool woodDoor = false;
+    //public bool stairs = false;
+    //private bool playerNearby = false;
+    //private bool controlEnabled = true;
+    //private static GameObject player;
     //private GameObject currentScene;
+
+    //returns the door on the other end
+    public DoorControl OtherEnd()
+    {
+        return targetDoor;
+    }
+
+    //returns the postion of the other end of the door
+    public Vector2 OtherEndPos()
+    {
+        return (Vector2)targetDoor.transform.position;
+    }
 
     private void OnDrawGizmos()
     {
         if (targetDoor) {
-            if (!targetDoor.targetDoor && !onWayDoor) targetDoor.targetDoor = this;
+            if (!targetDoor.targetDoor) targetDoor.targetDoor = this;
             else Gizmos.DrawLine(transform.position, targetDoor.transform.position);
         }
         //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
@@ -27,15 +43,15 @@ public class DoorControl : MonoBehaviour
 
     void OnEnable()
     {
-        EventManager.StartListening(GameEvent.controlEnable, EnableControl);
-        EventManager.StartListening(GameEvent.controlDisable, DisableControl);
+        //EventManager.StartListening(GameEvent.controlEnable, EnableControl);
+        //EventManager.StartListening(GameEvent.controlDisable, DisableControl);
         //currentScene = transform.parent.gameObject;
     }
     // Use this for initialization
     void Start()
     {
         if (targetDoor) {
-            if (!targetDoor.targetDoor && !onWayDoor) targetDoor.targetDoor = this;
+            if (!targetDoor.targetDoor) targetDoor.targetDoor = this;
             //else Gizmos.DrawLine(transform.position, targetDoor.transform.position);
         }
 
@@ -57,23 +73,23 @@ public class DoorControl : MonoBehaviour
         //}
     }
 
-    void DisableControl()
-    {
-        controlEnabled = false;
-        //Debug.Log("Control Disabled for the door");
-    }
+    //void DisableControl()
+    //{
+    //    controlEnabled = false;
+    //    //Debug.Log("Control Disabled for the door");
+    //}
 
-    void EnableControl()
-    {
-        controlEnabled = true;
-        //Debug.Log("Control Enabled for the door");
-    }
+    //void EnableControl()
+    //{
+    //    controlEnabled = true;
+    //    //Debug.Log("Control Enabled for the door");
+    //}
 
-    IEnumerator Wait(float time, UnityAction method)
-    {
-        yield return new WaitForSeconds(time);
-        method.Invoke();
-    }
+    //IEnumerator Wait(float time, UnityAction method)
+    //{
+    //    yield return new WaitForSeconds(time);
+    //    method.Invoke();
+    //}
 
     //when the player push the interact button, this got called
     //private void DoorInteract()
@@ -85,51 +101,49 @@ public class DoorControl : MonoBehaviour
     //    targetDoor.transform.parent.gameObject.SetActive(true);
     //}
 
-    public void DoorOpen(GameObject player)
-    {
-        //make a sound, pause 0.5s, move the player position, etc.
-        //Debug.Log("teleported");
-        PlayerEntered();
-        player.transform.position = transform.position;
-    }
+    //public void DoorOpen(GameObject player)
+    //{
+    //    //make a sound, pause 0.5s, move the player position, etc.
+    //    //Debug.Log("teleported");
+    //    PlayerEntered();
+    //    player.transform.position = transform.position;
+    //}
 
+    //
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) {
-            player = other.gameObject;
-            PlayerEntered();
+        if (other.CompareTag("Ghost")) {
+            other.GetComponent<Ghost>().DoorEntered(this);
         }
     }
 
-    void PlayerEntered()
-    {
-        playerNearby = true;
-        //todo: activate the hint
-        //Debug.Log("player entered");
-        //EventManager.StartListening(GameEvent.interact, DoorInteract);
-    }
+    //void PlayerEntered()
+    //{
+    //    playerNearby = true;
+    //    //todo: activate the hint
+    //    //Debug.Log("player entered");
+    //    //EventManager.StartListening(GameEvent.interact, DoorInteract);
+    //}
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && playerNearby) {
-            playerNearby = false;
-            //todo: deactivate the hint
-            //Debug.Log("player exited");
+        if (other.CompareTag("Ghost")) {
+            other.GetComponent<Ghost>().DoorExited(this);
         }
     }
 
-    void PlayerExited()
-    {
-        playerNearby = false;
-        //todo: deactivate the hint
-        //Debug.Log("player exited");
-        //EventManager.StopListening(GameEvent.interact, DoorInteract);
-    }
+    //void PlayerExited()
+    //{
+    //    playerNearby = false;
+    //    //todo: deactivate the hint
+    //    //Debug.Log("player exited");
+    //    //EventManager.StopListening(GameEvent.interact, DoorInteract);
+    //}
 
-    void OnDisable()
-    {
-        EventManager.StopListening(GameEvent.controlDisable, DisableControl);
-        EventManager.StopListening(GameEvent.controlEnable, EnableControl);
-        //EventManager.StopListening(GameEvent.interact, DoorInteract);
-    }
+    //void OnDisable()
+    //{
+    //    EventManager.StopListening(GameEvent.controlDisable, DisableControl);
+    //    EventManager.StopListening(GameEvent.controlEnable, EnableControl);
+    //    //EventManager.StopListening(GameEvent.interact, DoorInteract);
+    //}
 }

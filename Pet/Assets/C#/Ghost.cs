@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ghost : MonoBehaviour
+public interface Ghost
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //kill the ghost
+    void Kill();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //return the current health remaining
+    int GetHealth();
+
+    void TakeDamage(int damage);
+
+    void DoorEntered(DoorControl door);
+
+    void DoorExited(DoorControl door);
 }

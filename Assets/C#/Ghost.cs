@@ -7,7 +7,7 @@ public interface Ghost
     //return the current health remaining
     int GetHealth();
 
-    GhostStatus GetStatus();
+    GhostState GetState();
 
     void TakeDamage(int damage);
 

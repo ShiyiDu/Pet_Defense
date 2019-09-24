@@ -30,7 +30,21 @@ public class PetUtility : MonoBehaviour
         instance.StartCoroutine(Wait(time, method));
     }
 
-    private static IEnumerator Wait(float time, UnityAction method)
+    //linearly fade a vector3 object
+    public static IEnumerator LinearScaleFade(Vector3 start, Vector3 end, float duration, Transform target)
+    {
+        float timer = 0f;
+        while (timer <= duration) {
+            Vector3 current = (end - start) * (timer / duration) + start;
+            target.localScale = current;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        target.localScale = end;
+    }
+
+    //this is public just in case we want to get the coroutine object to stop it
+    public static IEnumerator Wait(float time, UnityAction method)
     {
         yield return new WaitForSeconds(time);
         method.Invoke();

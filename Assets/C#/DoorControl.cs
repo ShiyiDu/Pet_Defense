@@ -114,6 +114,7 @@ public class DoorControl : MonoBehaviour
     {
         if (other.CompareTag("Ghost")) {
             other.GetComponent<Ghost>().DoorEntered(this);
+            Debug.Log("Ghost entered");
         }
     }
 
@@ -129,6 +130,7 @@ public class DoorControl : MonoBehaviour
     {
         if (other.CompareTag("Ghost")) {
             other.GetComponent<Ghost>().DoorExited(this);
+            Debug.Log("Ghost exited");
         }
     }
 

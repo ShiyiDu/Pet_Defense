@@ -4,26 +4,34 @@ using UnityEngine;
 
 public class Hamster : MonoBehaviour, Pet
 {
-
-
-    public void Kill()
+    public void DoorEntered(DoorControl door)
     {
-
+        throw new System.NotImplementedException();
     }
 
-    public PetState GetState()
+    public void DoorExited(DoorControl door)
     {
-        return PetState.idle;
+        throw new System.NotImplementedException();
     }
 
     public int GetHealth()
     {
-        return 0;
+        throw new System.NotImplementedException();
+    }
+
+    public UnitState GetState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Kill()
+    {
+        throw new System.NotImplementedException();
     }
 
     public void TakeDamage(int damage)
     {
-
+        throw new System.NotImplementedException();
     }
 
     // Start is called before the first frame update

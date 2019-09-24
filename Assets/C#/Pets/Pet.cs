@@ -2,16 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Pet
+public interface Pet : Unit
 {
-    //kill the pet
-    void Kill();
-
-    //returns the current state of the pet
-    PetState GetState();
-
-    //return the current health remaining
-    int GetHealth();
-
-    void TakeDamage(int damage);
 }

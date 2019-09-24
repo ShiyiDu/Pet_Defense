@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cat : MonoBehaviour, Pet
+public class Hamster : MonoBehaviour, Pet
 {
-    // Start is called before the first frame update
-    public void TakeDamage(int damage)
+
+
+    public void Kill()
     {
 
+    }
+
+    public PetState GetState()
+    {
+        return PetState.idle;
     }
 
     public int GetHealth()
@@ -15,14 +21,15 @@ public class Cat : MonoBehaviour, Pet
         return 0;
     }
 
-    public void Kill()
+    public void TakeDamage(int damage)
     {
 
     }
 
+    // Start is called before the first frame update
     void Start()
     {
-        print("Started");
+
     }
 
     // Update is called once per frame

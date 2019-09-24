@@ -10,5 +10,8 @@
 
 public enum PetState
 {
-
+    walk,
+    attack,
+    idle,
+    die
 }

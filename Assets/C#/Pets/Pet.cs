@@ -7,6 +7,9 @@ public interface Pet
     //kill the pet
     void Kill();
 
+    //returns the current state of the pet
+    PetState GetState();
+
     //return the current health remaining
     int GetHealth();
 

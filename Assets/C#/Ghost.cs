@@ -4,13 +4,15 @@ using UnityEngine;
 
 public interface Ghost
 {
-    //kill the ghost
-    void Kill();
-
     //return the current health remaining
     int GetHealth();
 
+    GhostStatus GetStatus();
+
     void TakeDamage(int damage);
+
+    //kill the ghost
+    void Kill();
 
     void DoorEntered(DoorControl door);
 

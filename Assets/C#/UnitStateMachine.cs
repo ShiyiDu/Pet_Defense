@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-//this is a basic state machine for both pets and ghost
-public class UnitStateMachine : MonoBehaviour, Unit
+//this is a basic state machine for both pets and ghost to control AIs
+public abstract class UnitStateMachine : MonoBehaviour, Unit
 {
     public float velocity = 1f;
     public int health = 100;
@@ -15,63 +15,55 @@ public class UnitStateMachine : MonoBehaviour, Unit
     public float exitDoorTime = 0.5f;
 
     //the white ghost patroling through all these points
-    public Vector2[] routePoints;
 
-    private Vector3 originScale = new Vector3();
-    private Rigidbody2D rigid;
-    private int nextPoint = 0;
-    private bool nearDoor = false;
-    private bool entering = false;//entering the door
-    private bool exiting = false;//exiting the door
+    protected Rigidbody2D rigid;
+    protected new SpriteRenderer renderer;
+    protected bool nearDoor = false;
 
-    private DoorControl door = null;
-    private UnitState state = UnitState.idle;
+    protected DoorControl door = null;
+    protected UnitState state = UnitState.idle;
 
-    public UnitState GetState()
+    private Color origin;
+
+    public virtual UnitState GetState()
     {
         return state;
     }
 
-    public int GetHealth()
+    public virtual int GetHealth()
     {
 
-        return 0;
+        return health;
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
-
+        renderer.color = Color.red;
+        void restoreColor()
+        {
+            if (renderer != null) renderer.color = origin;
+        }
+        PetUtility.WaitAndDo(0.1f, restoreColor);
+        health -= damage;
+        if (health <= 0) Destroy(gameObject, 0f);
     }
 
-    public void Kill()
+    public virtual void Kill()
     {
-
+        Destroy(gameObject, 0f);
     }
 
     //this is called when the ghost enterd a door
     public void DoorEntered(DoorControl door)
     {
-        //just change a bool value maybe?
         nearDoor = true;
         this.door = door;
-        //play the animation
-        //PlayAnim();
-        //wait a few second
-        //change the postion
-
-        //play the animation
-        //start walking again
     }
 
     public void DoorExited(DoorControl door)
     {
         nearDoor = false;
         if (this.door = door) this.door = null;
-    }
-
-    void PlayAnim()
-    {
-        //todo: play the animation based on the type of action.
     }
 
     void StateMachine()
@@ -98,103 +90,35 @@ public class UnitStateMachine : MonoBehaviour, Unit
         }
     }
 
-    void walk()
-    {
-        //control the patroling of the ghost
-        if (nearDoor && RouteRangeCheck()) {
-            Debug.Log("try go next floor");
-            nextPoint++;
-            rigid.velocity = Vector2.zero;
-            state = UnitState.enterDoor;
-        } else if (RouteRangeCheck()) {
-            nextPoint++;
-            Vector2 next = routePoints[nextPoint];
-            rigid.velocity =
-                (next.x - transform.position.x > 0 ? Vector2.right : Vector2.left) * velocity;
-        } else {
-            Vector2 next = routePoints[nextPoint];
-            rigid.velocity =
-                (next.x - transform.position.x > 0 ? Vector2.right : Vector2.left) * velocity;
-        }
-    }
+    protected abstract void walk();
 
-    void EnterDoor()
-    {
-        Debug.Log("trying to enter door");
-        //you want play the animation, wait, teleport and change state
-        if (!entering) {
-            Debug.Log("trying to enter door");
-            entering = true;
-            UnityAction exitDoor = delegate
-            {
-                transform.position = door.OtherEndPos();
-                state = UnitState.exitDoor;
-                entering = false;
-            };
-            StartCoroutine(PetUtility.LinearScaleFade(originScale, Vector3.zero, enterDoorTime, transform));
-            PetUtility.WaitAndDo(enterDoorTime, exitDoor);
-        }
-    }
+    protected abstract void EnterDoor();
 
-    void ExitDoor()
-    {
-        if (!exiting) {
-            exiting = true;
-            nextPoint++;
-            UnityAction startWalking = delegate
-            {
-                state = UnitState.walk;
-                exiting = false;
-            };
-            StartCoroutine(PetUtility.LinearScaleFade(Vector3.zero, originScale, exitDoorTime, transform));
-            PetUtility.WaitAndDo(exitDoorTime, startWalking);
-        }
-    }
+    protected abstract void ExitDoor();
 
-    void attack()
-    {
+    protected abstract void attack();
 
-    }
+    protected abstract void idle();
 
-    void idle()
-    {
+    protected abstract void die();
 
-    }
+    protected virtual void OnStart() { }
 
-    void die()
-    {
-
-    }
-
-    //check if the current position is close enough to next point
-    bool RouteRangeCheck()
-    {
-        //you only need to compare x-axies
-        return
-            Mathf.Abs(transform.position.x - routePoints[nextPoint].x) <= tolerance;
-    }
-
-    //draw all the 
-    void OnDrawGizmos()
-    {
-        if (routePoints.Length == 0) return;
-        Gizmos.DrawLine(transform.position, routePoints[0]);
-        for (int i = 0; i < routePoints.Length - 1; i++) {
-            Gizmos.DrawLine(routePoints[i], routePoints[i + 1]);
-        }
-    }
+    protected virtual void OnUpdate() { }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        originScale = transform.localScale;
-        state = UnitState.walk;
+        renderer = gameObject.GetComponent<SpriteRenderer>();
+        origin = renderer.color;
         rigid = gameObject.GetComponent<Rigidbody2D>();
+        OnStart();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         StateMachine();
+        OnUpdate();
     }
 }

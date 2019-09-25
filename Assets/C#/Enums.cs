@@ -8,6 +8,12 @@
     die
 }
 
+public enum Direction
+{
+    right,
+    left
+}
+
 //public enum GhostState
 //{
 //    walk,

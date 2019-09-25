@@ -30,6 +30,18 @@ public class PetUtility : MonoBehaviour
         instance.StartCoroutine(Wait(time, method));
     }
 
+    public static IEnumerator LinearMove(Vector2 from, Vector2 to, float duration, Transform target)
+    {
+        float timer = 0f;
+        while (timer <= duration) {
+            Vector2 current = (to - from) * (timer / duration) + from;
+            target.position = current;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        target.position = to;
+    }
+
     //linearly fade a vector3 object
     public static IEnumerator LinearScaleFade(Vector3 start, Vector3 end, float duration, Transform target)
     {
@@ -48,5 +60,10 @@ public class PetUtility : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         method.Invoke();
+    }
+
+    public static void UnimplementedWarning(string name)
+    {
+        Debug.Log(name + " function not implemented");
     }
 }

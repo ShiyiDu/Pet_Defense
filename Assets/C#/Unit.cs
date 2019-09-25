@@ -15,7 +15,9 @@ public interface Unit
     //kill the ghost
     void Kill();
 
+    //if this unit is near a door, this get called
     void DoorEntered(DoorControl door);
 
+    //if this unit just exited a door, this get called
     void DoorExited(DoorControl door);
 }

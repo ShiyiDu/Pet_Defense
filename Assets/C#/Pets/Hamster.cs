@@ -5,21 +5,16 @@ using UnityEngine;
 public class Hamster : UnitStateMachine, Pet
 {
     public GameObject bullet;
-    public float attackInterval = 1f;
-    public int damage = 10;
+
     public float bulletVelocity = 5f;
 
-    private GameObject enemy; //todo: this will have to change to a priority quene
-    private bool enemyEntered = false;
-    private Direction enemyDirection = Direction.right;
-    private float timer = 1f;
 
     GameObject createBullet()
     {
         return Instantiate(bullet, transform.position, Quaternion.identity);
     }
 
-    protected override void attack()
+    protected override void Attack()
     {
         timer -= Time.deltaTime;
         if (timer < 0) {
@@ -37,7 +32,7 @@ public class Hamster : UnitStateMachine, Pet
         if (!enemyEntered) state = UnitState.idle;
     }
 
-    protected override void die()
+    protected override void Die()
     {
         throw new System.NotImplementedException();
     }
@@ -52,12 +47,12 @@ public class Hamster : UnitStateMachine, Pet
         //throw new System.NotImplementedException();
     }
 
-    protected override void idle()
+    protected override void Idle()
     {
         if (enemyEntered) state = UnitState.attack;
     }
 
-    protected override void walk()
+    protected override void Walk()
     {
         throw new System.NotImplementedException();
     }

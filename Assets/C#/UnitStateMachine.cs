@@ -16,6 +16,14 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
 
     //the white ghost patroling through all these points
 
+    public float attackInterval = 2f;
+    public int damage = 5;
+
+    protected GameObject enemy;
+    protected bool enemyEntered = false;
+    protected Direction enemyDirection = Direction.right;
+    protected float timer = 1f;
+
     protected Rigidbody2D rigid;
     protected new SpriteRenderer renderer;
     protected bool nearDoor = false;
@@ -24,6 +32,39 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     protected UnitState state = UnitState.idle;
 
     private Color origin;
+
+    private Dictionary<UnitState, UnityAction> actions = new Dictionary<UnitState, UnityAction>();
+
+    protected abstract void Walk();
+
+    protected abstract void EnterDoor();
+
+    protected abstract void ExitDoor();
+
+    protected abstract void Attack();
+
+    protected abstract void Idle();
+
+    protected abstract void Die();
+
+    protected virtual void OnStart() { }
+
+    protected virtual void OnUpdate() { }
+
+    private void AddStateAction()
+    {
+        actions.Add(UnitState.walk, Walk);
+        actions.Add(UnitState.attack, Attack);
+        actions.Add(UnitState.idle, Idle);
+        actions.Add(UnitState.die, Die);
+        actions.Add(UnitState.enterDoor, EnterDoor);
+        actions.Add(UnitState.exitDoor, ExitDoor);
+    }
+
+    void StateMachine()
+    {
+        actions[state].Invoke();
+    }
 
     public virtual UnitState GetState()
     {
@@ -66,49 +107,10 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
         if (this.door = door) this.door = null;
     }
 
-    void StateMachine()
-    {
-        switch (state) {
-            case UnitState.walk:
-                walk();
-                break;
-            case UnitState.attack:
-                attack();
-                break;
-            case UnitState.enterDoor:
-                EnterDoor();
-                break;
-            case UnitState.exitDoor:
-                ExitDoor();
-                break;
-            case UnitState.idle:
-                idle();
-                break;
-            case UnitState.die:
-                die();
-                break;
-        }
-    }
-
-    protected abstract void walk();
-
-    protected abstract void EnterDoor();
-
-    protected abstract void ExitDoor();
-
-    protected abstract void attack();
-
-    protected abstract void idle();
-
-    protected abstract void die();
-
-    protected virtual void OnStart() { }
-
-    protected virtual void OnUpdate() { }
-
     // Start is called before the first frame update
     private void Start()
     {
+        AddStateAction();
         renderer = gameObject.GetComponent<SpriteRenderer>();
         origin = renderer.color;
         rigid = gameObject.GetComponent<Rigidbody2D>();

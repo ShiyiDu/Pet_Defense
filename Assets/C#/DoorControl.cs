@@ -33,6 +33,7 @@ public class DoorControl : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.blue;
         if (targetDoor) {
             if (!targetDoor.targetDoor) targetDoor.targetDoor = this;
             else Gizmos.DrawLine(transform.position, targetDoor.transform.position);

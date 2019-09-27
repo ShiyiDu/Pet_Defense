@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8952577042996983607}
   - component: {fileID: 1263003347419033622}
   - component: {fileID: 3249492830930344560}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hamster
   m_TagString: Pet
   m_Icon: {fileID: 0}
@@ -138,9 +138,9 @@ MonoBehaviour:
   tolerance: 0.1
   enterDoorTime: 0.5
   exitDoorTime: 0.5
-  bullet: {fileID: 7319924687953862421, guid: 8ca896dafbc42498c8e66eafd4bf56e0, type: 3}
   attackInterval: 1
   damage: 10
+  bullet: {fileID: 7319924687953862421, guid: 8ca896dafbc42498c8e66eafd4bf56e0, type: 3}
   bulletVelocity: 5
 --- !u!1 &8970288694567592438
 GameObject:
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8970288694567592393}
   - component: {fileID: 8970288694567592392}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackTriggerBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

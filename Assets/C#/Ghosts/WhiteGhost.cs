@@ -7,14 +7,6 @@ using UnityEngine.Events;
 public class WhiteGhost : UnitStateMachine, Ghost
 {
     public Vector2[] routePoints;
-    public float attackInterval = 1f;
-    public int damage = 10;
-
-    //attack
-    private GameObject enemy;
-    private bool enemyEntered = false;
-    private Direction enemyDirection = Direction.right;
-    private float timer = 1f;
 
     //patroling
     private int nextPoint = 0;
@@ -22,7 +14,7 @@ public class WhiteGhost : UnitStateMachine, Ghost
     private bool exiting = false;//exiting the door
     private Vector3 originScale = new Vector3();
 
-    protected override void walk()
+    protected override void Walk()
     {
         //control the patroling of the ghost
         if (nearDoor && RouteRangeCheck()) {
@@ -80,7 +72,7 @@ public class WhiteGhost : UnitStateMachine, Ghost
         }
     }
 
-    protected override void attack()
+    protected override void Attack()
     {
         timer -= Time.deltaTime;
         if (timer <= 0) {
@@ -111,12 +103,12 @@ public class WhiteGhost : UnitStateMachine, Ghost
         yield return null;
     }
 
-    protected override void idle()
+    protected override void Idle()
     {
         throw new System.NotImplementedException();
     }
 
-    protected override void die()
+    protected override void Die()
     {
         throw new System.NotImplementedException();
     }
@@ -132,6 +124,7 @@ public class WhiteGhost : UnitStateMachine, Ghost
     void OnDrawGizmos()
     {
         if (routePoints.Length == 0) return;
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, routePoints[0]);
         for (int i = 0; i < routePoints.Length - 1; i++) {
             Gizmos.DrawLine(routePoints[i], routePoints[i + 1]);

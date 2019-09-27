@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2586281356945517423}
   - component: {fileID: 2586281356945517422}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackTriggerBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 2568598082357984657}
   - component: {fileID: 5629387254450289328}
   - component: {fileID: 8250607405908136148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pommy
   m_TagString: Pet
   m_Icon: {fileID: 0}

@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class Pommy : UnitStateMachine, Pet
 {
-    public float attackInterval = 2f;
-    public int damage = 5;
 
-    private GameObject enemy;
-    private bool enemyEntered = false;
-    private Direction enemyDirection = Direction.right;
-    private float timer = 1f;
-
-    protected override void attack()
+    protected override void Attack()
     {
         timer -= Time.deltaTime;
         if (timer <= 0) {
@@ -41,7 +34,7 @@ public class Pommy : UnitStateMachine, Pet
         yield return null;
     }
 
-    protected override void die()
+    protected override void Die()
     {
     }
 
@@ -55,12 +48,12 @@ public class Pommy : UnitStateMachine, Pet
         //throw new System.NotImplementedException();
     }
 
-    protected override void idle()
+    protected override void Idle()
     {
         if (enemyEntered) state = UnitState.attack;
     }
 
-    protected override void walk()
+    protected override void Walk()
     {
         //throw new System.NotImplementedException();
     }

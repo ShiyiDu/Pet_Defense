@@ -195,7 +195,8 @@ public enum GameEvent
     fadeIn, //fade out the black screen so the player can see the scene
     switchTimeline,
     updatePhysics,
-    openInventory //open up the inventory interface
+    openInventory, //open up the inventory interface
+    levelFinished
 }
 
 public enum ParameterizedGameEvent

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pommy : UnitStateMachine, Pet
 {
-
     protected override void Attack()
     {
         timer -= Time.deltaTime;
@@ -57,7 +56,6 @@ public class Pommy : UnitStateMachine, Pet
     {
         //throw new System.NotImplementedException();
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

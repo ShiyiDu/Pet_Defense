@@ -2,11 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 //just some common functions of the game
 public class PetUtility : MonoBehaviour
 {
     private static PetUtility petUtility;
+    private static bool touchPressed = false;
+    private static bool mousePressed = false;//if anything is pressed right now
+
+    //returns the coordinates in screen space for the input
+    public static Vector2 InputCoor()
+    {
+        //Touch touch = Input.touches[0];
+        Vector2 result = Vector2.zero;
+
+        if (touchPressed) {
+            //result = touch.position;
+        }
+
+        if (mousePressed) {
+            result = Input.mousePosition;
+        }
+
+        return result;
+
+    }
+
+    public static bool InputIsPressing()
+    {
+        return touchPressed || mousePressed;
+    }
+
+    public static bool InputPush()
+    {
+        return Input.GetMouseButtonDown(0) || Input.touches[0].phase == TouchPhase.Began;
+        //when a mouse or a finger is held in the screen
+    }
+
+    public static bool InputRelease()
+    {
+        return Input.GetMouseButtonUp(0) || Input.touches[0].phase == TouchPhase.Ended;
+    }
 
     public static PetUtility instance
     {
@@ -65,5 +102,24 @@ public class PetUtility : MonoBehaviour
     public static void UnimplementedWarning(string name)
     {
         Debug.Log(name + " function not implemented");
+    }
+
+    private void Update()
+    {
+        //if (Input.touches[0].phase == TouchPhase.Began) {
+        //    touchPressed = true;
+        //}
+
+        //if (Input.touches[0].phase == TouchPhase.Ended) {
+        //    touchPressed = false;
+        //}
+
+        if (Input.GetMouseButtonDown(0)) {
+            mousePressed = true;
+        }
+
+        if (Input.GetMouseButtonUp(0)) {
+            mousePressed = false;
+        }
     }
 }

@@ -4,14 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class WhiteGhost : UnitStateMachine, Ghost
+public class WhiteGhost : Ghost
 {
-    public Vector2[] routePoints;
-
-    //patroling
-    private int nextPoint = 0;
-    private bool entering = false;//entering the door
-    private bool exiting = false;//exiting the door
     private Vector3 originScale = new Vector3();
 
     protected override void Walk()
@@ -113,14 +107,6 @@ public class WhiteGhost : UnitStateMachine, Ghost
         throw new System.NotImplementedException();
     }
 
-    //check if the current position is close enough to next point
-    bool RouteRangeCheck()
-    {
-        //you only need to compare x-axies
-        return
-            Mathf.Abs(transform.position.x - routePoints[nextPoint].x) <= tolerance;
-    }
-
     void OnDrawGizmos()
     {
         if (routePoints.Length == 0) return;
@@ -137,22 +123,5 @@ public class WhiteGhost : UnitStateMachine, Ghost
         state = UnitState.walk;
         timer = attackInterval;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Pet")) {
-            enemy = collision.gameObject;
-            enemyEntered = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Pet")) {
-            enemy = null;
-            enemyEntered = false;
-        }
-    }
-
 
 }

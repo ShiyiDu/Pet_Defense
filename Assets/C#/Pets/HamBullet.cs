@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class HamBullet : MonoBehaviour
 {
-    public int damage = 10;
-    public float velocity = 5;
-    public bool toRight = true; //default direction shot to right;
+    private int damage = 10;
+    private float velocity = 5;
+    private bool toRight = true; //default direction shot to right;
 
     public void Initialize(int damage, float velocity, bool toRight)
     {

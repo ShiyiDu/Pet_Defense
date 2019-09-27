@@ -5,7 +5,8 @@
     exitDoor,
     attack,
     idle,
-    die
+    die,
+    respawn
 }
 
 public enum Direction

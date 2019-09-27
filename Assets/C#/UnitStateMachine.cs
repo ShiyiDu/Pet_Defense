@@ -29,23 +29,29 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     protected bool nearDoor = false;
 
     protected DoorControl door = null;
-    protected UnitState state = UnitState.idle;
+    protected UnitState state = UnitState.respawn;
 
     private Color origin;
 
     private Dictionary<UnitState, UnityAction> actions = new Dictionary<UnitState, UnityAction>();
 
-    protected abstract void Walk();
+    protected virtual void Walk() { }
 
-    protected abstract void EnterDoor();
+    protected virtual void EnterDoor() { }
 
-    protected abstract void ExitDoor();
+    protected virtual void ExitDoor() { }
 
-    protected abstract void Attack();
+    protected virtual void Attack() { }
 
-    protected abstract void Idle();
+    protected virtual void Idle() { }
 
-    protected abstract void Die();
+    protected virtual void Die() { }
+
+    protected virtual void Respawn()
+    {
+        rigid.velocity = Vector2.zero;
+        state = UnitState.idle;
+    }
 
     protected virtual void OnStart() { }
 
@@ -59,6 +65,7 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
         actions.Add(UnitState.die, Die);
         actions.Add(UnitState.enterDoor, EnterDoor);
         actions.Add(UnitState.exitDoor, ExitDoor);
+        actions.Add(UnitState.respawn, Respawn);
     }
 
     void StateMachine()

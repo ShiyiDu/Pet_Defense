@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hamster : UnitStateMachine, Pet
+public class Hamster : Pet
 {
     public GameObject bullet;
 
     public float bulletVelocity = 5f;
-
 
     GameObject createBullet()
     {
@@ -55,22 +54,6 @@ public class Hamster : UnitStateMachine, Pet
     protected override void Walk()
     {
         throw new System.NotImplementedException();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ghost")) {
-            enemy = collision.gameObject;
-            enemyEntered = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ghost")) {
-            enemy = null;
-            enemyEntered = false;
-        }
     }
 
     protected override void OnStart()

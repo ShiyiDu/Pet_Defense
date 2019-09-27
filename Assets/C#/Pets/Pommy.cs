@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pommy : UnitStateMachine, Pet
+public class Pommy : Pet
 {
     protected override void Attack()
     {
@@ -55,22 +55,6 @@ public class Pommy : UnitStateMachine, Pet
     protected override void Walk()
     {
         //throw new System.NotImplementedException();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ghost")) {
-            enemy = collision.gameObject;
-            enemyEntered = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ghost")) {
-            enemy = null;
-            enemyEntered = false;
-        }
     }
 
 }

@@ -31,6 +31,8 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     protected DoorControl door = null;
     protected UnitState state = UnitState.respawn;
 
+    protected int maxHealth;
+
     private Color origin;
 
     private Dictionary<UnitState, UnityAction> actions = new Dictionary<UnitState, UnityAction>();
@@ -124,6 +126,7 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     private void Start()
     {
         AddStateAction();
+        maxHealth = health;
         renderer = gameObject.GetComponent<SpriteRenderer>();
         origin = renderer.color;
         rigid = gameObject.GetComponent<Rigidbody2D>();

@@ -8,6 +8,10 @@ public class CoinCounter : MonoBehaviour
     public Text coinDisplay;
     private int counter;
 
+    private void OnEnable()
+    {
+        EventManager.StartListening(GameEvent.levelFinished, updateScore); //when level is completed, add 100 to score
+    }
 
     void Start()
     {
@@ -20,7 +24,10 @@ public class CoinCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> bacf6c4a5255d93fe4ee32468f44270553fa6b40
 
     }
 
@@ -28,5 +35,10 @@ public class CoinCounter : MonoBehaviour
     {
         counter = counter + 100;
         coinDisplay.text = counter.ToString();
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening(GameEvent.levelFinished, updateScore);
     }
 }

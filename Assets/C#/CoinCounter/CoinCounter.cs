@@ -24,10 +24,7 @@ public class CoinCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
 
-=======
->>>>>>> bacf6c4a5255d93fe4ee32468f44270553fa6b40
 
     }
 

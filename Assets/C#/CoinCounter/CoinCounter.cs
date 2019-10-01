@@ -14,12 +14,13 @@ public class CoinCounter : MonoBehaviour
         counter = 0;
         coinDisplay.text = "";
         coinDisplay.text = counter.ToString();
+        //EventManager.StartListening(EventManager.levelFinished, updateScore()); //when level is completed, add 100 to score
     }
 
     // Update is called once per frame
     void Update()
     {
-        EventManager.StartListening(EventManager.levelFinished, updateScore()); //when level is completed, add 100 to score
+
 
     }
 

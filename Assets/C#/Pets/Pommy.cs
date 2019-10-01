@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Pommy : Pet
 {
-    protected override void Attack()
-    {
-        timer -= Time.deltaTime;
-        if (timer <= 0) {
-            Debug.Log("ghost attacking");
-            StartCoroutine(LaunchAttack());
-            if (enemy != null) enemy.GetComponent<Ghost>().TakeDamage(damage);
-            timer = attackInterval;
-            if (!enemyEntered) state = UnitState.idle;
-        }
-    }
+    //protected override void Attack()
+    //{
+    //    timer -= Time.deltaTime;
+    //    if (timer <= 0) {
+    //        Debug.Log("ghost attacking");
+    //        StartCoroutine(LaunchAttack());
+    //        if (enemy != null) enemy.GetComponent<Ghost>().TakeDamage(damage);
+    //        timer = attackInterval;
+    //        if (!enemyEntered) state = UnitState.idle;
+    //    }
+    //}
 
     IEnumerator LaunchAttack()
     {
@@ -31,30 +31,6 @@ public class Pommy : Pet
         StartCoroutine(PetUtility.LinearMove(newPosition, current, 0.15f, transform));
         yield return new WaitForSeconds(0.15f);
         yield return null;
-    }
-
-    protected override void Die()
-    {
-    }
-
-    protected override void EnterDoor()
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    protected override void ExitDoor()
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    protected override void Idle()
-    {
-        if (enemyEntered) state = UnitState.attack;
-    }
-
-    protected override void Walk()
-    {
-        //throw new System.NotImplementedException();
     }
 
 }

@@ -78,6 +78,12 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
         return state;
     }
 
+
+    public int GetMaxHealth()
+    {
+        return health;
+    }
+
     public virtual int GetHealth()
     {
 

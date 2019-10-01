@@ -8,6 +8,8 @@ public interface Unit
     //return the current health remaining
     int GetHealth();
 
+    int GetMaxHealth();
+
     UnitState GetState();
 
     void TakeDamage(int damage);

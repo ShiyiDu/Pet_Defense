@@ -20,6 +20,7 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     public int damage = 5;
     public float attackRange = 10f; //the default attack range is 10 unit.
 
+<<<<<<< HEAD:Assets/C#/UnitStateMachine.cs
 <<<<<<< HEAD:Assets/C#/BaseClass/UnitBehaviour.cs
     public Vector2[] routePoints;
     [HideInInspector]
@@ -28,6 +29,8 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     protected Direction facingDirection = Direction.right;
 
 =======
+=======
+>>>>>>> parent of d628923... Working on AI stuff:Assets/C#/UnitStateMachine.cs
     protected GameObject enemy;
 >>>>>>> parent of d628923... Working on AI stuff:Assets/C#/UnitStateMachine.cs
     protected bool enemyEntered = false;
@@ -70,6 +73,7 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     protected virtual void OnUpdate() { }
 
     private void AddStateAction()
+<<<<<<< HEAD:Assets/C#/UnitStateMachine.cs
     {
         actions.Add(UnitState.walk, Walk);
         actions.Add(UnitState.attack, Attack);
@@ -90,6 +94,21 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
         facingDirection = transform.rotation.eulerAngles.y > 0 ? Direction.left : Direction.right;
 
         return facingDirection;
+=======
+    {
+        actions.Add(UnitState.walk, Walk);
+        actions.Add(UnitState.attack, Attack);
+        actions.Add(UnitState.idle, Idle);
+        actions.Add(UnitState.die, Die);
+        actions.Add(UnitState.enterDoor, EnterDoor);
+        actions.Add(UnitState.exitDoor, ExitDoor);
+        actions.Add(UnitState.respawn, Respawn);
+    }
+
+    void StateMachine()
+    {
+        actions[state].Invoke();
+>>>>>>> parent of d628923... Working on AI stuff:Assets/C#/UnitStateMachine.cs
     }
 
     public virtual UnitState GetState()

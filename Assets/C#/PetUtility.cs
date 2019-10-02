@@ -24,16 +24,6 @@ public class PetUtility : MonoBehaviour
         }
     }
 
-    public static void Coroutine(IEnumerator routine)
-    {
-        instance.StartCoroutine(routine);
-    }
-
-    public static void CreateHealthBar(UnitBehaviour unit)
-    {
-
-    }
-
     //wait for a while and do something
     public static void WaitAndDo(float time, UnityAction method)
     {

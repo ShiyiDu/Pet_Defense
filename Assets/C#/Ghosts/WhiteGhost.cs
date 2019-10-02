@@ -8,52 +8,77 @@ public class WhiteGhost : Ghost
 {
     private Vector3 originScale = new Vector3();
 
-    //protected override void EnterDoor()
-    //{
-    //    Debug.Log("trying to enter door");
-    //    //you want play the animation, wait, teleport and change state
-    //    if (!entering) {
-    //        Debug.Log("trying to enter door");
-    //        entering = true;
-    //        UnityAction exitDoor = delegate
-    //        {
-    //            transform.position = door.OtherEndPos();
-    //            state = UnitState.exitDoor;
-    //            entering = false;
-    //        };
-    //        StartCoroutine(PetUtility.LinearScaleFade(originScale, Vector3.zero, enterDoorTime, transform));
-    //        PetUtility.WaitAndDo(enterDoorTime, exitDoor);
-    //    }
-    //}
+    protected override void Walk()
+    {
+        //control the patroling of the ghost
+        if (nearDoor && RouteRangeCheck()) {
+            Debug.Log("try go next floor");
+            nextPoint++;
+            rigid.velocity = Vector2.zero;
+            state = UnitState.enterDoor;
+        } else if (RouteRangeCheck()) {
+            nextPoint++;
+            Vector2 next = routePoints[nextPoint];
+            rigid.velocity =
+                (next.x - transform.position.x > 0 ? Vector2.right : Vector2.left) * velocity;
+        } else {
+            Vector2 next = routePoints[nextPoint];
+            rigid.velocity =
+                (next.x - transform.position.x > 0 ? Vector2.right : Vector2.left) * velocity;
+        }
 
-    //protected override void ExitDoor()
-    //{
-    //    if (!exiting) {
-    //        exiting = true;
-    //        nextPoint++;
-    //        UnityAction startWalking = delegate
-    //        {
-    //            state = UnitState.walk;
-    //            exiting = false;
-    //        };
-    //        StartCoroutine(PetUtility.LinearScaleFade(Vector3.zero, originScale, exitDoorTime, transform));
-    //        PetUtility.WaitAndDo(exitDoorTime, startWalking);
-    //    }
-    //}
+        if (enemyEntered) {
+            rigid.velocity = Vector3.zero;
+            state = UnitState.attack;
+        }
+    }
 
-    //protected override void Attack()
-    //{
-    //    timer -= Time.deltaTime;
-    //    if (timer <= 0) {
-    //        Debug.Log("ghost attacking");
-    //        StartCoroutine(LaunchAttack());
-    //        if (enemy != null) enemy.GetComponent<Pet>().TakeDamage(damage);
-    //        timer = attackInterval;
-    //        if (!enemyEntered) state = UnitState.walk;
-    //    }
-    //    //what does attack look like?
-    //    //move to the direction and comback
-    //}
+    protected override void EnterDoor()
+    {
+        Debug.Log("trying to enter door");
+        //you want play the animation, wait, teleport and change state
+        if (!entering) {
+            Debug.Log("trying to enter door");
+            entering = true;
+            UnityAction exitDoor = delegate
+            {
+                transform.position = door.OtherEndPos();
+                state = UnitState.exitDoor;
+                entering = false;
+            };
+            StartCoroutine(PetUtility.LinearScaleFade(originScale, Vector3.zero, enterDoorTime, transform));
+            PetUtility.WaitAndDo(enterDoorTime, exitDoor);
+        }
+    }
+
+    protected override void ExitDoor()
+    {
+        if (!exiting) {
+            exiting = true;
+            nextPoint++;
+            UnityAction startWalking = delegate
+            {
+                state = UnitState.walk;
+                exiting = false;
+            };
+            StartCoroutine(PetUtility.LinearScaleFade(Vector3.zero, originScale, exitDoorTime, transform));
+            PetUtility.WaitAndDo(exitDoorTime, startWalking);
+        }
+    }
+
+    protected override void Attack()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0) {
+            Debug.Log("ghost attacking");
+            StartCoroutine(LaunchAttack());
+            if (enemy != null) enemy.GetComponent<Pet>().TakeDamage(damage);
+            timer = attackInterval;
+            if (!enemyEntered) state = UnitState.walk;
+        }
+        //what does attack look like?
+        //move to the direction and comback
+    }
 
     IEnumerator LaunchAttack()
     {
@@ -70,6 +95,16 @@ public class WhiteGhost : Ghost
         StartCoroutine(PetUtility.LinearMove(newPosition, current, 0.15f, transform));
         yield return new WaitForSeconds(0.15f);
         yield return null;
+    }
+
+    protected override void Idle()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void Die()
+    {
+        throw new System.NotImplementedException();
     }
 
     void OnDrawGizmos()

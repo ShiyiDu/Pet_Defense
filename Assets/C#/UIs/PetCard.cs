@@ -26,7 +26,7 @@ public class PetCard : MonoBehaviour, Selectable
         selected = true;
         //creating the pet once its pressed
         newPet = Instantiate(pet, (Vector2)Camera.main.ScreenToWorldPoint(InputManager.GetPos()), Quaternion.identity);
-        newPet.GetComponent<UnitBehaviour>().enabled = false;
+        newPet.GetComponent<UnitStateMachine>().enabled = false;
         newPet.GetComponent<Collider2D>().enabled = false;
     }
 
@@ -49,7 +49,7 @@ public class PetCard : MonoBehaviour, Selectable
         if (target != null) {
             target.Initialize(newPet);
             newPet.GetComponent<Pet>().OfferBed(target);
-            newPet.GetComponent<UnitBehaviour>().enabled = true;
+            newPet.GetComponent<UnitStateMachine>().enabled = true;
             newPet.GetComponent<Collider2D>().enabled = true;
             newPet.transform.position = target.RequestPos();
         } else {

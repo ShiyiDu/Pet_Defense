@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Pet : UnitStateMachine
+public abstract class Pet : UnitBehaviour
 {
     protected Bed myBed;
     public void OfferBed(Bed bed)

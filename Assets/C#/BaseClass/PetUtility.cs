@@ -24,6 +24,26 @@ public class PetUtility : MonoBehaviour
         }
     }
 
+    public static void ContinueGame()
+    {
+        Time.timeScale = 1;
+    }
+
+    public static void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public static void Coroutine(IEnumerator routine)
+    {
+        instance.StartCoroutine(routine);
+    }
+
+    public static void CreateHealthBar(UnitBehaviour unit)
+    {
+
+    }
+
     //wait for a while and do something
     public static void WaitAndDo(float time, UnityAction method)
     {

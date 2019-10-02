@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 //this is a basic state machine for both pets and ghost to control AIs
-public abstract class UnitStateMachine : MonoBehaviour, Unit
+public abstract class UnitBehaviour : MonoBehaviour
 {
     public float velocity = 1f;
     public int health = 100;
 
     //how close is considered "at the point"
-    public float tolerance = 0.1f;
     public float enterDoorTime = 0.5f;
     public float exitDoorTime = 0.5f;
 
@@ -18,8 +17,14 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
 
     public float attackInterval = 2f;
     public int damage = 5;
+    public float attackRange = 10f; //the default attack range is 10 unit.
 
-    protected GameObject enemy;
+    public Vector2[] routePoints;
+    [HideInInspector]
+    public GameObject enemy;
+
+    protected Direction facingDirection = Direction.right;
+
     protected bool enemyEntered = false;
     protected Direction enemyDirection = Direction.right;
     protected float timer = 1f;
@@ -37,49 +42,26 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
 
     private Dictionary<UnitState, UnityAction> actions = new Dictionary<UnitState, UnityAction>();
 
-    protected virtual void Walk() { }
-
-    protected virtual void EnterDoor() { }
-
-    protected virtual void ExitDoor() { }
-
-    protected virtual void Attack() { }
-
-    protected virtual void Idle() { }
-
-    protected virtual void Die() { }
-
-    protected virtual void Respawn()
-    {
-        rigid.velocity = Vector2.zero;
-        state = UnitState.idle;
-    }
-
     protected virtual void OnStart() { }
 
     protected virtual void OnUpdate() { }
 
-    private void AddStateAction()
+    public Vector2[] GetRoute()
     {
-        actions.Add(UnitState.walk, Walk);
-        actions.Add(UnitState.attack, Attack);
-        actions.Add(UnitState.idle, Idle);
-        actions.Add(UnitState.die, Die);
-        actions.Add(UnitState.enterDoor, EnterDoor);
-        actions.Add(UnitState.exitDoor, ExitDoor);
-        actions.Add(UnitState.respawn, Respawn);
+        return routePoints;
     }
 
-    void StateMachine()
+    public Direction GetFaceDirection()
     {
-        actions[state].Invoke();
+        facingDirection = transform.rotation.eulerAngles.y > 0 ? Direction.left : Direction.right;
+
+        return facingDirection;
     }
 
     public virtual UnitState GetState()
     {
         return state;
     }
-
 
     public int GetMaxHealth()
     {
@@ -122,10 +104,14 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
         if (this.door = door) this.door = null;
     }
 
+    //void StateMachine()
+    //{
+    //    actions[state].Invoke();
+    //}
+
     // Start is called before the first frame update
     private void Start()
     {
-        AddStateAction();
         maxHealth = health;
         renderer = gameObject.GetComponent<SpriteRenderer>();
         origin = renderer.color;
@@ -136,7 +122,7 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     // Update is called once per frame
     private void Update()
     {
-        StateMachine();
+        //StateMachine();
         OnUpdate();
     }
 }

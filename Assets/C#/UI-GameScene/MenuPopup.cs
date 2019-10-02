@@ -17,6 +17,7 @@ public class MenuPopup : MonoBehaviour
         Menu.SetActive(true);
 
         //pause all game content (ghosts, pets)
+        PetUtility.PauseGame();
 
     }
 
@@ -39,7 +40,7 @@ public class MenuPopup : MonoBehaviour
         FadePanel.SetActive(false);
 
         //game resumes, same as method in the PauseGame script
-
+        PetUtility.ContinueGame();
 
     }
 

@@ -22,8 +22,10 @@ public abstract class UnitBehaviour : MonoBehaviour
     public Vector2[] routePoints;
     [HideInInspector]
     public GameObject enemy;
+    public Bullet bullet;
+    public float bulletVelocity;
 
-    protected Direction facingDirection = Direction.right;
+    protected Vector2 facingDirection = Vector2.right;
 
     protected bool enemyEntered = false;
     protected Direction enemyDirection = Direction.right;
@@ -51,9 +53,18 @@ public abstract class UnitBehaviour : MonoBehaviour
         return routePoints;
     }
 
-    public Direction GetFaceDirection()
+    /// <summary>
+    /// where exactly do you want the bullet to shoot from
+    /// </summary>
+    /// <returns></returns>
+    public Vector2 GetShootPosition()
     {
-        facingDirection = transform.rotation.eulerAngles.y > 0 ? Direction.left : Direction.right;
+        return (Vector2)transform.position + facingDirection * 0.2f;
+    }
+
+    public Vector2 GetFaceDirection()
+    {
+        facingDirection = transform.rotation.eulerAngles.y > 0 ? Vector2.left : Vector2.right;
 
         return facingDirection;
     }
@@ -65,7 +76,7 @@ public abstract class UnitBehaviour : MonoBehaviour
 
     public int GetMaxHealth()
     {
-        return health;
+        return maxHealth;
     }
 
     public virtual int GetHealth()

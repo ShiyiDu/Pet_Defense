@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(WhiteGhost)), CanEditMultipleObjects]
+[CustomEditor(typeof(Hamster)), CanEditMultipleObjects]
 public class WhiteGhostEditor : Editor
 {
     protected virtual void OnSceneGUI()
     {
-        WhiteGhost whiteGhost = (WhiteGhost)target;
+        UnitBehaviour whiteGhost = (UnitBehaviour)target;
 
         for (int i = 0; i < whiteGhost.routePoints.Length; i++) {
             EditorGUI.BeginChangeCheck();

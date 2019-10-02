@@ -32,7 +32,7 @@ public class Attack : StateMachineBehaviour
             PetUtility.Coroutine(LaunchAttack());
             if (unit.enemy != null) {
                 Debug.Log("try get enemy");
-                Pommy enemy = unit.enemy.GetComponent<Pommy>();
+                Pet enemy = unit.enemy.GetComponent<Pet>();
                 Debug.Log(enemy != null);
                 int damage = unit.damage;
                 enemy.TakeDamage(damage);
@@ -52,7 +52,7 @@ public class Attack : StateMachineBehaviour
         //}
 
         Vector2 current = gameObject.transform.position;
-        Vector2 newPosition = unit.GetFaceDirection() == Direction.left ? current + Vector2.left * 0.2f : current + Vector2.right * 0.2f;
+        Vector2 newPosition = unit.GetFaceDirection().normalized * 0.2f + current;
         PetUtility.Coroutine(PetUtility.LinearMove(current, newPosition, 0.15f, gameObject.transform));
         yield return new WaitForSeconds(0.15f);
         PetUtility.Coroutine(PetUtility.LinearMove(newPosition, current, 0.15f, gameObject.transform));

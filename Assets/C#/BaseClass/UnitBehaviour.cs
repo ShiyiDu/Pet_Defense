@@ -17,11 +17,14 @@ public abstract class UnitBehaviour : MonoBehaviour
 
     public float attackInterval = 2f;
     public int damage = 5;
+    public float attackRange = 10f; //the default attack range is 10 unit.
 
     public Vector2[] routePoints;
+    [HideInInspector]
+    public GameObject enemy;
 
+    protected Direction facingDirection = Direction.right;
 
-    protected GameObject enemy;
     protected bool enemyEntered = false;
     protected Direction enemyDirection = Direction.right;
     protected float timer = 1f;
@@ -46,6 +49,13 @@ public abstract class UnitBehaviour : MonoBehaviour
     public Vector2[] GetRoute()
     {
         return routePoints;
+    }
+
+    public Direction GetFaceDirection()
+    {
+        facingDirection = transform.rotation.eulerAngles.y > 0 ? Direction.left : Direction.right;
+
+        return facingDirection;
     }
 
     public virtual UnitState GetState()

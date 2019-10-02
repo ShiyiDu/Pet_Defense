@@ -22,8 +22,9 @@ public class EnterDoor : StateMachineBehaviour
         originScale = gameObject.transform.localScale;
 
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(gameObject.transform.position, Vector2.up, 0.01f);
+        hit = Physics2D.Raycast(gameObject.transform.position, Vector2.up, 0.01f, LayerMask.GetMask("Door"));
         door = hit.collider.GetComponent<DoorControl>();
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
         Enter();
     }

@@ -21,6 +21,7 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     public float attackRange = 10f; //the default attack range is 10 unit.
 
 <<<<<<< HEAD:Assets/C#/UnitStateMachine.cs
+<<<<<<< HEAD:Assets/C#/UnitStateMachine.cs
 <<<<<<< HEAD:Assets/C#/BaseClass/UnitBehaviour.cs
     public Vector2[] routePoints;
     [HideInInspector]
@@ -29,6 +30,8 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     protected Direction facingDirection = Direction.right;
 
 =======
+=======
+>>>>>>> parent of d628923... Working on AI stuff:Assets/C#/UnitStateMachine.cs
 =======
 >>>>>>> parent of d628923... Working on AI stuff:Assets/C#/UnitStateMachine.cs
     protected GameObject enemy;
@@ -74,6 +77,9 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
 
     private void AddStateAction()
 <<<<<<< HEAD:Assets/C#/UnitStateMachine.cs
+<<<<<<< HEAD:Assets/C#/UnitStateMachine.cs
+=======
+>>>>>>> parent of d628923... Working on AI stuff:Assets/C#/UnitStateMachine.cs
     {
         actions.Add(UnitState.walk, Walk);
         actions.Add(UnitState.attack, Attack);
@@ -85,6 +91,7 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     }
 
     void StateMachine()
+<<<<<<< HEAD:Assets/C#/UnitStateMachine.cs
     {
         actions[state].Invoke();
     }
@@ -106,6 +113,10 @@ public abstract class UnitStateMachine : MonoBehaviour, Unit
     }
 
     void StateMachine()
+    {
+        actions[state].Invoke();
+>>>>>>> parent of d628923... Working on AI stuff:Assets/C#/UnitStateMachine.cs
+=======
     {
         actions[state].Invoke();
 >>>>>>> parent of d628923... Working on AI stuff:Assets/C#/UnitStateMachine.cs

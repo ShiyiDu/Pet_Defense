@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HamBullet : MonoBehaviour
+public class HamBullet : Bullet
 {
     private int damage = 10;
     private float velocity = 5;
-    private bool toRight = true; //default direction shot to right;
+    private Vector2 direction = Vector2.right;
 
-    public void Initialize(int damage, float velocity, bool toRight)
+    public override void Initialize(int damage, float velocity, Vector2 direction)
     {
         this.damage = damage;
         this.velocity = velocity;
-        this.toRight = toRight;
+        this.direction = direction;
     }
 
     private void OnEnable()
@@ -28,7 +28,7 @@ public class HamBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody2D>().velocity = toRight ? Vector2.right * velocity : Vector2.left * velocity;
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * velocity;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

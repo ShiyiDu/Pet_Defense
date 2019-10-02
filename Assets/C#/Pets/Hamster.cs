@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Hamster : Pet
 {
-    public GameObject bullet;
 
-    public float bulletVelocity = 5f;
-
-    GameObject createBullet()
-    {
-        return Instantiate(bullet, transform.position, Quaternion.identity);
-    }
+    //GameObject createBullet()
+    //{
+    //    //return Instantiate(bullet, transform.position, Quaternion.identity);
+    //}
 
     //protected override void Attack()
     //{

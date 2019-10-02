@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 //just some common functions of the game
 public class PetUtility : MonoBehaviour
 {
+    public GameObject healthBar;
+
     private static PetUtility petUtility;
     public static PetUtility instance
     {
@@ -41,7 +43,8 @@ public class PetUtility : MonoBehaviour
 
     public static void CreateHealthBar(UnitBehaviour unit)
     {
-
+        GameObject newBar = Instantiate(instance.healthBar);
+        newBar.GetComponent<HealthBar>().Initialize(unit);
     }
 
     //wait for a while and do something

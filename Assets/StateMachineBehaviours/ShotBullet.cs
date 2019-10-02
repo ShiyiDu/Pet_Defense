@@ -2,34 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDetect : StateMachineBehaviour
+public class ShotBullet : StateMachineBehaviour
 {
-    //this script will try to detect enemy and go to attack once found
-    public bool iAmPet = false;
+    private Bullet bullet;
+    private GameObject gameObject;
     private UnitBehaviour unit;
-
+    private float attackInterval;
+    private float timer;
+    private GameObject newBullet;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        unit = animator.gameObject.GetComponent<UnitBehaviour>();
+        gameObject = animator.gameObject;
+        unit = gameObject.GetComponent<UnitBehaviour>();
+        bullet = unit.bullet;
+        attackInterval = unit.attackInterval;
+        timer = attackInterval;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Direction direction = unit.GetFaceDirection();
-        Vector2 target = direction == Direction.left ? Vector2.left : Vector2.right;
-        RaycastHit2D hit;
-        int layerMask = LayerMask.GetMask(iAmPet ? "Ghost" : "Pet");
-        hit = Physics2D.Raycast(unit.transform.position, target, unit.attackRange, layerMask);
-        if (hit) {
-            animator.SetBool("EnemySpoted", true);
-            unit.enemy = hit.collider.gameObject;
-        } else {
-            animator.SetBool("EnemySpoted", false);
-            unit.enemy = null;
+        timer -= Time.deltaTime;
+        if (timer <= 0) {
+            newBullet = Instantiate(bullet.gameObject, unit.GetShootPosition(), Quaternion.identity);
+            newBullet.GetComponent<Bullet>().Initialize(unit.damage, unit.bulletVelocity, unit.GetFaceDirection());
+            timer = attackInterval;
         }
-
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -32,12 +32,14 @@ public class Patrol : StateMachineBehaviour
         if (nearDoor && RouteRangeCheck()) {
             Debug.Log("try go next floor");
             nextPoint += 2;
+            nextPoint %= routePoints.Length;
             rigid.velocity = Vector2.zero;
             animator.SetBool("EnterDoor", true);
             enterDoor = true;
             return;
         } else if (RouteRangeCheck()) {
             nextPoint++;
+            nextPoint %= routePoints.Length;
             Vector2 next = routePoints[nextPoint];
         }
 

@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     private static bool mousePressed = false;//if anything is pressed right now
     private static Vector2 lastPosition;//the position of the mouse/touch hit
     private static Vector2 deltaPosition;
+    private bool paused = false;
 
     public static Vector2 GetDeltaPos()
     {
@@ -91,6 +92,16 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    void GamePaused()
+    {
+        paused = true;
+    }
+
+    void GameContinue()
+    {
+        paused = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,6 +111,7 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (paused) return;
         if (TouchBegan()) {
             touchPressed = true;
 
@@ -116,5 +128,17 @@ public class InputManager : MonoBehaviour
         }
 
         InputUpdate();
+    }
+
+    private void OnEnable()
+    {
+        EventManager.StartListening(GameEvent.gamePaused, GamePaused);
+        EventManager.StartListening(GameEvent.gameContinued, GameContinue);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening(GameEvent.gamePaused, GamePaused);
+        EventManager.StopListening(GameEvent.gameContinued, GameContinue);
     }
 }

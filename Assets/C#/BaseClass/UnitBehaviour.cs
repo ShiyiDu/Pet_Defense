@@ -19,6 +19,8 @@ public abstract class UnitBehaviour : MonoBehaviour
     public int damage = 5;
     public float attackRange = 10f; //the default attack range is 10 unit.
 
+    public Vector2 destination;
+    [HideInInspector]
     public Vector2[] routePoints;
     [HideInInspector]
     public GameObject enemy;
@@ -44,11 +46,7 @@ public abstract class UnitBehaviour : MonoBehaviour
 
     private Dictionary<UnitState, UnityAction> actions = new Dictionary<UnitState, UnityAction>();
 
-    protected virtual void OnStart() { }
-
-    protected virtual void OnUpdate() { }
-
-    public Vector2[] GetRoute()
+    public virtual Vector2[] GetRoute()
     {
         return routePoints;
     }
@@ -57,12 +55,12 @@ public abstract class UnitBehaviour : MonoBehaviour
     /// where exactly do you want the bullet to shoot from
     /// </summary>
     /// <returns></returns>
-    public Vector2 GetShootPosition()
+    public virtual Vector2 GetShootPosition()
     {
         return (Vector2)transform.position + facingDirection * 0.2f;
     }
 
-    public Vector2 GetFaceDirection()
+    public virtual Vector2 GetFaceDirection()
     {
         facingDirection = transform.rotation.eulerAngles.y > 0 ? Vector2.left : Vector2.right;
 
@@ -74,7 +72,7 @@ public abstract class UnitBehaviour : MonoBehaviour
         return state;
     }
 
-    public int GetMaxHealth()
+    public virtual int GetMaxHealth()
     {
         return maxHealth;
     }
@@ -103,13 +101,13 @@ public abstract class UnitBehaviour : MonoBehaviour
     }
 
     //this is called when the ghost enterd a door
-    public void DoorEntered(DoorControl door)
+    public virtual void DoorEntered(DoorControl door)
     {
         nearDoor = true;
         this.door = door;
     }
 
-    public void DoorExited(DoorControl door)
+    public virtual void DoorExited(DoorControl door)
     {
         nearDoor = false;
         if (this.door = door) this.door = null;
@@ -119,6 +117,10 @@ public abstract class UnitBehaviour : MonoBehaviour
     //{
     //    actions[state].Invoke();
     //}
+
+    protected virtual void OnStart() { }
+
+    protected virtual void OnUpdate() { }
 
     // Start is called before the first frame update
     private void Start()

@@ -13,6 +13,7 @@ public class HamBullet : Bullet
         this.damage = damage;
         this.velocity = velocity;
         this.direction = direction;
+        if (direction == Vector2.left) transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     private void OnEnable()

@@ -32,7 +32,7 @@ public class Attack : StateMachineBehaviour
             PetUtility.Coroutine(LaunchAttack());
             if (unit.enemy != null) {
                 Debug.Log("try get enemy");
-                Pet enemy = unit.enemy.GetComponent<Pet>();
+                UnitBehaviour enemy = unit.enemy.GetComponent<UnitBehaviour>();
                 Debug.Log(enemy != null);
                 int damage = unit.damage;
                 enemy.TakeDamage(damage);

@@ -185,31 +185,22 @@ public class ObjEvent : UnityEvent<object> { }
 
 public enum GameEvent
 {
-    interact,
-    controlEnable,
-    controlDisable,
-    abilityOn,
-    abilityOff,
-    loadArea, //this event must be called AFTER the player is teleported
-    fadeOut, //fade out the scene, fade in the black screen
-    fadeIn, //fade out the black screen so the player can see the scene
-    switchTimeline,
-    updatePhysics,
-    openInventory, //open up the inventory interface
-    levelFinished
+    levelFinished,
+    gamePaused,
+    gameContinued
 }
 
 public enum ParameterizedGameEvent
 {
-    select, //byte
-    switchControl,//Gameobject
-    doorOpen, //door type object
-    damageReceive, //int
-    getObject //(String) object name, tell the inventory manager that we got something
+    //select, //byte
+    //switchControl,//Gameobject
+    //doorOpen, //door type object
+    //damageReceive, //int
+    //getObject //(String) object name, tell the inventory manager that we got something
 }
 
 //these are all the events happening in the editor mode
 public enum EditorEvent
 {
-    gridChanged,
+    //gridChanged,
 }

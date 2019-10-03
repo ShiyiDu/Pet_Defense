@@ -74,12 +74,12 @@ public class WhiteGhost : Ghost
 
     void OnDrawGizmos()
     {
-        if (routePoints.Length == 0) return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, routePoints[0]);
-        for (int i = 0; i < routePoints.Length - 1; i++) {
-            Gizmos.DrawLine(routePoints[i], routePoints[i + 1]);
-        }
+        //if (routePoints.Length == 0) return;
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawLine(transform.position, routePoints[0]);
+        //for (int i = 0; i < routePoints.Length - 1; i++) {
+        //    Gizmos.DrawLine(routePoints[i], routePoints[i + 1]);
+        //}
     }
 
     protected override void OnStart()

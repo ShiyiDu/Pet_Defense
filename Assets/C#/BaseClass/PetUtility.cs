@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 //just some common functions of the game
@@ -210,6 +211,11 @@ public class PetUtility : MonoBehaviour
     public static void UnimplementedWarning(string name)
     {
         Debug.Log(name + " function not implemented");
+    }
+
+    public void LevelRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void Update()

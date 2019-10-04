@@ -6,6 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(UnitBehaviour), true), CanEditMultipleObjects]
 public class UnitEditor : Editor
 {
+    private Vector2 lastDes = new Vector2();
     protected virtual void OnSceneGUI()
     {
         UnitBehaviour unit = (UnitBehaviour)target;
@@ -24,6 +25,9 @@ public class UnitEditor : Editor
         EditorGUI.BeginChangeCheck();
         Vector3 newTargetPosition = Handles.PositionHandle(unit.destination, Quaternion.identity);
 
+        if (!lastDes.Equals(unit.destination)) unit.routePoints = PetUtility.FindRoute(unit.transform.position, unit.destination);
+        lastDes.x = unit.destination.x;
+        lastDes.y = unit.destination.y;
         if (EditorGUI.EndChangeCheck()) {
             Undo.RecordObject(unit, "change routes");
             unit.destination = newTargetPosition;

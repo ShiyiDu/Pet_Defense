@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Hamster : Pet
 {
-
     //GameObject createBullet()
     //{
     //    //return Instantiate(bullet, transform.position, Quaternion.identity);
@@ -27,9 +26,4 @@ public class Hamster : Pet
 
     //    if (!enemyEntered) state = UnitState.idle;
     //}
-
-    protected override void OnStart()
-    {
-        timer = attackInterval;
-    }
 }

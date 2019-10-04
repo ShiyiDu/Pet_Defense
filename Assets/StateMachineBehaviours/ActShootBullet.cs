@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotBullet : StateMachineBehaviour
+public class ActShootBullet : StateMachineBehaviour
 {
     private Bullet bullet;
     private GameObject gameObject;

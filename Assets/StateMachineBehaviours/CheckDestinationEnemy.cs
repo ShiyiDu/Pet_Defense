@@ -2,25 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//check if i'm near a bed and set nearbed variable
-public class CheckBed : StateMachineBehaviour
+//this one updates the destination to enemy destination
+public class CheckDestinationEnemy : StateMachineBehaviour
 {
-    public float tolerence = 0.05f;
-    Pet pet;
+    UnitBehaviour unit;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        pet = animator.gameObject.GetComponent<Pet>();
+        unit = animator.GetComponent<UnitBehaviour>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (pet.GetBed().transform.position.x - pet.transform.position.x <= tolerence)
-            animator.SetBool("NearBed", true);
-        else
-            animator.SetBool("NearBed", false);
+        unit.destination = unit.enemy.transform.position;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

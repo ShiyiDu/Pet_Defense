@@ -4,13 +4,16 @@ using UnityEngine;
 
 public abstract class Pet : UnitBehaviour, Selectable
 {
-    protected bool sleep;
+    //I don't know if we can still get this one by string if its static
+    public bool enemyInHouse;
+    public bool bedNearby;
+    public bool rest;
     protected Bed myBed;
 
     //check if this one is in sleep or not
     public bool IsSleep()
     {
-        return sleep;
+        return rest;
     }
 
     public void OfferBed(Bed bed)
@@ -25,8 +28,8 @@ public abstract class Pet : UnitBehaviour, Selectable
 
     public void Selected()
     {
-        sleep = !sleep;
-        if (sleep) destination = myBed.transform.position;
+        rest = !rest;
+        //if (sleep) destination = myBed.transform.position;
         //you update the current route
     }
 
@@ -34,19 +37,19 @@ public abstract class Pet : UnitBehaviour, Selectable
     {
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ghost")) {
-            enemy = collision.gameObject;
-            enemyEntered = true;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Ghost")) {
+    //        enemy = collision.gameObject;
+    //        enemyEntered = true;
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ghost")) {
-            enemy = null;
-            enemyEntered = false;
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Ghost")) {
+    //        enemy = null;
+    //        enemyEntered = false;
+    //    }
+    //}
 }

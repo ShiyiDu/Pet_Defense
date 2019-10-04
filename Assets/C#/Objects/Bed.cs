@@ -19,7 +19,7 @@ public class Bed : MonoBehaviour
 
     public bool RequestBed(Vector2 position)
     {
-        Debug.Log("requesting bed...");
+        //Debug.Log("requesting bed...");
         if (pet != null) return false;
         Vector2 difference = position - (Vector2)transform.position;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnterDoor : StateMachineBehaviour
+public class ActEnterDoor : StateMachineBehaviour
 {
     public float enterTime = 0.5f;
     public float exitTime = 0.5f;
@@ -13,6 +13,7 @@ public class EnterDoor : StateMachineBehaviour
     private GameObject gameObject;
     private DoorControl door;
     private Animator animator;
+    private UnitBehaviour unit;
 
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,6 +21,7 @@ public class EnterDoor : StateMachineBehaviour
         this.animator = animator;
         gameObject = animator.gameObject;
         originScale = gameObject.transform.localScale;
+        unit = gameObject.GetComponent<UnitBehaviour>();
 
         RaycastHit2D hit;
         hit = Physics2D.Raycast(gameObject.transform.position, Vector2.up, 0.01f, LayerMask.GetMask("Door"));
@@ -64,7 +66,7 @@ public class EnterDoor : StateMachineBehaviour
     {
         void startWalking()
         {
-            animator.SetBool("EnterDoor", false);
+            unit.enterDoor = false;
         }
         PetUtility.Coroutine(PetUtility.LinearScaleFade(Vector3.zero, originScale, exitTime, gameObject.transform));
         PetUtility.WaitAndDo(exitTime, startWalking);

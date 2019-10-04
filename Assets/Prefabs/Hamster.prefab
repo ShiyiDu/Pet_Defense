@@ -140,12 +140,15 @@ MonoBehaviour:
   attackInterval: 1
   damage: 10
   attackRange: 10
+  destination: {x: 0, y: 0}
   routePoints:
   - {x: -2.7066965, y: -2.4051027}
   - {x: 1.0013077, y: -2.474351}
   enemy: {fileID: 0}
   bullet: {fileID: 1634911520911856832, guid: 8ca896dafbc42498c8e66eafd4bf56e0, type: 3}
   bulletVelocity: 5
+  enemyInRange: 0
+  enemyInHouse: 0
 --- !u!95 &1137285594
 Animator:
   serializedVersion: 3
@@ -156,7 +159,7 @@ Animator:
   m_GameObject: {fileID: 3249492830930344561}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c069421acf3e745d1afe0da1a4fb6d0c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 366fac93b80f04606aaa4b3ba16917cf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

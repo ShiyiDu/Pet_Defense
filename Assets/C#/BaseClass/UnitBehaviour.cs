@@ -10,8 +10,9 @@ public abstract class UnitBehaviour : MonoBehaviour
     public int health = 100;
 
     //how close is considered "at the point"
-    public float enterDoorTime = 0.5f;
-    public float exitDoorTime = 0.5f;
+    //public float enterDoorTime = 0.5f;
+    //public float exitDoorTime = 0.5f;
+    public bool enterDoor = false;
 
     //the white ghost patroling through all these points
 
@@ -29,7 +30,7 @@ public abstract class UnitBehaviour : MonoBehaviour
 
     protected Vector2 facingDirection = Vector2.right;
 
-    protected bool enemyEntered = false;
+    public bool enemyInRange = false;
     protected Direction enemyDirection = Direction.right;
     protected float timer = 1f;
 

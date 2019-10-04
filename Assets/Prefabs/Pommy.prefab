@@ -135,15 +135,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 1
   health: 200
-  enterDoorTime: 0.5
-  exitDoorTime: 0.5
+  enterDoor: 0
   attackInterval: 2
   damage: 5
   attackRange: 1
+  destination: {x: 0, y: 0}
   routePoints: []
   enemy: {fileID: 0}
   bullet: {fileID: 0}
   bulletVelocity: 0
+  enemyInRange: 0
+  enemyInHouse: 0
+  bedNearby: 0
+  rest: 0
 --- !u!95 &474733468
 Animator:
   serializedVersion: 3
@@ -154,7 +158,7 @@ Animator:
   m_GameObject: {fileID: 8250607405908136151}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4611a1397870c4aa686925eb3feb72f5, type: 2}
+  m_Controller: {fileID: 9100000, guid: ababeb42d9e7d4dc8be0f8062cc6d698, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

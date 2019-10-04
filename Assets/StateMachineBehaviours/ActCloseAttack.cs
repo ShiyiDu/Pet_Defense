@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : StateMachineBehaviour
+public class ActCloseAttack : StateMachineBehaviour
 {
     GameObject gameObject;
     Rigidbody2D rigid;

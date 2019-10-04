@@ -8,7 +8,6 @@ public abstract class Pet : UnitBehaviour, Selectable
     public bool enemyInHouse;
     public bool bedNearby;
     public bool rest;
-    public float healthRegeneration; //how fast you regenerate health on your rest?
     protected Bed myBed;
 
     //check if this one is in sleep or not

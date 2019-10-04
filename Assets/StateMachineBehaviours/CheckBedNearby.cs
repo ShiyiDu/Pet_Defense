@@ -13,13 +13,6 @@ public class CheckBedNearby : StateMachineBehaviour
     {
         pet = animator.gameObject.GetComponent<Pet>();
         Debug.Log("bed position: " + pet.GetBed().transform.position);
-        bool close = Mathf.Abs(pet.GetBed().transform.position.x - pet.transform.position.x) <= tolerence;
-        bool sameFloor = PetUtility.GetFloorNumber(pet.GetBed().transform.position) == PetUtility.GetFloorNumber(pet.transform.position);
-
-        if (close && sameFloor)
-            pet.bedNearby = true;
-        else
-            pet.bedNearby = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

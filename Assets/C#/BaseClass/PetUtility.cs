@@ -38,7 +38,7 @@ public class PetUtility : MonoBehaviour
     }
 
     /// <summary>
-    /// returns the nearest ghost on floor basis
+    /// returns the nearest ghost on floor basis, ignore the upper floors
     /// return null if nothing is found
     /// </summary>
     public static Ghost GetNearestGhost(Vector2 from)
@@ -47,23 +47,12 @@ public class PetUtility : MonoBehaviour
         int currentFloor = GetFloorNumber(from);
         for (int i = currentFloor; i >= 0; i--) {
             RaycastHit2D hit2D;
-            hit2D = Physics2D.Raycast(instance.floorMarker[i].position + Vector2.up * 1f, Vector2.right, float.PositiveInfinity, LayerMask.GetMask("Ghost"));
+            hit2D = Physics2D.Raycast(instance.floorMarker[i].position + Vector2.up * 0.5f, Vector2.right, LayerMask.GetMask("Ghost"));
             Ghost result;
             if (hit2D) {
                 if ((result = hit2D.collider.GetComponent<Ghost>()) != null) return result;
             }
         }
-        //if nothing found, go to upper floors
-        for (int i = currentFloor; i < instance.floorMarker.Length; i++) {
-            //Debug.Log("try find ghost on top");
-            RaycastHit2D hit2D;
-            hit2D = Physics2D.Raycast(instance.floorMarker[i].position + Vector2.up * 1f, Vector2.right, float.PositiveInfinity, LayerMask.GetMask("Ghost"));
-            Ghost result;
-            if (hit2D) {
-                if ((result = hit2D.collider.GetComponent<Ghost>()) != null) return result;
-            }
-        }
-
         return null;
     }
 

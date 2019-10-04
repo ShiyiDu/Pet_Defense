@@ -134,9 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 1
-  health: 20
-  enterDoorTime: 0.5
-  exitDoorTime: 0.5
+  health: 80
+  enterDoor: 0
   attackInterval: 1
   damage: 10
   attackRange: 10
@@ -149,6 +148,9 @@ MonoBehaviour:
   bulletVelocity: 5
   enemyInRange: 0
   enemyInHouse: 0
+  bedNearby: 0
+  rest: 0
+  healthRegeneration: 10
 --- !u!95 &1137285594
 Animator:
   serializedVersion: 3

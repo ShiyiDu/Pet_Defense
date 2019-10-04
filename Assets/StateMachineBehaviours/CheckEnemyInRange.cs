@@ -28,7 +28,7 @@ public class CheckEnemyInRange : StateMachineBehaviour
         hit = Physics2D.Raycast(unit.transform.position, target, unit.attackRange, layerMask);
         if (hit) {
             unit.enemyInRange = true;
-            //unit.enemy = hit.collider.gameObject;
+            unit.enemy = hit.collider.gameObject;
         } else {
             unit.enemyInRange = false;
             //unit.enemy = null;

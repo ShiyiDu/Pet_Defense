@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public abstract class UnitBehaviour : MonoBehaviour
 {
     public float velocity = 1f;
-    public int health = 100;
+    public float health = 100;
 
     //how close is considered "at the point"
     //public float enterDoorTime = 0.5f;
@@ -41,7 +41,7 @@ public abstract class UnitBehaviour : MonoBehaviour
     protected DoorControl door = null;
     protected UnitState state = UnitState.respawn;
 
-    protected int maxHealth;
+    protected float maxHealth;
 
     private Color origin;
 
@@ -73,12 +73,12 @@ public abstract class UnitBehaviour : MonoBehaviour
         return state;
     }
 
-    public virtual int GetMaxHealth()
+    public virtual float GetMaxHealth()
     {
         return maxHealth;
     }
 
-    public virtual int GetHealth()
+    public virtual float GetHealth()
     {
 
         return health;

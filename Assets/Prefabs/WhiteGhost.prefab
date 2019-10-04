@@ -135,24 +135,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 1
   health: 100
-  enterDoorTime: 0.5
-  exitDoorTime: 0.5
+  enterDoor: 0
   attackInterval: 1
   damage: 10
   attackRange: 1
+  destination: {x: 5.0094495, y: 3.8869605}
   routePoints:
-  - {x: 5.663919, y: -4.271206}
-  - {x: 5.6620574, y: -2.2675579}
-  - {x: -5.542092, y: -2.264667}
-  - {x: -5.5425806, y: -0.24821898}
-  - {x: 5.661971, y: -0.24046229}
-  - {x: 5.6611843, y: 1.7110969}
-  - {x: -5.5420303, y: 1.7189419}
-  - {x: -5.5429087, y: 3.7143438}
-  - {x: 5.5506177, y: 3.729068}
+  - {x: -3.496689, y: -4.080641}
+  - {x: 5.662885, y: -4.1436586}
+  - {x: 5.659664, y: -2.1485}
+  - {x: -5.545243, y: -2.1434033}
+  - {x: -5.5489035, y: -0.12479031}
+  - {x: 5.6599174, y: -0.10116949}
+  - {x: 5.660214, y: 1.8088881}
+  - {x: -5.536625, y: 1.850434}
+  - {x: -5.543319, y: 3.8328707}
+  - {x: 5.0094495, y: 3.8869605}
   enemy: {fileID: 0}
   bullet: {fileID: 0}
   bulletVelocity: 0
+  enemyInRange: 0
 --- !u!95 &826590580
 Animator:
   serializedVersion: 3
@@ -163,7 +165,7 @@ Animator:
   m_GameObject: {fileID: 1109100501736963201}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 667d39a133651470aa87c1cfdb5673b0, type: 2}
+  m_Controller: {fileID: 9100000, guid: dbff8e151e5bb47fc87ac0d6d6f86288, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -148,6 +148,7 @@ MonoBehaviour:
   enemyInHouse: 0
   bedNearby: 0
   rest: 0
+  healthRegeneration: 10
 --- !u!95 &474733468
 Animator:
   serializedVersion: 3

@@ -347,6 +347,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: GoToBed
   expression: '!enemyInHouse || rest'
+--- !u!114 &-2492212037342224716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c6677cea47945e5975cda3a5097a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-2291551460933016138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -969,6 +981,7 @@ AnimatorState:
   - {fileID: -2291551460933016138}
   - {fileID: -8845464287595500987}
   - {fileID: 9095081893163018081}
+  - {fileID: -2492212037342224716}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

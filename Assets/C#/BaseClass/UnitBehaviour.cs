@@ -35,7 +35,7 @@ public abstract class UnitBehaviour : MonoBehaviour
     protected float timer = 1f;
 
     protected Rigidbody2D rigid;
-    protected new SpriteRenderer renderer;
+    protected SpriteRenderer renderer;
     protected bool nearDoor = false;
 
     protected DoorControl door = null;

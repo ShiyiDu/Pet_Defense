@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuPopup : MonoBehaviour
 {
@@ -9,16 +10,16 @@ public class MenuPopup : MonoBehaviour
     public GameObject FadePanel;
     public GameObject Menu;
     public GameObject SettingsPanel;
+    public Toggle pauseB;
 
     public void OpenMenu()
     {
-
         FadePanel.SetActive(true);
         Menu.SetActive(true);
 
         //pause all game content (ghosts, pets)
         PetUtility.PauseGame();
-
+        pauseB.enabled = false;
     }
 
     //Exit to Town Scene
@@ -38,10 +39,9 @@ public class MenuPopup : MonoBehaviour
     {
         Menu.SetActive(false);
         FadePanel.SetActive(false);
-
+        pauseB.enabled = true; //THIS LINE DOES NOT WORK ANYWHERE ?
         //game resumes, same as method in the PauseGame script
         PetUtility.ContinueGame();
-
     }
 
 }

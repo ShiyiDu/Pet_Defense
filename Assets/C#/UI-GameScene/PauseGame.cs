@@ -11,6 +11,7 @@ public class PauseGame : MonoBehaviour
     public Toggle btn;
     public GameObject playText;
     public Text btnText;
+    public Button menuB;
 
     private bool btnLastState = false; //the last state of the toggle, so we don't repeatly continue the game
 
@@ -24,6 +25,7 @@ public class PauseGame : MonoBehaviour
             //resume all game content (ghosts, pets) (same as a method in the MenuPopup script)
             if (!btnLastState) PetUtility.ContinueGame();
             btnLastState = true;
+            menuB.enabled = true;
         }
 
 
@@ -37,6 +39,7 @@ public class PauseGame : MonoBehaviour
             PetUtility.PauseGame();
             if (btnLastState) PetUtility.PauseGame();
             btnLastState = false;
+            menuB.enabled = false;
         }
     }
 

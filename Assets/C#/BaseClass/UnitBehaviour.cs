@@ -21,12 +21,19 @@ public abstract class UnitBehaviour : MonoBehaviour
     public float attackRange = 10f; //the default attack range is 10 unit.
 
     public Vector2 destination;
+
+    public Bullet bullet;
+    public float bulletVelocity;
+
+    [HideInInspector]
+    public GameObject enemy;
     [HideInInspector]
     public Vector2[] routePoints;
     [HideInInspector]
-    public GameObject enemy;
-    public Bullet bullet;
-    public float bulletVelocity;
+    public int doorToken;//if you entered a door, this is the token you got
+
+    [HideInInspector]
+    public bool doorAcquired = false;
 
     protected Vector2 facingDirection = Vector2.right;
 
@@ -37,8 +44,8 @@ public abstract class UnitBehaviour : MonoBehaviour
     protected Rigidbody2D rigid;
     protected SpriteRenderer renderer;
     protected bool nearDoor = false;
-
-    protected DoorControl door = null;
+    [HideInInspector]
+    public DoorControl door = null;
     protected UnitState state = UnitState.respawn;
 
     protected float maxHealth;
@@ -102,17 +109,17 @@ public abstract class UnitBehaviour : MonoBehaviour
     }
 
     //this is called when the ghost enterd a door
-    public virtual void DoorEntered(DoorControl door)
-    {
-        nearDoor = true;
-        this.door = door;
-    }
+    //public virtual void DoorEntered(DoorControl door)
+    //{
+    //    nearDoor = true;
+    //    this.door = door;
+    //}
 
-    public virtual void DoorExited(DoorControl door)
-    {
-        nearDoor = false;
-        if (this.door = door) this.door = null;
-    }
+    //public virtual void DoorExited(DoorControl door)
+    //{
+    //    nearDoor = false;
+    //    if (this.door = door) this.door = null;
+    //}
 
     //void StateMachine()
     //{

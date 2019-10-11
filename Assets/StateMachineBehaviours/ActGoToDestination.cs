@@ -88,11 +88,14 @@ public class ActGoToDestination : StateMachineBehaviour
             if ((hit.collider.GetComponent<DoorControl>().OtherEndPos() - unit.destination).magnitude
                 < ((Vector2)hit.collider.GetComponent<DoorControl>().transform.position - unit.destination).magnitude) {
                 nearDoor = true;
+                unit.door = hit.collider.GetComponent<DoorControl>();
             } else {
                 nearDoor = false;
+                unit.door = null;
             }
         } else {
             nearDoor = false;
+            unit.door = null;
         }
 
         //nearDoor |= hit && hit.collider.GetComponent<DoorControl>() != null;

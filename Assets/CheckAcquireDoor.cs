@@ -2,44 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckEnemyInRange : StateMachineBehaviour
+public class CheckAcquireDoor : StateMachineBehaviour
 {
-    private bool iAmPet = false;
-    private UnitBehaviour unit;
+    //try to acquire the door 
+
+    UnitBehaviour unit;
+    DoorControl door;
+    int token;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        unit = animator.gameObject.GetComponent<Pet>();
-        if (unit != null) iAmPet = true;
-        else {
-            iAmPet = false;
-            unit = animator.gameObject.GetComponent<Ghost>();
-        }
-        Check();
+        door = animator.gameObject.GetComponent<UnitBehaviour>().door;
+        unit = animator.gameObject.GetComponent<UnitBehaviour>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Check();
-    }
-
-    private void Check()
-    {
-        Vector2 direction = unit.GetFaceDirection();
-        Vector2 target = direction.normalized;
-        RaycastHit2D hit;
-        int layerMask = LayerMask.GetMask(iAmPet ? "Ghost" : "Pet");
-        hit = Physics2D.Raycast(unit.transform.position, target, unit.attackRange, layerMask);
-        if (hit) {
-            unit.enemyInRange = true;
-            unit.enemy = hit.collider.gameObject;
-        } else {
-            unit.enemyInRange = false;
-            //unit.enemy = null;
+        if ((token = door.AcquireAccess()) != 0) {
+            unit.doorToken = token;
+            unit.doorAcquired = true;
         }
     }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

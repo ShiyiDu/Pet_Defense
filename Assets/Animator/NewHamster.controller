@@ -40,6 +40,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: Start
   expression: '!enterDoor'
+--- !u!114 &-6884471447053696732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8acfd10e1ffe043fb94e93746ae1ade1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-6730694088780263169
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,6 +103,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: Start
   expression: bedNearby || (enemyInHouse && !rest)
+--- !u!114 &-6270050592683542235
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b771461cbe1e64a289ec40ef8e4b5256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1102 &-6226323380182038535
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AcquireDoor
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: 488487862583080869}
+  - {fileID: 3087198105837118286}
+  m_StateMachineBehaviours:
+  - {fileID: 3835503624804154764}
+  - {fileID: -881981318297454444}
+  - {fileID: -6884471447053696732}
+  - {fileID: 5161950988979851739}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 0}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1101 &-5896677875812590665
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -128,8 +184,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2799155670896766267}
-  - {fileID: 7427930569391238703}
   - {fileID: -4446734526979260822}
+  - {fileID: 846470106067562007}
   m_StateMachineBehaviours:
   - {fileID: 5673419405777065735}
   - {fileID: 305663671209871197}
@@ -204,6 +260,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tolerence: 0.1
+--- !u!114 &-4495301383712241248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66030c9afdd3c4a36a7e1c7520c343b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: DoorReleased
+  expression: '!doorAcquired'
 --- !u!1101 &-4446734526979260822
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -240,7 +310,7 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 648868577332096382}
+  - {fileID: -1010333734049963081}
   m_StateMachineBehaviours:
   - {fileID: 6583707839924503719}
   - {fileID: -7451179897921788133}
@@ -419,6 +489,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: GoToBed
   expression: rest
+--- !u!1101 &-1010333734049963081
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Start
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 4206914961806935198}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!114 &-881981318297454444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66030c9afdd3c4a36a7e1c7520c343b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: DoorAcquired
+  expression: doorAcquired
 --- !u!1101 &-29123682618911666
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -455,37 +564,49 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: GoToEnemy
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Attacking
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: EnterDoor
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: GoToBed
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Sleep
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: DoorAcquired
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: DoorReleased
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -526,7 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: Attacking
   expression: enemyInRange
---- !u!1101 &648868577332096382
+--- !u!1101 &488487862583080869
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -535,10 +656,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Start
+    m_ConditionEvent: DoorAcquired
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 6279875658132122173}
+  m_DstState: {fileID: -4406113568114235314}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -563,7 +684,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6723305982224303319}
-  - {fileID: 3075595581850645983}
+  - {fileID: 5132782836169867080}
   m_StateMachineBehaviours:
   - {fileID: 2975175067831629785}
   - {fileID: 3967234621214779067}
@@ -585,6 +706,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &846470106067562007
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: EnterDoor
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -6226323380182038535}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!114 &1168966326862876442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -677,6 +823,31 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &2799598749277595616
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: DoorReleased
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 6279875658132122173}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &2817055276140000664
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -714,7 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091384bd6b59e49ed876232ab6eb37a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1101 &3075595581850645983
+--- !u!1101 &3087198105837118286
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -723,10 +894,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: EnterDoor
+    m_ConditionEvent: Start
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -4406113568114235314}
+  m_DstState: {fileID: 6279875658132122173}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -753,6 +924,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: Sleep
   expression: rest && bedNearby
+--- !u!114 &3835503624804154764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea7ecf598f9c428c99635f36b5b70a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3952969155806549591
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -794,6 +977,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: EnterDoor
   expression: enterDoor
+--- !u!1102 &4206914961806935198
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ReleaseDoor
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: 2799598749277595616}
+  m_StateMachineBehaviours:
+  - {fileID: -6270050592683542235}
+  - {fileID: -4495301383712241248}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 0}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &4327455595065124952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -806,6 +1018,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acfd10e1ffe043fb94e93746ae1ade1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1101 &5132782836169867080
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: EnterDoor
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -6226323380182038535}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!114 &5161950988979851739
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66030c9afdd3c4a36a7e1c7520c343b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: Start
+  expression: enemyInRange
 --- !u!114 &5260124269267275654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -944,7 +1195,7 @@ AnimatorStateMachine:
     m_Position: {x: 370, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 770719443900119428}
-    m_Position: {x: 510, y: 800, z: 0}
+    m_Position: {x: 620, y: 790, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5969265252110349085}
     m_Position: {x: 720, y: 390, z: 0}
@@ -953,7 +1204,13 @@ AnimatorStateMachine:
     m_Position: {x: 910, y: 600, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4406113568114235314}
-    m_Position: {x: 140, y: 800, z: 0}
+    m_Position: {x: -120, y: 990, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -6226323380182038535}
+    m_Position: {x: 260, y: 990, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 4206914961806935198}
+    m_Position: {x: -30, y: 790, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:
@@ -965,6 +1222,31 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 830, y: -30, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 8469585942371515403}
+--- !u!1101 &7080302246870957190
+AnimatorStateTransition:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: EnterDoor
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -4406113568114235314}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1102 &7156668839985259647
 AnimatorState:
   serializedVersion: 5
@@ -996,31 +1278,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1101 &7427930569391238703
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: EnterDoor
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -4406113568114235314}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!114 &7431685025691457253
 MonoBehaviour:
   m_ObjectHideFlags: 1

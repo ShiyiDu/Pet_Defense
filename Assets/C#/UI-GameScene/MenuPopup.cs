@@ -39,7 +39,7 @@ public class MenuPopup : MonoBehaviour
     {
         Menu.SetActive(false);
         FadePanel.SetActive(false);
-        pauseB.enabled = true; //THIS LINE DOES NOT WORK ANYWHERE ?
+        pauseB.enabled = true;
         //game resumes, same as method in the PauseGame script
         PetUtility.ContinueGame();
     }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 //just some common functions of the game
 public class PetUtility : MonoBehaviour
@@ -38,6 +37,88 @@ public class PetUtility : MonoBehaviour
         }
     }
 
+    private static Ghost RaycastGhost(Vector2 start, Vector2 direction)
+    {
+        int ghost = LayerMask.GetMask("Ghost");
+        Ghost result;
+        RaycastHit2D hit2D;
+        hit2D = Physics2D.Raycast(start, direction, float.PositiveInfinity, ghost);
+        if (hit2D) {
+            if ((result = hit2D.collider.GetComponent<Ghost>()) != null) return result;
+        }
+        return null;
+    }
+
+    public static Ghost GetUpstairGhost(Vector2 from)
+    {
+        int currentFloor = GetFloorNumber(from);
+        //Debug.Log("current Floor: " + currentFloor);
+        int sampleSize = 3;
+        float floorHeight = instance.floorMarker[1].position.y - instance.floorMarker[0].position.y;
+        float offSet = floorHeight / (sampleSize + 1);
+        Ghost result;
+
+        //first lets check the same floor
+
+        result = RaycastGhost(from, GetFloorDirection(from));
+        if (result != null) {
+            Debug.Log("enemy found: " + result.name);
+            return result;
+        }
+        for (int i = currentFloor + 1; i < instance.floorMarker.Length; i++) {
+            //Debug.Log("try find ghost on top");
+            for (int j = 0; j < sampleSize; j++) {
+                //shot 5 ray to make sure no one is missing
+                Vector2 currentShooter = instance.floorMarker[i].position + Vector2.up * j * offSet;
+                if ((result = RaycastGhost(currentShooter, Vector2.right)) != null) return result;
+            }
+        }
+
+        //if the raycast is missing something
+        result = (Ghost)FindObjectOfType(typeof(Ghost));
+        if (result == null) return null;
+        if (GetFloorNumber(result.transform.position) > currentFloor) return result;
+        else if (GetFloorNumber(result.transform.position) == currentFloor) {
+            float dx = result.transform.position.x - from.x;
+            //Debug.Log(dx + ", " + GetFloorDirection(from).x);
+            //Debug.Log(dx * GetFloorDirection(from).x > 0);
+
+            if (dx * GetFloorDirection(from).x > 0) return result;
+            else return null;
+        } else return null;
+    }
+
+    public static Ghost GetDownstairGhost(Vector2 from)
+    {
+        Ghost result;
+        int currentFloor = GetFloorNumber(from);
+        int sampleSize = 3;
+        float floorHeight = instance.floorMarker[1].position.y - instance.floorMarker[0].position.y;
+        float offSet = floorHeight / (sampleSize + 1);
+
+        result = RaycastGhost(from, -GetFloorDirection(from));
+        if (result != null) return result;
+
+        for (int i = currentFloor - 1; i >= 0; i--) {
+            for (int j = 0; j < sampleSize; j++) {
+                //shot 5 ray to make sure no one is missing
+                Vector2 currentShooter = instance.floorMarker[i].position + Vector2.up * j * offSet;
+                if ((result = RaycastGhost(currentShooter, Vector2.right)) != null) return result;
+            }
+
+        }
+        result = (Ghost)FindObjectOfType(typeof(Ghost));
+        if (result == null) return null;
+        if (GetFloorNumber(result.transform.position) > currentFloor) return result;
+        else if (GetFloorNumber(result.transform.position) == currentFloor) {
+            float dx = result.transform.position.x - from.x;
+            if (dx * GetFloorDirection(from).x < 0) return result;
+            else return null;
+        } else return null;
+    }
+
+
+
     /// <summary>
     /// returns the nearest ghost on floor basis
     /// return null if nothing is found
@@ -45,42 +126,9 @@ public class PetUtility : MonoBehaviour
     public static Ghost GetNearestGhost(Vector2 from)
     {
         //cast a ray to find out?
-        int currentFloor = GetFloorNumber(from);
-        int sampleSize = 3;
-        float floorHeight = instance.floorMarker[1].position.y - instance.floorMarker[0].position.y;
-        float offSet = floorHeight / (sampleSize + 1);
-        RaycastHit2D hit2D;
         Ghost result;
-        int ghost = LayerMask.GetMask("Ghost");
-
-        Ghost shoot(Vector2 start)
-        {
-            hit2D = Physics2D.Raycast(start, Vector2.right, float.PositiveInfinity, ghost);
-            if (hit2D) {
-                if ((result = hit2D.collider.GetComponent<Ghost>()) != null) return result;
-            }
-            return null;
-        }
-
-        for (int i = currentFloor; i >= 0; i--) {
-            for (int j = 0; j < sampleSize; j++) {
-                //shot 5 ray to make sure no one is missing
-                Vector2 currentShooter = instance.floorMarker[i].position + Vector2.up * j * offSet;
-                if ((result = shoot(currentShooter)) != null) return result;
-            }
-
-        }
-        //if nothing found, go to upper floors
-        for (int i = currentFloor; i < instance.floorMarker.Length; i++) {
-            //Debug.Log("try find ghost on top");
-            for (int j = 0; j < sampleSize; j++) {
-                //shot 5 ray to make sure no one is missing
-                Vector2 currentShooter = instance.floorMarker[i].position + Vector2.up * j * offSet;
-                if ((result = shoot(currentShooter)) != null) return result;
-            }
-        }
-
-        return (Ghost)FindObjectOfType(typeof(Ghost));
+        if ((result = GetDownstairGhost(from)) == null) result = GetUpstairGhost(from);
+        return result;
         //return null;
     }
 
@@ -190,6 +238,18 @@ public class PetUtility : MonoBehaviour
     public static void WaitAndDo(float time, UnityAction method)
     {
         instance.StartCoroutine(Wait(time, method));
+    }
+
+    public static IEnumerator SublinearMove(Vector2 from, Vector2 to, float duration, Transform target)
+    {
+        float timer = 0f;
+        while (timer <= duration) {
+            Vector2 current = (to - from) * Mathf.Sqrt(timer / duration) + from;
+            target.position = current;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        target.position = to;
     }
 
     public static IEnumerator LinearMove(Vector2 from, Vector2 to, float duration, Transform target)

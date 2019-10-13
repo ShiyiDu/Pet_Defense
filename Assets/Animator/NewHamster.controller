@@ -40,6 +40,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: Start
   expression: '!enterDoor'
+--- !u!114 &-7125891863859510546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66030c9afdd3c4a36a7e1c7520c343b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: EnterDoor
+  expression: enterDoor
 --- !u!114 &-6884471447053696732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,6 +195,7 @@ AnimatorState:
   - {fileID: -8180549779101826243}
   - {fileID: -2703964310876463387}
   - {fileID: 5260124269267275654}
+  - {fileID: -7125891863859510546}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1009,6 +1024,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acfd10e1ffe043fb94e93746ae1ade1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5865032901969312173
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f8454b87fced4df284a6d2d8b89163d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1102 &5969265252110349085
 AnimatorState:
   serializedVersion: 5
@@ -1062,6 +1089,7 @@ AnimatorState:
   - {fileID: 3541647947193180389}
   - {fileID: -4786561447575048097}
   - {fileID: -1803466586275610792}
+  - {fileID: 5865032901969312173}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

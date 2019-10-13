@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1109100501736963203}
   - component: {fileID: 6791750290389586375}
   - component: {fileID: 3745802326753892070}
-  - component: {fileID: 1109100501736963202}
   - component: {fileID: 826590580}
+  - component: {fileID: 1109100501736963202}
   m_Layer: 9
   m_Name: WhiteGhost
   m_TagString: Ghost
@@ -121,6 +121,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.096645705}
   m_Size: {x: 1, y: 1.3589702}
   m_Direction: 0
+--- !u!95 &826590580
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109100501736963201}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4f26c67eddbf4a00a9b587f12f6e809, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1109100501736963202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,13 +152,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef7ded6f835e4c659280b5a56b7b8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 1
+  velocity: 0.8
   health: 100
   enterDoor: 0
   attackInterval: 1
   damage: 10
   attackRange: 1
   destination: {x: 5.0094495, y: 3.8869605}
+  bullet: {fileID: 0}
+  bulletVelocity: 0
+  launchingAttack: 0
+  enemy: {fileID: 0}
   routePoints:
   - {x: -3.496689, y: -4.080641}
   - {x: 5.662885, y: -4.1436586}
@@ -151,26 +174,7 @@ MonoBehaviour:
   - {x: -5.536625, y: 1.850434}
   - {x: -5.543319, y: 3.8328707}
   - {x: 5.0094495, y: 3.8869605}
-  enemy: {fileID: 0}
-  bullet: {fileID: 0}
-  bulletVelocity: 0
+  doorToken: 0
+  doorAcquired: 0
   enemyInRange: 0
---- !u!95 &826590580
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1109100501736963201}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dbff8e151e5bb47fc87ac0d6d6f86288, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  door: {fileID: 0}

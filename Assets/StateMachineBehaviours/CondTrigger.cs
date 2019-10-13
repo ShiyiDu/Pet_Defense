@@ -133,7 +133,6 @@ public class CondTrigger : StateMachineBehaviour
             switch (exp[i]) {
                 case "||":
                     return ParseBool(start, i) || ParseBool(i + 1, end);
-                    break;
                 case "(":
                     i = GetRightBracket(i);
                     break;
@@ -150,7 +149,6 @@ public class CondTrigger : StateMachineBehaviour
             switch (exp[i]) {
                 case "&&":
                     return ParseBool(start, i) && ParseBool(i + 1, end);
-                    break;
                 case "(":
                     i = GetRightBracket(i);
                     break;
@@ -181,7 +179,6 @@ public class CondTrigger : StateMachineBehaviour
                     break;
                 case ")":
                     return i;
-                    break;
                 default:
                     break;
             }
@@ -210,7 +207,6 @@ public class CondTrigger : StateMachineBehaviour
                     break;
                 case ")":
                     return i;
-                    break;
                 default:
                     exp[i] = "!" + exp[i];
                     break;

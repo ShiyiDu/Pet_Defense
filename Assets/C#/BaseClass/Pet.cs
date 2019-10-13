@@ -8,7 +8,11 @@ public abstract class Pet : UnitBehaviour, Selectable
     public bool enemyInHouse;
     public bool bedNearby;
     public bool rest;
+    public bool upstairFirst = false;
+    public bool checkUpstair = true;
+    public bool checkDownstair = true;
     public float healthRegeneration; //how fast you regenerate health on your rest?
+
     protected Bed myBed;
 
     //check if this one is in sleep or not
@@ -36,6 +40,18 @@ public abstract class Pet : UnitBehaviour, Selectable
 
     public void Unselected()
     {
+    }
+
+    protected override void OnStart()
+    {
+        UpdataFaceDirection();
+    }
+
+    public virtual void UpdataFaceDirection()
+    {
+        facingDirection = PetUtility.GetFloorDirection(transform.position);
+        facingDirection = -facingDirection;
+        transform.rotation = Quaternion.Euler(0, facingDirection == Vector2.left ? 180 : 0, 0);
     }
 
     //private void OnTriggerEnter2D(Collider2D collision)

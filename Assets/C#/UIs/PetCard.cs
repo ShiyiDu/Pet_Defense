@@ -80,8 +80,13 @@ public class PetCard : MonoBehaviour, Selectable
     {
         if (unit.GetComponent<Ghost>() != null) iAmPet = false;
         beds = GameObject.FindGameObjectsWithTag("Bed").ToList();
+
         GameObject icon = Instantiate(unit, transform.position, Quaternion.identity);
-        icon.GetComponent<SpriteRenderer>().sortingOrder = 12;
+        foreach (SpriteRenderer rend in icon.GetComponentsInChildren<SpriteRenderer>()) {
+            rend.sortingOrder = 12;
+        }
+        //icon.GetComponentInChildren<SpriteRenderer>().sortingOrder = 12;
+        //icon.GetComponent<SpriteRenderer>().sortingOrder = 12;
         Destroy(icon.GetComponent<Rigidbody2D>());
         Destroy(icon.GetComponent<UnitBehaviour>());
         Destroy(icon.GetComponent<Collider2D>());
@@ -94,6 +99,11 @@ public class PetCard : MonoBehaviour, Selectable
     void Update()
     {
         UpdateInput();
+    }
+
+    void OnDrawGizmos()
+    {
+        if (unit) gameObject.name = unit.name;
     }
 
     public void Selected()

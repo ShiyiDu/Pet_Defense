@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Pommy : Pet
 {
-    protected override void OnStart()
-    {
-        GetFaceDirection();
-    }
+    //protected override void OnStart()
+    //{
+    //    GetFaceDirection();
+    //}
 
-    public override Vector2 GetFaceDirection()
-    {
-        facingDirection = PetUtility.GetFloorDirection(transform.position);
-        facingDirection = -facingDirection;
-        transform.rotation = Quaternion.Euler(0, facingDirection == Vector2.left ? 180 : 0, 0);
-        return facingDirection;
-    }
+    //public override Vector2 GetFaceDirection()
+    //{
+    //    facingDirection = PetUtility.GetFloorDirection(transform.position);
+    //    facingDirection = -facingDirection;
+    //    transform.rotation = Quaternion.Euler(0, facingDirection == Vector2.left ? 180 : 0, 0);
+    //    return facingDirection;
+    //}
 
     //protected override void Attack()
     //{

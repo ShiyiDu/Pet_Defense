@@ -12,6 +12,7 @@ public abstract class UnitBehaviour : MonoBehaviour
     //how close is considered "at the point"
     //public float enterDoorTime = 0.5f;
     //public float exitDoorTime = 0.5f;
+    [HideInInspector]
     public bool enterDoor = false;
 
     //the white ghost patroling through all these points
@@ -20,10 +21,13 @@ public abstract class UnitBehaviour : MonoBehaviour
     public int damage = 5;
     public float attackRange = 10f; //the default attack range is 10 unit.
 
+    //[HideInInspector]
     public Vector2 destination;
 
     public Bullet bullet;
     public float bulletVelocity;
+    [HideInInspector]
+    public bool launchingAttack;
 
     [HideInInspector]
     public GameObject enemy;
@@ -34,18 +38,20 @@ public abstract class UnitBehaviour : MonoBehaviour
 
     [HideInInspector]
     public bool doorAcquired = false;
+    [HideInInspector]
+    public bool enemyInRange = false;
+    [HideInInspector]
+    public DoorControl door = null;
 
     protected Vector2 facingDirection = Vector2.right;
 
-    public bool enemyInRange = false;
     protected Direction enemyDirection = Direction.right;
     protected float timer = 1f;
 
     protected Rigidbody2D rigid;
-    protected SpriteRenderer renderer;
+    protected new SpriteRenderer renderer;
     protected bool nearDoor = false;
-    [HideInInspector]
-    public DoorControl door = null;
+
     protected UnitState state = UnitState.respawn;
 
     protected float maxHealth;
@@ -100,7 +106,7 @@ public abstract class UnitBehaviour : MonoBehaviour
         }
         PetUtility.WaitAndDo(0.1f, restoreColor);
         health -= damage;
-        if (health <= 0) Destroy(gameObject, 0f);
+        if (health <= 0) Kill();
     }
 
     public virtual void Kill()

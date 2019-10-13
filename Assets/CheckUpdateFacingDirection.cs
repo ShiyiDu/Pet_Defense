@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActEatEnemy : StateMachineBehaviour
+public class CheckUpdateFacingDirection : StateMachineBehaviour
 {
-    //just destroy the enemy gameobject
-    public float waitTime = 0.15f;
-    UnitBehaviour unit;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        unit = animator.GetComponent<UnitBehaviour>();
-        PetUtility.WaitAndDo(waitTime, unit.enemy.GetComponent<Ghost>().Kill);
-        unit.enemy = null;
+        animator.GetComponent<Pet>().UpdataFaceDirection();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

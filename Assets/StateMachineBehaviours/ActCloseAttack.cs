@@ -4,40 +4,52 @@ using UnityEngine;
 
 public class ActCloseAttack : StateMachineBehaviour
 {
+    public bool attackImmediately = false;
+    public float attackDistance = 0.2f;
+
     GameObject gameObject;
     Rigidbody2D rigid;
-    float timer;
+    float lastAttack = 0f;
     UnitBehaviour unit;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         gameObject = animator.gameObject;
         rigid = gameObject.GetComponent<Rigidbody2D>();
-        timer = gameObject.GetComponent<UnitBehaviour>().attackInterval;
         unit = gameObject.GetComponent<UnitBehaviour>();
+
+        if (!attackImmediately) {
+            lastAttack = Time.time;
+        } else {
+            unit.launchingAttack = true;
+            AttackAction();
+        }
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        rigid.velocity = Vector2.zero;
         AttackAction();
     }
 
     protected void AttackAction()
     {
-        timer -= Time.deltaTime;
-        if (timer <= 0) {
+        rigid.velocity = Vector2.zero;
+        if (Time.time - lastAttack >= unit.attackInterval) {
+
             //Debug.Log("ghost attacking");
-            PetUtility.Coroutine(LaunchAttack());
-            if (unit.enemy != null) {
+            if (unit.enemy != null && unit.enemyInRange) {
+                unit.launchingAttack = true;
+                PetUtility.Coroutine(LaunchAttack());
                 //Debug.Log("try get enemy");
                 UnitBehaviour enemy = unit.enemy.GetComponent<UnitBehaviour>();
                 //Debug.Log(enemy != null);
                 int damage = unit.damage;
                 enemy.TakeDamage(damage);
+                lastAttack = Time.time;
+            } else {
+                unit.launchingAttack = false;
             }
-            timer = unit.attackInterval;
         }
         //what does attack look like?
         //move to the direction and comback
@@ -50,9 +62,10 @@ public class ActCloseAttack : StateMachineBehaviour
         //} else {
         //    enemyDirection = Direction.left;
         //}
-
+        unit.launchingAttack = true;
         Vector2 current = gameObject.transform.position;
-        Vector2 newPosition = unit.GetFaceDirection().normalized * 0.2f + current;
+        //todo: get direction needs to be updated when chasing from behind
+        Vector2 newPosition = unit.GetFaceDirection().normalized * attackDistance + current;
         PetUtility.Coroutine(PetUtility.LinearMove(current, newPosition, 0.15f, gameObject.transform));
         yield return new WaitForSeconds(0.15f);
         PetUtility.Coroutine(PetUtility.LinearMove(newPosition, current, 0.15f, gameObject.transform));

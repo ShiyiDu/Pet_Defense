@@ -24,6 +24,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d08fe3e51164deda65ea0d5002b38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitTime: 0.15
 --- !u!1101 &-7511323273930986294
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -274,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fe0737ea4ef4645bff37cc8165a747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0.45
+  time: 0.15
   trigger: Sleep
 --- !u!114 &5261477300278468680
 MonoBehaviour:
@@ -288,6 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23c511cec48a4c31baf05426631ebc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackImmediately: 1
+  attackDistance: 0.6
 --- !u!114 &5284522003753813500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -417,7 +420,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 668ba0b1f22c045dea4c7eb31a03cd4d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

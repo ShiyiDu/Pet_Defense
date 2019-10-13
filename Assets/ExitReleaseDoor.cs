@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckReleaseDoor : StateMachineBehaviour
+public class ExitReleaseDoor : StateMachineBehaviour
 {
     UnitBehaviour unit;
     DoorControl door;
@@ -17,16 +17,18 @@ public class CheckReleaseDoor : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //door.ReleaseAccess(unit.doorToken);
+        //unit.doorAcquired = false;
+        //unit.doorToken = 0;
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
         door.ReleaseAccess(unit.doorToken);
         unit.doorAcquired = false;
         unit.doorToken = 0;
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

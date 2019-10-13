@@ -46,26 +46,42 @@ public class PetUtility : MonoBehaviour
     {
         //cast a ray to find out?
         int currentFloor = GetFloorNumber(from);
-        for (int i = currentFloor; i >= 0; i--) {
-            RaycastHit2D hit2D;
-            hit2D = Physics2D.Raycast(instance.floorMarker[i].position + Vector2.up * 1f, Vector2.right, float.PositiveInfinity, LayerMask.GetMask("Ghost"));
-            Ghost result;
+        int sampleSize = 3;
+        float floorHeight = instance.floorMarker[1].position.y - instance.floorMarker[0].position.y;
+        float offSet = floorHeight / (sampleSize + 1);
+        RaycastHit2D hit2D;
+        Ghost result;
+        int ghost = LayerMask.GetMask("Ghost");
+
+        Ghost shoot(Vector2 start)
+        {
+            hit2D = Physics2D.Raycast(start, Vector2.right, float.PositiveInfinity, ghost);
             if (hit2D) {
                 if ((result = hit2D.collider.GetComponent<Ghost>()) != null) return result;
             }
+            return null;
+        }
+
+        for (int i = currentFloor; i >= 0; i--) {
+            for (int j = 0; j < sampleSize; j++) {
+                //shot 5 ray to make sure no one is missing
+                Vector2 currentShooter = instance.floorMarker[i].position + Vector2.up * j * offSet;
+                if ((result = shoot(currentShooter)) != null) return result;
+            }
+
         }
         //if nothing found, go to upper floors
         for (int i = currentFloor; i < instance.floorMarker.Length; i++) {
             //Debug.Log("try find ghost on top");
-            RaycastHit2D hit2D;
-            hit2D = Physics2D.Raycast(instance.floorMarker[i].position + Vector2.up * 1f, Vector2.right, float.PositiveInfinity, LayerMask.GetMask("Ghost"));
-            Ghost result;
-            if (hit2D) {
-                if ((result = hit2D.collider.GetComponent<Ghost>()) != null) return result;
+            for (int j = 0; j < sampleSize; j++) {
+                //shot 5 ray to make sure no one is missing
+                Vector2 currentShooter = instance.floorMarker[i].position + Vector2.up * j * offSet;
+                if ((result = shoot(currentShooter)) != null) return result;
             }
         }
 
-        return null;
+        return (Ghost)FindObjectOfType(typeof(Ghost));
+        //return null;
     }
 
     public static Vector2 FindNextWayPoint(Vector2 start, Vector2 end)

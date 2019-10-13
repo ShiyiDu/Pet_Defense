@@ -12,7 +12,7 @@ public class CheckBedNearby : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         pet = animator.gameObject.GetComponent<Pet>();
-        Debug.Log("bed position: " + pet.GetBed().transform.position);
+        //Debug.Log("bed position: " + pet.GetBed().transform.position);
         bool close = Mathf.Abs(pet.GetBed().transform.position.x - pet.transform.position.x) <= tolerence;
         bool sameFloor = PetUtility.GetFloorNumber(pet.GetBed().transform.position) == PetUtility.GetFloorNumber(pet.transform.position);
 

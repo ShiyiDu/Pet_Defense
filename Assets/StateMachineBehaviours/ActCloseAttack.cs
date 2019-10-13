@@ -28,12 +28,12 @@ public class ActCloseAttack : StateMachineBehaviour
     {
         timer -= Time.deltaTime;
         if (timer <= 0) {
-            Debug.Log("ghost attacking");
+            //Debug.Log("ghost attacking");
             PetUtility.Coroutine(LaunchAttack());
             if (unit.enemy != null) {
-                Debug.Log("try get enemy");
+                //Debug.Log("try get enemy");
                 UnitBehaviour enemy = unit.enemy.GetComponent<UnitBehaviour>();
-                Debug.Log(enemy != null);
+                //Debug.Log(enemy != null);
                 int damage = unit.damage;
                 enemy.TakeDamage(damage);
             }

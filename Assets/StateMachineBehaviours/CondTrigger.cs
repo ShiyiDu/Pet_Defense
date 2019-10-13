@@ -15,6 +15,7 @@ public class CondTrigger : StateMachineBehaviour
 
     private string[] exp;
     private UnitBehaviour unit;
+    private bool triggerSet = false;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -22,25 +23,29 @@ public class CondTrigger : StateMachineBehaviour
         animator.ResetTrigger(trigger);
         unit = animator.GetComponent<UnitBehaviour>();
         exp = MakeExpReadable();
+        triggerSet = false;
         //Debug.Log("expression form:" + string.Join(" ", exp));
         //Debug.Log("parsing result: " + ParseBool(0, exp.Length));
 
-        if (ParseBool(0, exp.Length)) {
-            Debug.Log("Condition satisfied" + "expression form:" + string.Join(" ", exp));
-            Debug.Log("Set Trigger: " + trigger);
-            animator.ResetTrigger(trigger);
-            animator.SetTrigger(trigger);
-        }
+        //cond trigger shouldn't be triggered immediately, it should wait until everyone finished checking 
+
+        //if (ParseBool(0, exp.Length)) {
+        //    Debug.Log("Set Trigger: " + trigger + ", On Cond: " + string.Join(" ", exp));
+        //    animator.ResetTrigger(trigger);
+        //    animator.SetTrigger(trigger);
+        //    triggerSet = true;
+        //}
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (triggerSet) return;
         if (ParseBool(0, exp.Length)) {
-            Debug.Log("Condition satisfied" + "expression form:" + string.Join(" ", exp));
-            Debug.Log("Set Trigger: " + trigger);
+            Debug.Log("Set Trigger: " + trigger + ", On Cond: " + string.Join(" ", exp));
             animator.ResetTrigger(trigger);
             animator.SetTrigger(trigger);
+            triggerSet = true;
         }
     }
 
@@ -69,7 +74,7 @@ public class CondTrigger : StateMachineBehaviour
                     stringBuilder.Append("||");
                     i++;
                 } else {
-                    Debug.LogError("parsing error");
+                    Debug.LogError("parsing error: " + string.Join(" ", exp));
                 }
                 AddString();
             } else if (expression[i] == '&') {
@@ -78,7 +83,7 @@ public class CondTrigger : StateMachineBehaviour
                     stringBuilder.Append("&&");
                     i++;
                 } else {
-                    Debug.LogError("parsing error");
+                    Debug.LogError("parsing error " + string.Join(" ", exp));
                 }
                 AddString();
             } else if (expression[i] == '!') {
@@ -151,7 +156,7 @@ public class CondTrigger : StateMachineBehaviour
                     break;
                 case "!(":
                     i = ChangeNegForm(i);
-                    Debug.LogError("parsing error: shouldn't be able to encounter !( anymore");
+                    Debug.LogError("parsing error: shouldn't be able to encounter !( anymore " + string.Join(" ", exp));
                     break;
                 default:
                     continue;
@@ -160,7 +165,7 @@ public class CondTrigger : StateMachineBehaviour
 
         if (exp[start] == "(" && exp[end - 1] == ")") return ParseBool(start + 1, end - 1);
 
-        Debug.LogError("parsing error");
+        Debug.LogError("parsing error " + string.Join(" ", exp));
         return false;
     }
 
@@ -181,7 +186,7 @@ public class CondTrigger : StateMachineBehaviour
                     break;
             }
         }
-        Debug.LogError("parsing bracket error!");
+        Debug.LogError("parsing bracket error! " + string.Join(" ", exp));
         return -1;
     }
 
@@ -211,7 +216,7 @@ public class CondTrigger : StateMachineBehaviour
                     break;
             }
         }
-        Debug.LogError("parsing neg bracket error!");
+        Debug.LogError("parsing neg bracket error! " + string.Join(" ", exp));
         return -1;
     }
 

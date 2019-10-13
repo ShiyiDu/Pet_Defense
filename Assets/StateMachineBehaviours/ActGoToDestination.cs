@@ -24,11 +24,17 @@ public class ActGoToDestination : StateMachineBehaviour
         rigid = transform.GetComponent<Rigidbody2D>();
         unit = animator.GetComponent<UnitBehaviour>();
         nextPoint = PetUtility.FindNextWayPoint(unit.transform.position, unit.destination);
-        enterDoor = false;
+        enterDoor = false; unit.enterDoor = false;
+        UpdataRoute();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        UpdataRoute();
+    }
+
+    private void UpdataRoute()
     {
         if (RouteRangeCheck() && nextPoint.Equals(unit.destination)) {
             arrive = true;
@@ -47,7 +53,7 @@ public class ActGoToDestination : StateMachineBehaviour
         DoorCheck();
         if (nearDoor) {
             nextPoint = PetUtility.FindNextWayPoint(unit.transform.position, unit.destination);
-            Debug.Log(nextPoint);
+            //Debug.Log(nextPoint);
         }
         nextPoint = PetUtility.FindNextWayPoint(unit.transform.position, unit.destination);
 
@@ -106,5 +112,10 @@ public class ActGoToDestination : StateMachineBehaviour
         //you only need to compare x-axies
         return
             Mathf.Abs(transform.position.x - nextPoint.x) <= tolerance;
+    }
+
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        rigid.velocity = Vector2.zero;
     }
 }

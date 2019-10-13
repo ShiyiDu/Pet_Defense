@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 public class PetCard : MonoBehaviour, Selectable
 {
@@ -81,10 +82,12 @@ public class PetCard : MonoBehaviour, Selectable
         beds = GameObject.FindGameObjectsWithTag("Bed").ToList();
         GameObject icon = Instantiate(unit, transform.position, Quaternion.identity);
         icon.GetComponent<SpriteRenderer>().sortingOrder = 12;
-        icon.GetComponent<Rigidbody2D>().simulated = false;
-        icon.GetComponent<UnitBehaviour>().enabled = false;
-        icon.GetComponent<Collider2D>().enabled = false;
-        icon.GetComponent<Animator>().enabled = false;
+        Destroy(icon.GetComponent<Rigidbody2D>());
+        Destroy(icon.GetComponent<UnitBehaviour>());
+        Destroy(icon.GetComponent<Collider2D>());
+        Destroy(icon.GetComponent<Animator>());
+        icon.transform.SetParent(transform);
+        icon.name = "Pet Icon";
     }
 
     // Update is called once per frame

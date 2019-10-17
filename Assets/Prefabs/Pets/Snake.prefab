@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 1
-  health: 100
+  health: 200
   enterDoor: 0
   attackInterval: 2
   damage: 5
@@ -174,4 +174,4 @@ MonoBehaviour:
   upstairFirst: 0
   checkUpstair: 1
   checkDownstair: 1
-  healthRegeneration: 0
+  healthRegeneration: 10

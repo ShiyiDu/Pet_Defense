@@ -83,7 +83,7 @@ public class PetCard : MonoBehaviour, Selectable
 
         GameObject icon = Instantiate(unit, transform.position, Quaternion.identity);
         foreach (SpriteRenderer rend in icon.GetComponentsInChildren<SpriteRenderer>()) {
-            rend.sortingOrder = 12;
+            rend.sortingOrder += 10;
         }
         //icon.GetComponentInChildren<SpriteRenderer>().sortingOrder = 12;
         //icon.GetComponent<SpriteRenderer>().sortingOrder = 12;

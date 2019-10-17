@@ -49,6 +49,14 @@ public class PetUtility : MonoBehaviour
         return null;
     }
 
+    public static Ghost GetSameFloorGhost(Vector2 from)
+    {
+        Ghost result;
+        result = RaycastGhost(from, GetFloorDirection(from));
+        if (result == null) result = RaycastGhost(from, -GetFloorDirection(from));
+        return result;
+    }
+
     public static Ghost GetUpstairGhost(Vector2 from)
     {
         int currentFloor = GetFloorNumber(from);
@@ -62,7 +70,7 @@ public class PetUtility : MonoBehaviour
 
         result = RaycastGhost(from, GetFloorDirection(from));
         if (result != null) {
-            Debug.Log("enemy found: " + result.name);
+            //Debug.Log("enemy found: " + result.name);
             return result;
         }
         for (int i = currentFloor + 1; i < instance.floorMarker.Length; i++) {
@@ -74,7 +82,7 @@ public class PetUtility : MonoBehaviour
             }
         }
 
-        //if the raycast is missing something
+        //if the raycast is missing something(when ghosts are going upstairs)
         result = (Ghost)FindObjectOfType(typeof(Ghost));
         if (result == null) return null;
         if (GetFloorNumber(result.transform.position) > currentFloor) return result;
@@ -209,6 +217,15 @@ public class PetUtility : MonoBehaviour
         }
 
         return Vector2.zero;
+    }
+
+    public static void FlipTransform(Transform transform)
+    {
+        if (transform.rotation.eulerAngles.y == 0) {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        } else {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     public static void ContinueGame()

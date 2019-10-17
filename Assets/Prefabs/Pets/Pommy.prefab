@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 5dede0588ba004434930a79961f559b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -142,6 +142,7 @@ MonoBehaviour:
   destination: {x: 0, y: 0}
   bullet: {fileID: 0}
   bulletVelocity: 0
+  launchingAttack: 0
   enemy: {fileID: 0}
   routePoints: []
   doorToken: 0
@@ -151,6 +152,9 @@ MonoBehaviour:
   enemyInHouse: 0
   bedNearby: 0
   rest: 0
+  upstairFirst: 0
+  checkUpstair: 1
+  checkDownstair: 1
   healthRegeneration: 10
 --- !u!95 &474733468
 Animator:

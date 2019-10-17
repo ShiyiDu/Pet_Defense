@@ -59,7 +59,7 @@ public class ActGoToDestination : StateMachineBehaviour
 
         //control the patroling of the unit
         if (nearDoor && RouteRangeCheck()) {
-            Debug.Log("try go next floor");
+            //Debug.Log("try go next floor");
             rigid.velocity = Vector2.zero;
             enterDoor = true;
             unit.enterDoor = true;

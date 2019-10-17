@@ -45,7 +45,7 @@ public class ActEnterDoor : StateMachineBehaviour
 
     private void Enter()
     {
-        Debug.Log("enter door");
+        //Debug.Log("enter door");
         //you want play the animation, wait, teleport and change state
         if (!entering) {
             entering = true;

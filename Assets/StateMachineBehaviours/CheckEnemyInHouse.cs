@@ -26,13 +26,13 @@ public class CheckEnemyInHouse : StateMachineBehaviour
         if (!pet.upstairFirst) {
             if (pet.checkDownstair) ghost = PetUtility.GetDownstairGhost(pet.transform.position);
             if (pet.checkUpstair && (ghost == null)) {
-                PetUtility.GetUpstairGhost(pet.transform.position);
+                ghost = PetUtility.GetUpstairGhost(pet.transform.position);
                 //Debug.Log("check downstair");
             }
         } else {
             if (pet.checkUpstair) ghost = PetUtility.GetUpstairGhost(pet.transform.position);
             if (pet.checkDownstair && (ghost == null)) {
-                PetUtility.GetDownstairGhost(pet.transform.position);
+                ghost = PetUtility.GetDownstairGhost(pet.transform.position);
                 //Debug.Log("check downstair");
             }
         }

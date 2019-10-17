@@ -97,20 +97,40 @@ public abstract class UnitBehaviour : MonoBehaviour
         return health;
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void RestoreHealth(float heal)
     {
-        renderer.color = Color.red;
+        if (health < maxHealth) {
+            health = Mathf.Min(health + heal, maxHealth);
+            EventManager.TriggerEvent(ParameterizedGameEvent.unitHealthChange, this);
+        }
+    }
+
+    private float lastDamageTime;
+    public virtual void TakeDamage(float damage)
+    {
+        float changeColorTime = 0.08f;
+        foreach (SpriteRenderer r in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+            r.color = Color.red;
+        }
+
+        lastDamageTime = Time.time;
         void restoreColor()
         {
-            if (renderer != null) renderer.color = origin;
+            if (renderer != null && Time.time - lastDamageTime > changeColorTime) {
+                foreach (SpriteRenderer r in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+                    r.color = origin;
+                }
+            }
         }
-        PetUtility.WaitAndDo(0.1f, restoreColor);
+        PetUtility.WaitAndDo(changeColorTime, restoreColor);
         health -= damage;
+        EventManager.TriggerEvent(ParameterizedGameEvent.unitHealthChange, this);
         if (health <= 0) Kill();
     }
 
     public virtual void Kill()
     {
+        EventManager.TriggerEvent(ParameterizedGameEvent.unitDead, this);
         Destroy(gameObject, 0f);
     }
 

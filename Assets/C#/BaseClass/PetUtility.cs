@@ -282,7 +282,7 @@ public class PetUtility : MonoBehaviour
     }
 
     //linearly fade a vector3 object
-    public static IEnumerator LinearScaleFade(Vector3 start, Vector3 end, float duration, Transform target)
+    public static IEnumerator LinearZoom(Vector3 start, Vector3 end, float duration, Transform target)
     {
         float timer = 0f;
         while (timer <= duration) {

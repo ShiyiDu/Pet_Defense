@@ -56,7 +56,7 @@ public class ActEnterDoor : StateMachineBehaviour
                 Exit();
             }
             PetUtility.Coroutine
-                (PetUtility.LinearScaleFade(originScale, Vector3.zero, enterTime, gameObject.transform));
+                (PetUtility.LinearZoom(originScale, Vector3.zero, enterTime, gameObject.transform));
             PetUtility.WaitAndDo(enterTime, exitDoor);
         }
     }
@@ -67,7 +67,7 @@ public class ActEnterDoor : StateMachineBehaviour
         {
             unit.enterDoor = false;
         }
-        PetUtility.Coroutine(PetUtility.LinearScaleFade(Vector3.zero, originScale, exitTime, gameObject.transform));
+        PetUtility.Coroutine(PetUtility.LinearZoom(Vector3.zero, originScale, exitTime, gameObject.transform));
         PetUtility.WaitAndDo(exitTime, startWalking);
     }
 

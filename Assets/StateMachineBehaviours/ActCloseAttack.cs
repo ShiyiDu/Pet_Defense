@@ -22,30 +22,35 @@ public class ActCloseAttack : StateMachineBehaviour
             lastAttack = Time.time;
         } else {
             unit.launchingAttack = true;
-            AttackAction();
+            CheckAttack();
         }
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        AttackAction();
+        CheckAttack();
     }
 
-    protected void AttackAction()
+    protected virtual void Attack()
+    {
+        unit.launchingAttack = true;
+        PetUtility.Coroutine(LaunchAttack());
+        //Debug.Log("try get enemy");
+        UnitBehaviour enemy = unit.enemy.GetComponent<UnitBehaviour>();
+        //Debug.Log(enemy != null);
+        int damage = unit.damage;
+        enemy.TakeDamage(damage);
+    }
+
+    protected virtual void CheckAttack()
     {
         rigid.velocity = Vector2.zero;
         if (Time.time - lastAttack >= unit.attackInterval) {
 
             //Debug.Log("ghost attacking");
             if (unit.enemy != null && unit.enemyInRange) {
-                unit.launchingAttack = true;
-                PetUtility.Coroutine(LaunchAttack());
-                //Debug.Log("try get enemy");
-                UnitBehaviour enemy = unit.enemy.GetComponent<UnitBehaviour>();
-                //Debug.Log(enemy != null);
-                int damage = unit.damage;
-                enemy.TakeDamage(damage);
+                Attack();
                 lastAttack = Time.time;
             } else {
                 unit.launchingAttack = false;

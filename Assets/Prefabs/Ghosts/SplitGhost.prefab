@@ -157,7 +157,7 @@ MonoBehaviour:
   enterDoor: 0
   attackInterval: 2
   damage: 10
-  attackRange: 1.5
+  attackRange: 1.8
   destination: {x: 5.009449, y: 3.886961}
   bullet: {fileID: 0}
   bulletVelocity: 0

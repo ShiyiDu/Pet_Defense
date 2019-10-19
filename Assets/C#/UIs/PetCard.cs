@@ -83,13 +83,24 @@ public class PetCard : MonoBehaviour, Selectable
 
         GameObject icon = Instantiate(unit, transform.position, Quaternion.identity);
         foreach (SpriteRenderer rend in icon.GetComponentsInChildren<SpriteRenderer>()) {
+            if (rend.gameObject.layer == 1) rend.enabled = false;
             rend.sortingOrder += 10;
         }
         //icon.GetComponentInChildren<SpriteRenderer>().sortingOrder = 12;
         //icon.GetComponent<SpriteRenderer>().sortingOrder = 12;
         Destroy(icon.GetComponent<Rigidbody2D>());
         Destroy(icon.GetComponent<UnitBehaviour>());
-        Destroy(icon.GetComponent<Collider2D>());
+
+        //foreach (Transform trans in icon.GetComponentInChildren<Transform>()) {
+        //    if (trans != transform) Destroy(trans.gameObject);
+        //}
+
+        foreach (Collider2D col in icon.GetComponentsInChildren<Collider2D>()) {
+            Destroy(col);
+        }
+
+        //while (icon.GetComponent<Collider2D>() != null) Destroy(icon.GetComponent<Collider2D>());
+
         Destroy(icon.GetComponent<Animator>());
         icon.transform.SetParent(transform);
         icon.name = "Pet Icon";

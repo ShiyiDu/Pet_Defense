@@ -13,15 +13,28 @@ public class soundDeath : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void OnEnable()
+    {
+        EventManager.StartListening(ParameterizedGameEvent.unitDead, deathSound);
+    }
+
+   private void deathSound(object rip)
+    {
+      if ( ((UnitBehaviour)rip).CompareTag("Ghost") == true){
+            audioSource.PlayOneShot(ghostDeath);
+        }
+
+        else if (((UnitBehaviour)rip).CompareTag("Pet") == true)
+        {
+            audioSource.PlayOneShot(petDeath);
+        }
+
+    }
 
 
-    //ghost dies
-    
-     //   audioSource.PlayOneShot(ghostDeath);
-    
+    private void OnDisable()
+    {
+        EventManager.StopListening(ParameterizedGameEvent.unitDead, deathSound);
+    }
 
-    //pet dies
-    
-      //  audioSource.PlayOneShot(petDeath);
-    
 }

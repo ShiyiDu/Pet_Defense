@@ -2,33 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActShootBullet : StateMachineBehaviour
+public class ActShootBullet : ActCloseAttack
 {
     private Bullet bullet;
-    private GameObject gameObject;
-    private UnitBehaviour unit;
+    private GameObject myObject;
+    private UnitBehaviour myUnit;
     private float attackInterval;
-    private float timer;
     private GameObject newBullet;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        gameObject = animator.gameObject;
-        unit = gameObject.GetComponent<UnitBehaviour>();
-        bullet = unit.bullet;
-        attackInterval = unit.attackInterval;
-        timer = attackInterval;
+        myObject = animator.gameObject;
+        myUnit = myObject.GetComponent<UnitBehaviour>();
+        bullet = myUnit.bullet;
+        attackInterval = myUnit.attackInterval;
+        base.OnStateEnter(animator, stateInfo, layerIndex);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    timer -= Time.deltaTime;
+    //    if (timer <= 0) {
+    //        newBullet = Instantiate(bullet.gameObject, unit.GetShootPosition(), Quaternion.identity);
+    //        newBullet.GetComponent<Bullet>().Initialize(unit.damage, unit.bulletVelocity, unit.GetFaceDirection());
+    //        timer = attackInterval;
+    //    }
+    //}
+
+    protected override void Attack()
     {
-        timer -= Time.deltaTime;
-        if (timer <= 0) {
-            newBullet = Instantiate(bullet.gameObject, unit.GetShootPosition(), Quaternion.identity);
-            newBullet.GetComponent<Bullet>().Initialize(unit.damage, unit.bulletVelocity, unit.GetFaceDirection());
-            timer = attackInterval;
-        }
+        newBullet = Instantiate(bullet.gameObject, myUnit.GetShootPosition(), Quaternion.identity);
+        newBullet.GetComponent<Bullet>().Initialize(myUnit.damage, myUnit.bulletVelocity, myUnit.GetFaceDirection(), myUnit.enemy.GetComponent<UnitBehaviour>());
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -12,6 +12,7 @@ public abstract class UnitBehaviour : MonoBehaviour
     //how close is considered "at the point"
     //public float enterDoorTime = 0.5f;
     //public float exitDoorTime = 0.5f;
+    [HideInInspector]
     public bool enterDoor = false;
 
     //the white ghost patroling through all these points
@@ -20,25 +21,37 @@ public abstract class UnitBehaviour : MonoBehaviour
     public int damage = 5;
     public float attackRange = 10f; //the default attack range is 10 unit.
 
+    //[HideInInspector]
     public Vector2 destination;
+
+    public Bullet bullet;
+    public float bulletVelocity;
+    [HideInInspector]
+    public bool launchingAttack;
+
+    [HideInInspector]
+    public GameObject enemy;
     [HideInInspector]
     public Vector2[] routePoints;
     [HideInInspector]
-    public GameObject enemy;
-    public Bullet bullet;
-    public float bulletVelocity;
+    public int doorToken;//if you entered a door, this is the token you got
+
+    [HideInInspector]
+    public bool doorAcquired = false;
+    [HideInInspector]
+    public bool enemyInRange = false;
+    [HideInInspector]
+    public DoorControl door = null;
 
     protected Vector2 facingDirection = Vector2.right;
 
-    public bool enemyInRange = false;
     protected Direction enemyDirection = Direction.right;
     protected float timer = 1f;
 
     protected Rigidbody2D rigid;
-    protected SpriteRenderer renderer;
+    protected new SpriteRenderer renderer;
     protected bool nearDoor = false;
 
-    protected DoorControl door = null;
     protected UnitState state = UnitState.respawn;
 
     protected float maxHealth;
@@ -84,35 +97,55 @@ public abstract class UnitBehaviour : MonoBehaviour
         return health;
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void RestoreHealth(float heal)
     {
-        renderer.color = Color.red;
+        if (health < maxHealth) {
+            health = Mathf.Min(health + heal, maxHealth);
+            EventManager.TriggerEvent(ParameterizedGameEvent.unitHealthChange, this);
+        }
+    }
+
+    private float lastDamageTime;
+    public virtual void TakeDamage(float damage)
+    {
+        float changeColorTime = 0.08f;
+        foreach (SpriteRenderer r in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+            r.color = Color.red;
+        }
+
+        lastDamageTime = Time.time;
         void restoreColor()
         {
-            if (renderer != null) renderer.color = origin;
+            if (renderer != null && Time.time - lastDamageTime > changeColorTime) {
+                foreach (SpriteRenderer r in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+                    r.color = origin;
+                }
+            }
         }
-        PetUtility.WaitAndDo(0.1f, restoreColor);
+        PetUtility.WaitAndDo(changeColorTime, restoreColor);
         health -= damage;
-        if (health <= 0) Destroy(gameObject, 0f);
+        EventManager.TriggerEvent(ParameterizedGameEvent.unitHealthChange, this);
+        if (health <= 0) Kill();
     }
 
     public virtual void Kill()
     {
+        EventManager.TriggerEvent(ParameterizedGameEvent.unitDead, this);
         Destroy(gameObject, 0f);
     }
 
     //this is called when the ghost enterd a door
-    public virtual void DoorEntered(DoorControl door)
-    {
-        nearDoor = true;
-        this.door = door;
-    }
+    //public virtual void DoorEntered(DoorControl door)
+    //{
+    //    nearDoor = true;
+    //    this.door = door;
+    //}
 
-    public virtual void DoorExited(DoorControl door)
-    {
-        nearDoor = false;
-        if (this.door = door) this.door = null;
-    }
+    //public virtual void DoorExited(DoorControl door)
+    //{
+    //    nearDoor = false;
+    //    if (this.door = door) this.door = null;
+    //}
 
     //void StateMachine()
     //{

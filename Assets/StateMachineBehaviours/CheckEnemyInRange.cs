@@ -16,10 +16,16 @@ public class CheckEnemyInRange : StateMachineBehaviour
             iAmPet = false;
             unit = animator.gameObject.GetComponent<Ghost>();
         }
+        Check();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Check();
+    }
+
+    private void Check()
     {
         Vector2 direction = unit.GetFaceDirection();
         Vector2 target = direction.normalized;
@@ -33,7 +39,6 @@ public class CheckEnemyInRange : StateMachineBehaviour
             unit.enemyInRange = false;
             //unit.enemy = null;
         }
-
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

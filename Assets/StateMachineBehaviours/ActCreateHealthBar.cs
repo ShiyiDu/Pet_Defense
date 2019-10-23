@@ -10,6 +10,7 @@ public class ActCreateHealthBar : StateMachineBehaviour
         Debug.Log("Creating Health Bar");
         //create a health bar for this object
         PetUtility.CreateHealthBar(animator.gameObject.GetComponent<UnitBehaviour>());
+        EventManager.TriggerEvent(ParameterizedGameEvent.unitRespawn, animator.GetComponent<UnitBehaviour>());
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

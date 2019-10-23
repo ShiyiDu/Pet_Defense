@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class WhiteGhost : Ghost
 {
-    private Vector3 originScale = new Vector3();
+    //private Vector3 originScale = new Vector3();
 
     //protected override void EnterDoor()
     //{
@@ -55,22 +55,22 @@ public class WhiteGhost : Ghost
     //    //move to the direction and comback
     //}
 
-    IEnumerator LaunchAttack()
-    {
-        if (enemy.transform.position.x - transform.position.x > 0) {
-            enemyDirection = Direction.right;
-        } else {
-            enemyDirection = Direction.left;
-        }
+    //IEnumerator LaunchAttack()
+    //{
+    //    if (enemy.transform.position.x - transform.position.x > 0) {
+    //        enemyDirection = Direction.right;
+    //    } else {
+    //        enemyDirection = Direction.left;
+    //    }
 
-        Vector2 current = transform.position;
-        Vector2 newPosition = enemyDirection == Direction.left ? current + Vector2.left * 0.2f : current + Vector2.right * 0.2f;
-        StartCoroutine(PetUtility.LinearMove(current, newPosition, 0.15f, transform));
-        yield return new WaitForSeconds(0.15f);
-        StartCoroutine(PetUtility.LinearMove(newPosition, current, 0.15f, transform));
-        yield return new WaitForSeconds(0.15f);
-        yield return null;
-    }
+    //    Vector2 current = transform.position;
+    //    Vector2 newPosition = enemyDirection == Direction.left ? current + Vector2.left * 0.2f : current + Vector2.right * 0.2f;
+    //    StartCoroutine(PetUtility.LinearMove(current, newPosition, 0.15f, transform));
+    //    yield return new WaitForSeconds(0.15f);
+    //    StartCoroutine(PetUtility.LinearMove(newPosition, current, 0.15f, transform));
+    //    yield return new WaitForSeconds(0.15f);
+    //    yield return null;
+    //}
 
     void OnDrawGizmos()
     {
@@ -82,11 +82,11 @@ public class WhiteGhost : Ghost
         //}
     }
 
-    protected override void OnStart()
-    {
-        originScale = transform.localScale;
-        state = UnitState.walk;
-        timer = attackInterval;
-    }
+    //protected override void OnStart()
+    //{
+    //    originScale = transform.localScale;
+    //    state = UnitState.walk;
+    //    timer = attackInterval;
+    //}
 
 }

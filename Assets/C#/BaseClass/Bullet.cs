@@ -5,5 +5,5 @@ using UnityEngine;
 //the parent class for all bullets
 public abstract class Bullet : MonoBehaviour
 {
-    public abstract void Initialize(int damage, float velocity, Vector2 direction);
+    public abstract void Initialize(int damage, float velocity, Vector2 direction, UnitBehaviour enemy);
 }

@@ -192,6 +192,9 @@ public enum GameEvent
 
 public enum ParameterizedGameEvent
 {
+    unitRespawn, //unit
+    unitDead, //unit
+    unitHealthChange //unit
     //select, //byte
     //switchControl,//Gameobject
     //doorOpen, //door type object

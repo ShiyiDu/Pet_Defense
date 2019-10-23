@@ -8,7 +8,7 @@ public class HamBullet : Bullet
     private float velocity = 5;
     private Vector2 direction = Vector2.right;
 
-    public override void Initialize(int damage, float velocity, Vector2 direction)
+    public override void Initialize(int damage, float velocity, Vector2 direction, UnitBehaviour enemy)
     {
         this.damage = damage;
         this.velocity = velocity;

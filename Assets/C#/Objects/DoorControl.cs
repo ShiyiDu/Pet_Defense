@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+//using System;
 using UnityEngine.Events;
 
 //this script should tell the ghost/pet that they entered
@@ -11,6 +11,8 @@ using UnityEngine.Events;
 public class DoorControl : MonoBehaviour
 {
     public DoorControl targetDoor;
+    private bool doorTaken = false;
+    private int token = 0;
     //public bool onWayDoor = false;
     //public bool woodDoor = false;
     //public bool stairs = false;
@@ -29,6 +31,31 @@ public class DoorControl : MonoBehaviour
     public Vector2 OtherEndPos()
     {
         return (Vector2)targetDoor.transform.position;
+    }
+
+    ////return true if you can access the door
+    public int AcquireAccess()
+    {
+        if (!doorTaken && !targetDoor.doorTaken) {
+            doorTaken = true;
+            targetDoor.doorTaken = true;
+            token = Random.Range(1, 20);
+            targetDoor.token = token;
+            return token;
+        }
+        return 0;
+    }
+
+    ////return false if you can't access the door
+    public void ReleaseAccess(int token)
+    {
+        if (token == this.token) {
+            doorTaken = false;
+            targetDoor.doorTaken = false;
+
+            targetDoor.token = 0;
+            this.token = 0;
+        }
     }
 
     private void OnDrawGizmos()
@@ -111,13 +138,13 @@ public class DoorControl : MonoBehaviour
     //}
 
     //
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Ghost")) {
-            other.GetComponent<Ghost>().DoorEntered(this);
-            Debug.Log("Ghost entered");
-        }
-    }
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Ghost")) {
+    //        other.GetComponent<Ghost>().DoorEntered(this);
+    //        Debug.Log("Ghost entered");
+    //    }
+    //}
 
     //void PlayerEntered()
     //{
@@ -127,13 +154,13 @@ public class DoorControl : MonoBehaviour
     //    //EventManager.StartListening(GameEvent.interact, DoorInteract);
     //}
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Ghost")) {
-            other.GetComponent<Ghost>().DoorExited(this);
-            Debug.Log("Ghost exited");
-        }
-    }
+    //void OnTriggerExit2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Ghost")) {
+    //        other.GetComponent<Ghost>().DoorExited(this);
+    //        Debug.Log("Ghost exited");
+    //    }
+    //}
 
     //void PlayerExited()
     //{

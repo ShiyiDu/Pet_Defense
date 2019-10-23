@@ -2,23 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActEatEnemy : StateMachineBehaviour
+public class CheckAcquireDoor : StateMachineBehaviour
 {
-    //just destroy the enemy gameobject
+    //try to acquire the door 
+
     UnitBehaviour unit;
+    DoorControl door;
+    int token;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        unit = animator.GetComponent<UnitBehaviour>();
-        Destroy(unit.enemy.gameObject, 0);
-        unit.enemy = null;
+        door = animator.gameObject.GetComponent<UnitBehaviour>().door;
+        unit = animator.gameObject.GetComponent<UnitBehaviour>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if ((token = door.AcquireAccess()) != 0) {
+            unit.doorToken = token;
+            unit.doorAcquired = true;
+        }
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

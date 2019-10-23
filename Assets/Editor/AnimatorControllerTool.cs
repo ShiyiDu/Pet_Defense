@@ -6,7 +6,6 @@ using System.IO;
 // Drop this in some Editor folder
 public static class AnimatorControllerTool
 {
-
     [MenuItem("CONTEXT/RuntimeAnimatorController/Enforce Transition Settings")]
     public static void FixTransitions(MenuCommand command)
     {

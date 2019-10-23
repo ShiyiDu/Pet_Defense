@@ -6,17 +6,23 @@ using UnityEngine;
 public class ActHealthRegeneration : StateMachineBehaviour
 {
     Pet pet;
-
+    float gap = 0.2f;
+    float timer;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         pet = animator.gameObject.GetComponent<Pet>();
+        timer = gap;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        pet.health = Mathf.Min(pet.GetMaxHealth(), pet.health + (pet.healthRegeneration * Time.deltaTime));
+        if (timer <= 0) {
+            pet.RestoreHealth(pet.healthRegeneration * gap);
+            timer = gap;
+        }
+        timer -= Time.deltaTime;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

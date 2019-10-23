@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 public class PetCard : MonoBehaviour, Selectable
 {
@@ -79,18 +80,41 @@ public class PetCard : MonoBehaviour, Selectable
     {
         if (unit.GetComponent<Ghost>() != null) iAmPet = false;
         beds = GameObject.FindGameObjectsWithTag("Bed").ToList();
+
         GameObject icon = Instantiate(unit, transform.position, Quaternion.identity);
-        icon.GetComponent<SpriteRenderer>().sortingOrder = 12;
-        icon.GetComponent<Rigidbody2D>().simulated = false;
-        icon.GetComponent<UnitBehaviour>().enabled = false;
-        icon.GetComponent<Collider2D>().enabled = false;
-        icon.GetComponent<Animator>().enabled = false;
+        foreach (SpriteRenderer rend in icon.GetComponentsInChildren<SpriteRenderer>()) {
+            if (rend.gameObject.layer == 1) rend.enabled = false;
+            rend.sortingOrder += 10;
+        }
+        //icon.GetComponentInChildren<SpriteRenderer>().sortingOrder = 12;
+        //icon.GetComponent<SpriteRenderer>().sortingOrder = 12;
+        Destroy(icon.GetComponent<Rigidbody2D>());
+        Destroy(icon.GetComponent<UnitBehaviour>());
+
+        //foreach (Transform trans in icon.GetComponentInChildren<Transform>()) {
+        //    if (trans != transform) Destroy(trans.gameObject);
+        //}
+
+        foreach (Collider2D col in icon.GetComponentsInChildren<Collider2D>()) {
+            Destroy(col);
+        }
+
+        //while (icon.GetComponent<Collider2D>() != null) Destroy(icon.GetComponent<Collider2D>());
+
+        Destroy(icon.GetComponent<Animator>());
+        icon.transform.SetParent(transform);
+        icon.name = "Pet Icon";
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateInput();
+    }
+
+    void OnDrawGizmos()
+    {
+        if (unit) gameObject.name = unit.name;
     }
 
     public void Selected()

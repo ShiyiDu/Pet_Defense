@@ -24,11 +24,17 @@ public class ActGoToDestination : StateMachineBehaviour
         rigid = transform.GetComponent<Rigidbody2D>();
         unit = animator.GetComponent<UnitBehaviour>();
         nextPoint = PetUtility.FindNextWayPoint(unit.transform.position, unit.destination);
-        enterDoor = false;
+        enterDoor = false; unit.enterDoor = false;
+        UpdataRoute();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        UpdataRoute();
+    }
+
+    private void UpdataRoute()
     {
         if (RouteRangeCheck() && nextPoint.Equals(unit.destination)) {
             arrive = true;
@@ -47,13 +53,13 @@ public class ActGoToDestination : StateMachineBehaviour
         DoorCheck();
         if (nearDoor) {
             nextPoint = PetUtility.FindNextWayPoint(unit.transform.position, unit.destination);
-            Debug.Log(nextPoint);
+            //Debug.Log(nextPoint);
         }
         nextPoint = PetUtility.FindNextWayPoint(unit.transform.position, unit.destination);
 
         //control the patroling of the unit
         if (nearDoor && RouteRangeCheck()) {
-            Debug.Log("try go next floor");
+            //Debug.Log("try go next floor");
             rigid.velocity = Vector2.zero;
             enterDoor = true;
             unit.enterDoor = true;
@@ -88,11 +94,14 @@ public class ActGoToDestination : StateMachineBehaviour
             if ((hit.collider.GetComponent<DoorControl>().OtherEndPos() - unit.destination).magnitude
                 < ((Vector2)hit.collider.GetComponent<DoorControl>().transform.position - unit.destination).magnitude) {
                 nearDoor = true;
+                unit.door = hit.collider.GetComponent<DoorControl>();
             } else {
                 nearDoor = false;
+                unit.door = null;
             }
         } else {
             nearDoor = false;
+            unit.door = null;
         }
 
         //nearDoor |= hit && hit.collider.GetComponent<DoorControl>() != null;
@@ -103,5 +112,10 @@ public class ActGoToDestination : StateMachineBehaviour
         //you only need to compare x-axies
         return
             Mathf.Abs(transform.position.x - nextPoint.x) <= tolerance;
+    }
+
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        rigid.velocity = Vector2.zero;
     }
 }

@@ -182,12 +182,15 @@ public class EventManager : MonoBehaviour
 }
 
 public class ObjEvent : UnityEvent<object> { }
-
+//
+//1 levelfinish
+//2 gamePause
 public enum GameEvent
 {
     levelFinished,
     gamePaused,
-    gameContinued
+    gameContinued,
+    tutorialPaused,
 }
 
 public enum ParameterizedGameEvent

@@ -240,6 +240,12 @@ public class PetUtility : MonoBehaviour
         EventManager.TriggerEvent(GameEvent.gamePaused);
     }
 
+    //pause the game while still allow input for the game
+    public static void TutorialPause()
+    {
+        Time.timeScale = 0;
+    }
+
     public static void Coroutine(IEnumerator routine)
     {
         instance.StartCoroutine(routine);

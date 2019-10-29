@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public class PetLevel
     int current;//what is the next ghost to generate?
 
     //a list contain ghost type, generate time, generate spot
-    public struct SpawnInfo
+    [Serializable]
+    public class SpawnInfo
     {
         public SpawnInfo(float time, int type, int spot)
         {
@@ -40,8 +42,12 @@ public class PetLevel
         }
     }
 
+    /// <summary>
+    /// return the next spawn and move cursor to the next spawn
+    /// </summary>
     public SpawnInfo NextSpawn()
     {
+        if (current == spawns.Count) return null;
         return spawns[current++];
     }
 }

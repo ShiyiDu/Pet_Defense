@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad66c549385e4c338460506046134ba, type: 3}
+  m_Name: GhostSheet
+  m_EditorClassIdentifier: 
+  allGhosts:
+  - {fileID: 1109100501736963202, guid: 0d80523a99a1c49f8b5f7dc6239e5c3e, type: 3}
+  - {fileID: 1109100501736963202, guid: c6a5ce6ac13cc441591740676c534be1, type: 3}
+  - {fileID: 1109100501736963202, guid: 2b34602b163aa4f15a1a3046a7b56b89, type: 3}
+  - {fileID: -4207646569820947457, guid: 3629d7ac243d14642b65d71ff7804005, type: 3}

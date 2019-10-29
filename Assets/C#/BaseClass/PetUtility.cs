@@ -19,6 +19,7 @@ public class PetUtility : MonoBehaviour
 
     public FloorMarker[] floorMarker;
     public Vector2[] wayPoints;
+    public Vector2[] spawnPoints; //spawn points for ghosts
 
     private static PetUtility petUtility;
     public static PetUtility instance

@@ -10,6 +10,7 @@ public class UtilityEditor : Editor
     {
         PetUtility utility = (PetUtility)target;
         Handles.color = Color.red;
+        //draw the floor marker to indicate which floors
         for (int i = 0; i < utility.floorMarker.Length; i++) {
             Handles.Label(utility.floorMarker[i].position, "floor " + i + " :to " + (utility.floorMarker[i].toRight ? "to right" : "to left"));
 
@@ -19,7 +20,7 @@ public class UtilityEditor : Editor
             Vector3 newTargetPosition = Handles.PositionHandle(utility.floorMarker[i].position, Quaternion.identity);
 
             if (EditorGUI.EndChangeCheck()) {
-                Undo.RecordObject(utility, "change routes");
+                Undo.RecordObject(utility, "change floor marker");
                 utility.floorMarker[i].position = newTargetPosition;
                 //spider.Update()
             }
@@ -27,7 +28,7 @@ public class UtilityEditor : Editor
 
         if (utility.wayPoints.Length <= 0) return;
 
-
+        //draw the way points marker for the doors
         for (int i = 0; i < utility.wayPoints.Length - 1; i++) {
             Handles.DrawLine(utility.wayPoints[i], utility.wayPoints[i + 1]);
         }
@@ -41,6 +42,19 @@ public class UtilityEditor : Editor
             if (EditorGUI.EndChangeCheck()) {
                 Undo.RecordObject(utility, "change routes");
                 utility.wayPoints[i] = newTargetPosition;
+                //spider.Update()
+            }
+        }
+
+        for (int i = 0; i < utility.spawnPoints.Length; i++) {
+            Handles.Label(utility.spawnPoints[i], "spawn point " + i);
+
+            EditorGUI.BeginChangeCheck();
+            Vector3 newTargetPosition = Handles.PositionHandle(utility.spawnPoints[i], Quaternion.identity);
+
+            if (EditorGUI.EndChangeCheck()) {
+                Undo.RecordObject(utility, "change spawn points");
+                utility.spawnPoints[i] = newTargetPosition;
                 //spider.Update()
             }
         }

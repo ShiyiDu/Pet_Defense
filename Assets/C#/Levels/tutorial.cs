@@ -5,92 +5,93 @@ using UnityEngine;
 public class tutorial : MonoBehaviour
 {
 
-    public GameObject step1;
-    public GameObject step2;
-    public GameObject step3;
-    public GameObject step4;
-    public GameObject step5;
-    public GameObject step6;
+	public GameObject step1;
+	public GameObject step2;
+	public GameObject step3;
+	public GameObject step4;
+	public GameObject step5;
+	public GameObject step6;
 
-    private Vector2 target;
+	private Vector2 target;
 
-    void Start()
-    {
-        step1.SetActive(false);
-        step2.SetActive(false);
-        step3.SetActive(false);
-        step4.SetActive(false);
-        step5.SetActive(false);
-        step6.SetActive(false);
+	void Start()
+	{
+		step1.SetActive(false);
+		step2.SetActive(false);
+		step3.SetActive(false);
+		step4.SetActive(false);
+		step5.SetActive(false);
+		step6.SetActive(false);
 
-    }
+	}
 
-    private void Update()
-    {
-        target = new Vector2(FindObjectOfType<Pommy>().transform.position.x, FindObjectOfType<Pommy>().transform.position.y + 2f);
-    }
+	private void Update()
+	{
+		if (FindObjectOfType<Pommy>())
+			target = new Vector2(FindObjectOfType<Pommy>().transform.position.x, FindObjectOfType<Pommy>().transform.position.y + 2f);
+	}
 
-    public void ShowStepOne()
-    {
-        step1.SetActive(true);
-    }
+	public void ShowStepOne()
+	{
+		step1.SetActive(true);
+	}
 
-    public void CloseStepOne()
-    {
-        Destroy(step1);
-    }
+	public void CloseStepOne()
+	{
+		Destroy(step1);
+	}
 
-    public void ShowStepTwo()
-    {
-        step2.SetActive(true);
+	public void ShowStepTwo()
+	{
+		step2.SetActive(true);
 
-        step2.transform.position = target;
-    }
+		step2.transform.position = target;
+	}
 
-    public void CloseStepTwo()
-    {
-        Destroy(step2);
-    }
+	public void CloseStepTwo()
+	{
+		Destroy(step2);
+	}
 
-    public void ShowStepThree()
-    {
-        step3.SetActive(true);
-    }
+	public void ShowStepThree()
+	{
+		step3.SetActive(true);
+	}
 
-    public void CloseStepThree()
-    {
-        Destroy(step3);
-    }
+	public void CloseStepThree()
+	{
+		Destroy(step3);
+	}
 
-    public void ShowStepFour()
-    {
-        step4.SetActive(true);
-    }
+	public void ShowStepFour()
+	{
+		step4.SetActive(true);
+	}
 
-    public void CloseStepFour()
-    {
-        Destroy(step4);
-    }
+	public void CloseStepFour()
+	{
+		Destroy(step4);
+	}
 
-    public void ShowStepFive()
-    {
-        step5.SetActive(true);
+	public void ShowStepFive()
+	{
+		step5.SetActive(true);
 
-        step5.transform.position = target;
-    }
+		step5.transform.position = target;
+	}
 
-    public void CloseStepFive()
-    {
-        Destroy(step5);
-    }
+	public void CloseStepFive()
+	{
+		Destroy(step5);
+	}
 
-    public void ShowStepSix()
-    {
-        step6.SetActive(true);
-    }
+	public void ShowStepSix()
+	{
+		step6.SetActive(true);
+	}
 
-    public void CloseStepSix()
-    {
-        Destroy(step6);
-    }
+	public void CloseStepSix()
+	{
+		Destroy(step6);
+	}
 }

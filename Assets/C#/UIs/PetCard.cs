@@ -3,14 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Net.NetworkInformation;
+using TMPro;
 
 public class PetCard : MonoBehaviour, Selectable
 {
     public GameObject unit;
+
+    public GameObject petIcon;
+    public TextMeshPro petName;
+    public TextMeshPro petAttack;
+    public GameObject heart;
+
+    public float heartGap = 0.1f;
+    public float iconRatio = 0.7f;
+
     private Vector2 position; //the position of the current press
     private GameObject newUnit;
+
     private bool selected = false;
+    private bool checkingInput = false;//check the direction of input first
+    private bool scrolling = false;
+
     private bool iAmPet = true;
+    private CardScroller scroller;
 
     private static List<GameObject> beds = new List<GameObject>();
 
@@ -75,26 +90,16 @@ public class PetCard : MonoBehaviour, Selectable
         newUnit.GetComponent<Animator>().enabled = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void CreateIcon()
     {
-        if (unit.GetComponent<Ghost>() != null) iAmPet = false;
-        beds = GameObject.FindGameObjectsWithTag("Bed").ToList();
-
-        GameObject icon = Instantiate(unit, transform.position, Quaternion.identity);
+        GameObject icon = Instantiate(unit, petIcon.transform.position, Quaternion.identity);
         foreach (SpriteRenderer rend in icon.GetComponentsInChildren<SpriteRenderer>()) {
-            if (rend.gameObject.layer == 1) rend.enabled = false;
+            if (rend.gameObject.layer == 1) rend.enabled = false; //layer 1 is the transparentfx
             rend.sortingOrder += 10;
+            rend.gameObject.layer = LayerMask.NameToLayer("MaskedUI");
         }
-        //icon.GetComponentInChildren<SpriteRenderer>().sortingOrder = 12;
-        //icon.GetComponent<SpriteRenderer>().sortingOrder = 12;
         Destroy(icon.GetComponent<Rigidbody2D>());
         Destroy(icon.GetComponent<UnitBehaviour>());
-
-        //foreach (Transform trans in icon.GetComponentInChildren<Transform>()) {
-        //    if (trans != transform) Destroy(trans.gameObject);
-        //}
-
         foreach (Collider2D col in icon.GetComponentsInChildren<Collider2D>()) {
             Destroy(col);
         }
@@ -104,12 +109,48 @@ public class PetCard : MonoBehaviour, Selectable
         Destroy(icon.GetComponent<Animator>());
         icon.transform.SetParent(transform);
         icon.name = "Pet Icon";
+        icon.transform.localScale = Vector3.one * iconRatio;
+        icon.transform.rotation = Quaternion.Euler(0, 180, 0);
+        Destroy(petIcon);
+    }
+
+    void CreateHearts()
+    {
+        int hearts = Mathf.RoundToInt(unit.GetComponent<UnitBehaviour>().GetHealth() / 20f);
+        Debug.Log("hearts:" + hearts);
+        hearts--;
+        for (int i = 0; i < hearts; i++) {
+            GameObject newHeart = Instantiate(heart, heart.transform.position, Quaternion.identity, transform);
+            Vector2 pos = newHeart.transform.position;
+            pos.x += heartGap;
+            newHeart.transform.position = pos;
+            heart = newHeart;
+        }
+    }
+
+    void ChangeText()
+    {
+        //change the attack value and card name
+        petName.text = unit.name;
+        petAttack.text = (unit.GetComponent<UnitBehaviour>().damage).ToString();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (unit.GetComponent<Ghost>() != null) iAmPet = false;
+        beds = GameObject.FindGameObjectsWithTag("Bed").ToList();
+        CreateIcon();
+        CreateHearts();
+        ChangeText();
+        scroller = FindObjectOfType<CardScroller>();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateInput();
+        if (checkingInput) CheckInput(); //check if we are creating pets or scrolling the scroller
     }
 
     void OnDrawGizmos()
@@ -117,13 +158,35 @@ public class PetCard : MonoBehaviour, Selectable
         if (unit) gameObject.name = unit.name;
     }
 
+    private float totalTravelRequire = 5f;//must travel atleast 5 pixel to make a decision
+    private Vector2 pressPosition;
+    public void CheckInput()
+    {
+        //one sample could be only one pixel move, let's pick multiple samples!
+        Vector2 delta = InputManager.GetPos() - pressPosition; //the delta position since press event happened
+        if (delta.magnitude >= totalTravelRequire) {
+            if (Mathf.Abs(delta.x) * 1.7 >= Mathf.Abs(delta.y)) { //tan(30) is about 1.7, so prioritize placing pets maybe
+                selected = true;
+                Press();
+            } else {
+                scrolling = true;
+                scroller.StartScroll();
+            }
+
+            checkingInput = false;
+        }
+    }
+
+
     public void Selected()
     {
-        Press();
+        checkingInput = true;
+        pressPosition = InputManager.GetPos();
     }
 
     public void Unselected()
     {
-        Release();
+        if (selected) Release();
+        if (scrolling) scroller.EndScroll();
     }
 }

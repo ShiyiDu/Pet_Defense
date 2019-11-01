@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     private static bool mousePressed = false;//if anything is pressed right now
     private static Vector2 lastPosition;//the position of the mouse/touch hit
     private static Vector2 deltaPosition;
+    private static Selectable hit;
     private bool paused = false;
 
     public static Vector2 GetDeltaPos()
@@ -67,10 +68,11 @@ public class InputManager : MonoBehaviour
         deltaPosition = GetPos() - lastPosition;
         lastPosition = GetPos();
         if (InputPush()) {
-            Selectable hit = GetHit();
+            hit = GetHit();
             if (hit != null) hit.Selected();
         } else if (InputRelease()) {
-            Selectable hit = GetHit();
+            if (hit != null) hit.Unselected();
+            hit = GetHit();
             if (hit != null) hit.Unselected();
         }
     }

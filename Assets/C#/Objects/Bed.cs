@@ -37,6 +37,11 @@ public class Bed : MonoBehaviour
         return offset + (Vector2)transform.position;
     }
 
+    public bool IsOccupied()
+    {
+        return pet != null;
+    }
+
     void OnDrawGizmos()
     {
         if (pet != null) Gizmos.DrawLine(transform.position, pet.transform.position);

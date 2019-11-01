@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 274457655968559450}
   - component: {fileID: 3680890537515379683}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 331626319867398005}
   - component: {fileID: 6073090485642913538}
   - component: {fileID: 1902280153}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Healer
   m_TagString: Pet
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7468533675425407239}
   - component: {fileID: 828606143235250411}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

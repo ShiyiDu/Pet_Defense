@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bcc992d92678411fbd74684ce7601cd, type: 3}
+  m_Name: LevelOne
+  m_EditorClassIdentifier: 
+  spawnInfos:
+  - time: 5
+    type: 0
+    spot: 0
+  - time: 36
+    type: 0
+    spot: 0
+  - time: 37
+    type: 0
+    spot: 0
+  - time: 55
+    type: 0
+    spot: 0
+  - time: 56
+    type: 0
+    spot: 0
+  - time: 70
+    type: 1
+    spot: 0
+  - time: 71
+    type: 2
+    spot: 0
+  - time: 85
+    type: 0
+    spot: 0
+  - time: 86
+    type: 1
+    spot: 0
+  - time: 87
+    type: 2
+    spot: 0
+  - time: 90
+    type: 0
+    spot: 0
+  - time: 91
+    type: 1
+    spot: 1
+  - time: 92
+    type: 2
+    spot: 1
+  - time: 100
+    type: 3
+    spot: 0
+  - time: 101
+    type: 3
+    spot: 0
+  - time: 120
+    type: 1
+    spot: 0
+  - time: 122
+    type: 2
+    spot: 0
+  - time: 124
+    type: 3
+    spot: 0
+  - time: 126
+    type: 4
+    spot: 0
+  - time: 150
+    type: 1
+    spot: 1

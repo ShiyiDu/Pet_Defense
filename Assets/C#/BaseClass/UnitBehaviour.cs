@@ -130,6 +130,7 @@ public abstract class UnitBehaviour : MonoBehaviour
 
     public virtual void Kill()
     {
+        if (door) door.ReleaseAccess(doorToken); //you must let the door go when you die.
         EventManager.TriggerEvent(ParameterizedGameEvent.unitDead, this);
         Destroy(gameObject, 0f);
     }

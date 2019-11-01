@@ -156,7 +156,7 @@ MonoBehaviour:
   health: 200
   enterDoor: 0
   attackInterval: 2
-  damage: 5
+  damage: 99999
   attackRange: 1.5
   destination: {x: 0, y: 0}
   bullet: {fileID: 0}

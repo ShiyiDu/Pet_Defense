@@ -10,6 +10,11 @@ public class Bed : MonoBehaviour
     public float rightBound = 3f;
     public Vector2 offset = Vector2.zero;
 
+    private SpriteRenderer spriteRenderer;
+
+    public Sprite unoccupiedBed;
+    public Sprite occupiedBed;
+
     private GameObject pet;
 
     public void Initialize(GameObject pet)
@@ -62,12 +67,20 @@ public class Bed : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = unoccupiedBed;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(IsOccupied() == true)
+        {
+            spriteRenderer.sprite = occupiedBed;
+        }
+        else
+        {
+            spriteRenderer.sprite = unoccupiedBed;
+        }
     }
 }

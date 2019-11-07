@@ -318,6 +318,11 @@ public class PetUtility : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     private void Update()
     {
     }

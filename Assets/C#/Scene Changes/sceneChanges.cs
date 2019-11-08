@@ -12,4 +12,11 @@ public class sceneChanges : MonoBehaviour
     {
         SceneManager.LoadScene(sceneNumber);
     }
+
+
+    //for inside code
+    public static void changeScene(int num)
+    {
+        SceneManager.LoadScene(num);
+    }
 }

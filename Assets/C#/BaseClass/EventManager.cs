@@ -191,7 +191,9 @@ public enum GameEvent
     gamePaused,
     gameContinued,
     scrollFreezed,
-    scrollUnfreezed
+    scrollUnfreezed,
+    playerWon,
+    playerLost
 }
 
 public enum ParameterizedGameEvent

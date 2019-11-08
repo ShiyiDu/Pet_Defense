@@ -27,7 +27,7 @@ MonoBehaviour:
     spot: 1
   - time: 6
     type: 0
-    spot: 1
+    spot: 2
   - time: 40
     type: 3
     spot: 0

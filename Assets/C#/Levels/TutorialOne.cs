@@ -35,6 +35,7 @@ public class TutorialOne : MonoBehaviour
             //a pommy is draged into desired beds
             tutor.ShowStepOne();
             PetUtility.TutorialPause();
+            EventManager.TriggerEvent(GameEvent.scrollFreezed);
             started = true;
         }
 
@@ -47,6 +48,7 @@ public class TutorialOne : MonoBehaviour
             PetUtility.ContinueGame();
             started = false;
             oneDone = true;
+            EventManager.TriggerEvent(GameEvent.scrollUnfreezed);
         }
     }
 
@@ -60,12 +62,14 @@ public class TutorialOne : MonoBehaviour
             if (target == null) target = FindObjectOfType<Pet>();
             tutor.ShowStepTwo();
             PetUtility.TutorialPause();
+            EventManager.TriggerEvent(GameEvent.scrollFreezed);
         }
 
         if (target.rest) {
             tutor.CloseStepTwo();
             started = false;
             PetUtility.ContinueGame();
+            EventManager.TriggerEvent(GameEvent.scrollUnfreezed);
             twoDone = true;
         }
     }
@@ -78,6 +82,7 @@ public class TutorialOne : MonoBehaviour
             tutor.ShowStepThree();
             PetUtility.TutorialPause();
             started = true;
+            EventManager.TriggerEvent(GameEvent.scrollFreezed);
         }
 
         if (InputManager.InputIsPressing()) {
@@ -85,6 +90,7 @@ public class TutorialOne : MonoBehaviour
             PetUtility.ContinueGame();
             started = false;
             threeDone = true;
+            EventManager.TriggerEvent(GameEvent.scrollUnfreezed);
         }
     }
 
@@ -106,6 +112,7 @@ public class TutorialOne : MonoBehaviour
             tutor.ShowStepFour();
             PetUtility.TutorialPause();
             started = true;
+            EventManager.TriggerEvent(GameEvent.scrollFreezed);
         }
 
         if (desiredBed2.IsOccupied()) {
@@ -117,7 +124,7 @@ public class TutorialOne : MonoBehaviour
             PetUtility.ContinueGame();
             started = false;
             fourDone = true;
-
+            EventManager.TriggerEvent(GameEvent.scrollUnfreezed);
         }
     }
 
@@ -130,6 +137,7 @@ public class TutorialOne : MonoBehaviour
             if (target == null) target = FindObjectOfType<Pet>();
             tutor.ShowStepFive();
             PetUtility.TutorialPause();
+            EventManager.TriggerEvent(GameEvent.scrollFreezed);
         }
 
         if (!target.rest) {
@@ -137,6 +145,7 @@ public class TutorialOne : MonoBehaviour
             started = false;
             PetUtility.ContinueGame();
             fiveDone = true;
+            EventManager.TriggerEvent(GameEvent.scrollUnfreezed);
         }
     }
 
@@ -148,6 +157,7 @@ public class TutorialOne : MonoBehaviour
             tutor.ShowStepSix();
             PetUtility.TutorialPause();
             started = true;
+            EventManager.TriggerEvent(GameEvent.scrollUnfreezed);
         }
 
         if (InputManager.InputIsPressing()) {
@@ -156,6 +166,7 @@ public class TutorialOne : MonoBehaviour
             started = false;
             sixDone = true;
             Destroy(gameObject);
+            EventManager.TriggerEvent(GameEvent.scrollUnfreezed);
         }
 
     }

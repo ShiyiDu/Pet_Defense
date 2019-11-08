@@ -25,7 +25,7 @@ public class Bed : MonoBehaviour
     public bool RequestBed(Vector2 position)
     {
         //Debug.Log("requesting bed...");
-        if (pet != null) return false;
+        if (pet != null || !gameObject.activeSelf) return false;
         Vector2 difference = position - (Vector2)transform.position;
 
         if (difference.x > rightBound || difference.x < -leftBound)
@@ -74,12 +74,9 @@ public class Bed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(IsOccupied() == true)
-        {
+        if (IsOccupied() == true) {
             spriteRenderer.sprite = occupiedBed;
-        }
-        else
-        {
+        } else {
             spriteRenderer.sprite = unoccupiedBed;
         }
     }

@@ -56,7 +56,7 @@ public abstract class UnitBehaviour : MonoBehaviour
 
     protected float maxHealth;
 
-    private Color origin;
+    private Dictionary<SpriteRenderer, Color> originColors = new Dictionary<SpriteRenderer, Color>();
 
     private Dictionary<UnitState, UnityAction> actions = new Dictionary<UnitState, UnityAction>();
 
@@ -118,7 +118,8 @@ public abstract class UnitBehaviour : MonoBehaviour
         {
             if (renderer != null && Time.time - lastDamageTime > changeColorTime) {
                 foreach (SpriteRenderer r in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
-                    r.color = origin;
+                    if (r.gameObject.layer == 1) continue; //layer 1 is transparentFX, should be ignored
+                    r.color = originColors[r];
                 }
             }
         }
@@ -162,7 +163,9 @@ public abstract class UnitBehaviour : MonoBehaviour
     {
         maxHealth = health;
         renderer = gameObject.GetComponent<SpriteRenderer>();
-        origin = renderer.color;
+        foreach (SpriteRenderer r in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+            originColors.Add(r, r.color);
+        }
         rigid = gameObject.GetComponent<Rigidbody2D>();
         OnStart();
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.Net.NetworkInformation;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class PetCard : MonoBehaviour, Selectable
 {
@@ -23,6 +24,7 @@ public class PetCard : MonoBehaviour, Selectable
     private bool selected = false;
     private bool checkingInput = false;//check the direction of input first
     private bool scrolling = false;
+    private bool scrollable = true;
 
     private bool iAmPet = true;
     private CardScroller scroller;
@@ -135,6 +137,50 @@ public class PetCard : MonoBehaviour, Selectable
         petAttack.text = (unit.GetComponent<UnitBehaviour>().damage).ToString();
     }
 
+    //this value should be decided based on resolution?
+    private float totalTravelRequire = 8f;//must travel atleast 8 pixel to make a decision
+    private Vector2 pressPosition;
+    //decide if we are creating pets or scroll 
+    public void CheckInput()
+    {
+        //one sample could be only one pixel move, let's pick multiple samples!
+        Vector2 delta = InputManager.GetPos() - pressPosition; //the delta position since press event happened
+        if (delta.magnitude >= totalTravelRequire) {
+            if (Mathf.Abs(delta.x) * 1.7 >= Mathf.Abs(delta.y) || !scrollable) { //tan(30) is about 1.7, so prioritize placing pets maybe
+                selected = true;
+                Press();
+            } else {
+                scrolling = true;
+                scroller.StartScroll();
+            }
+
+            checkingInput = false;
+        }
+    }
+
+
+    public void Selected()
+    {
+        checkingInput = true;
+        pressPosition = InputManager.GetPos();
+    }
+
+    public void Unselected()
+    {
+        if (selected) Release();
+        if (scrolling) scroller.EndScroll();
+    }
+
+    void FreezeScroll() { scrollable = false; }
+
+    void UnfreezeScroll() { scrollable = true; }
+
+    void OnEnable()
+    {
+        EventManager.StartListening(GameEvent.scrollFreezed, FreezeScroll);
+        EventManager.StartListening(GameEvent.scrollUnfreezed, UnfreezeScroll);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -158,35 +204,9 @@ public class PetCard : MonoBehaviour, Selectable
         if (unit) gameObject.name = unit.name;
     }
 
-    private float totalTravelRequire = 5f;//must travel atleast 5 pixel to make a decision
-    private Vector2 pressPosition;
-    public void CheckInput()
+    void OnDisable()
     {
-        //one sample could be only one pixel move, let's pick multiple samples!
-        Vector2 delta = InputManager.GetPos() - pressPosition; //the delta position since press event happened
-        if (delta.magnitude >= totalTravelRequire) {
-            if (Mathf.Abs(delta.x) * 1.7 >= Mathf.Abs(delta.y)) { //tan(30) is about 1.7, so prioritize placing pets maybe
-                selected = true;
-                Press();
-            } else {
-                scrolling = true;
-                scroller.StartScroll();
-            }
-
-            checkingInput = false;
-        }
-    }
-
-
-    public void Selected()
-    {
-        checkingInput = true;
-        pressPosition = InputManager.GetPos();
-    }
-
-    public void Unselected()
-    {
-        if (selected) Release();
-        if (scrolling) scroller.EndScroll();
+        EventManager.StopListening(GameEvent.scrollFreezed, FreezeScroll);
+        EventManager.StopListening(GameEvent.scrollUnfreezed, UnfreezeScroll);
     }
 }

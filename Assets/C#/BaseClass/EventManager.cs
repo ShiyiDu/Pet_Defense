@@ -190,7 +190,8 @@ public enum GameEvent
     levelFinished,
     gamePaused,
     gameContinued,
-    tutorialPaused,
+    scrollFreezed,
+    scrollUnfreezed
 }
 
 public enum ParameterizedGameEvent

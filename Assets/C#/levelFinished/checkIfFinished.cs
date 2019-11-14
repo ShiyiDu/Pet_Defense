@@ -50,6 +50,11 @@ public class checkIfFinished : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        EventManager.StopListening(ParameterizedGameEvent.unitDead, checkForUnits);
+    }
+
 }
 
 

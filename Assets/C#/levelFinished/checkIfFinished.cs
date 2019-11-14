@@ -5,7 +5,7 @@ using UnityEngine;
 public class checkIfFinished : MonoBehaviour
 { 
     public LevelReader levelReader;
-    public float time;
+    public float lastSpawn;
     public int length;
 
     private bool afterTime;
@@ -19,11 +19,9 @@ public class checkIfFinished : MonoBehaviour
     void Update()
     {
         length = levelReader.levelData.spawnInfos.Length;  //get length of current spawn list
-        //get length of current spawn list
-        time = levelReader.levelData.spawnInfos[length - 1].time; //the time of the current final ghost spawn
+        lastSpawn = levelReader.levelData.spawnInfos[length - 1].time;
 
-        //CHANGE LATER
-        if(time <= 200/*placeholder for current time*/){ //after final spawn time has passed
+        if (lastSpawn <= Time.timeSinceLevelLoad){ //after final spawn time has passed
 
             if (afterTime == true)
             {

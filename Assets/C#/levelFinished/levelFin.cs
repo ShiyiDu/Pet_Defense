@@ -15,7 +15,6 @@ public class levelFin : MonoBehaviour
     public Button nextLvl;
     public Button retry;
 
-    public LevelReader levelReader;
     public static int sceneNumber;
 
     public bool playerWin;

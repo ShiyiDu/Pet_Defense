@@ -15,18 +15,16 @@ public class levelFin : MonoBehaviour
     public Button nextLvl;
     public Button retry;
 
-    public int levelCounter;
     public LevelReader levelReader;
-    public List<PetLevel.SpawnInfo[]> levelDat = new List<PetLevel.SpawnInfo[]>(); //a list of the spawnInfos lists (this needs to be editable in the inspecter)
+    public static int sceneNumber;
 
     public bool playerWin;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        levelCounter = 1; //current level player is playing
         playerWin = false;
+        sceneNumber = 3;
 
         //screens
         winScreen.SetActive(false);
@@ -77,7 +75,7 @@ public class levelFin : MonoBehaviour
         nextLvl.gameObject.SetActive(false);
         retry.gameObject.SetActive(false);
 
-        sceneChanges.changeScene(2);
+        sceneChanges.changeScene(1);
     }
 
     public void nextLevel() //DOUBLE CHECK THIS
@@ -88,30 +86,20 @@ public class levelFin : MonoBehaviour
         nextLvl.gameObject.SetActive(false);
         retry.gameObject.SetActive(false);
 
-        levelCounter ++;
-
-        //this may be wrong, but I couldn't find a way to change the levelData variable in LevelReader without making it static
-        //Basically, I wont to change Utilities > levelReader > Level Data to the spawn list fo rthe next level
-        LevelData lev = FindObjectOfType<LevelData>();
-
-        lev.spawnInfos = levelDat[levelCounter]; //updates the spawn info list to the next level
-
-
-
-        //change LevelData to next one (maybe have a coutner) (it's inside the utilities object)
-        //update time variable in checkIfFinished class
+        sceneNumber ++;
+        sceneChanges.changeScene(sceneNumber);
     }
 
-            public void tryAgain()
-            {
-                winScreen.SetActive(false);
-                loseScreen.SetActive(false);
-                toTown.gameObject.SetActive(false);
-                nextLvl.gameObject.SetActive(false);
-                retry.gameObject.SetActive(false);
+    public void tryAgain()
+    {
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
+        toTown.gameObject.SetActive(false);
+        nextLvl.gameObject.SetActive(false);
+        retry.gameObject.SetActive(false);
 
-                //restart level (resets timer)
-            }
+        sceneChanges.changeScene(sceneNumber); //relaods current scene
+    }
 
     private void OnDisable()
     {

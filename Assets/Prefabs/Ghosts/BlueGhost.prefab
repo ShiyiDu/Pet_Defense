@@ -139,7 +139,7 @@ MonoBehaviour:
   attackInterval: 1
   damage: 10
   attackRange: 1.5
-  destination: {x: 5.0094495, y: 3.8869605}
+  destination: {x: 10.03655, y: 1.282589}
   bullet: {fileID: 0}
   bulletVelocity: 0
   launchingAttack: 0

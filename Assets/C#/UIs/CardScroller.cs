@@ -8,9 +8,9 @@ public class CardScroller : MonoBehaviour
     public float cardGap = 0.1f; //the gap between each card
     public float rollerStart = 3;
     public float rollerHeight = 10;
+    public int cardNum = 6; //the number of cards we currently have
     private float rollerTop; //the limit of the roller, set during start.
     private float rollerBot;
-    private int cardNum = 6; //the number of cards we currently have
     private const float bounceConst = 0.2f; //these 2 constant controls the bouncing back speed
     private const float bounceConst2 = 0.05f;
     public PetCard[] allCards;
@@ -57,7 +57,6 @@ public class CardScroller : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        allCards = GetComponentsInChildren<PetCard>();
         RerangeCards();
 
         Vector2 start = transform.position;
@@ -80,8 +79,9 @@ public class CardScroller : MonoBehaviour
         rollerBot = rollerTop - rollerHeight;
     }
 
-    void RerangeCards()
+    public void RerangeCards()
     {
+        allCards = GetComponentsInChildren<PetCard>();
         Vector2 start = transform.position;
         start.y += cardNum / 2f * cardHeights + cardNum / 2f * cardGap;
 

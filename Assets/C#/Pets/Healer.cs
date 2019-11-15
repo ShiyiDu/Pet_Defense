@@ -31,7 +31,7 @@ public class Healer : Pet
     {
         if (myTimer <= 0) {
             foreach (UnitBehaviour unit in friendInRange) {
-                Debug.Log("try to heal");
+                //Debug.Log("try to heal");
                 unit.RestoreHealth(healPerSec * healGap);
             }
             myTimer = healGap;

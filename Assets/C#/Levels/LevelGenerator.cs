@@ -16,8 +16,10 @@ public class LevelGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (nextSpawn == null) return;
-        if (Time.time >= nextSpawn.time) {
+        if (nextSpawn == null) {
+            return;
+        }
+        if (Time.timeSinceLevelLoad >= nextSpawn.time) {
             SpawnGhost();
             nextSpawn = currentLevel.NextSpawn();
         }

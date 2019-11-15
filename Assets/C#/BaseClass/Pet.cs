@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Pet : UnitBehaviour, Selectable
 {
-    //I don't know if we can still get this one by string if its static
     public bool enemyInHouse;
     public bool bedNearby;
     public bool rest;

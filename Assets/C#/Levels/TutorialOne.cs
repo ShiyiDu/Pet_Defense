@@ -179,18 +179,18 @@ public class TutorialOne : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= stepSix) {
+        if (Time.timeSinceLevelLoad >= stepSix) {
             StepSix();
-        } else if (Time.time >= stepFive) {
+        } else if (Time.timeSinceLevelLoad >= stepFive) {
             StepFive();
-        } else if (Time.time >= stepFour) {
+        } else if (Time.timeSinceLevelLoad >= stepFour) {
             StepFour();
-            Debug.Log("try step 4");
-        } else if (Time.time >= stepThree) {
+            //Debug.Log("try step 4");
+        } else if (Time.timeSinceLevelLoad >= stepThree) {
             StepThree();
-        } else if (Time.time >= stepTwo) {
+        } else if (Time.timeSinceLevelLoad >= stepTwo) {
             StepTwo();
-        } else if (Time.time >= stepOne) {
+        } else if (Time.timeSinceLevelLoad >= stepOne) {
             StepOne();
         }
     }

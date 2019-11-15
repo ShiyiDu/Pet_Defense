@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class checkIfFinished : MonoBehaviour
-{ 
+{
     public LevelReader levelReader;
     public float lastSpawn;
     public int length;
@@ -21,10 +21,9 @@ public class checkIfFinished : MonoBehaviour
         length = levelReader.levelData.spawnInfos.Length;  //get length of current spawn list
         lastSpawn = levelReader.levelData.spawnInfos[length - 1].time;
 
-        if (lastSpawn <= Time.timeSinceLevelLoad){ //after final spawn time has passed
+        if (lastSpawn <= Time.timeSinceLevelLoad) { //after final spawn time has passed
 
-            if (afterTime == true)
-            {
+            if (afterTime == true) {
                 EventManager.StartListening(ParameterizedGameEvent.unitDead, checkForUnits);
                 afterTime = false;
             }
@@ -38,15 +37,12 @@ public class checkIfFinished : MonoBehaviour
         var ghosts = FindObjectsOfType<Ghost>();
         var pets = FindObjectsOfType<Pet>();
 
-        if (ghosts.Length < 1)
-        {
-            EventManager.TriggerEvent("levelFinished");
-            EventManager.TriggerEvent("playerWon");
-        }
-        else if (pets.Length < 1)
-        {
-            EventManager.TriggerEvent("levelFinished");
-            EventManager.TriggerEvent("playerLost");
+        if (ghosts.Length < 1) {
+            EventManager.TriggerEvent(GameEvent.levelFinished);
+            EventManager.TriggerEvent(GameEvent.playerWon);
+        } else if (pets.Length < 1) {
+            EventManager.TriggerEvent(GameEvent.levelFinished);
+            EventManager.TriggerEvent(GameEvent.playerLost);
         }
     }
 

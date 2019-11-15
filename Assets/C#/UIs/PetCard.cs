@@ -47,7 +47,12 @@ public class PetCard : MonoBehaviour, Selectable
         newUnit = Instantiate(unit, (Vector2)Camera.main.ScreenToWorldPoint(InputManager.GetPos()), Quaternion.identity);
         Color transParent = newUnit.GetComponent<SpriteRenderer>().color;
         transParent.a = 0.5f * transParent.a;
-        newUnit.GetComponent<SpriteRenderer>().color = transParent;
+        //newUnit.GetComponent<SpriteRenderer>().color = transParent;
+
+        foreach (SpriteRenderer rend in newUnit.GetComponentsInChildren<SpriteRenderer>()) {
+            rend.sortingOrder += 15;
+        }
+
         newUnit.GetComponent<Rigidbody2D>().simulated = false;
         newUnit.GetComponent<UnitBehaviour>().enabled = false;
         newUnit.GetComponent<Collider2D>().enabled = false;
@@ -85,6 +90,9 @@ public class PetCard : MonoBehaviour, Selectable
     {
         Color fullColor = newUnit.GetComponent<SpriteRenderer>().color;
         fullColor.a = 2f * fullColor.a;
+        foreach (SpriteRenderer rend in newUnit.GetComponentsInChildren<SpriteRenderer>()) {
+            rend.sortingOrder -= 15;
+        }
         newUnit.GetComponent<SpriteRenderer>().color = fullColor;
         newUnit.GetComponent<Rigidbody2D>().simulated = true;
         newUnit.GetComponent<UnitBehaviour>().enabled = true;
@@ -157,7 +165,6 @@ public class PetCard : MonoBehaviour, Selectable
             checkingInput = false;
         }
     }
-
 
     public void Selected()
     {

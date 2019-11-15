@@ -110,7 +110,6 @@ public abstract class UnitBehaviour : MonoBehaviour
     {
         float changeColorTime = 0.08f;
         foreach (SpriteRenderer r in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
-            if (r.gameObject.layer == 1) continue;
             r.color = Color.red;
         }
 

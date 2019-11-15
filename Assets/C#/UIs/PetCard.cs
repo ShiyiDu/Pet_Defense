@@ -15,6 +15,8 @@ public class PetCard : MonoBehaviour, Selectable
     public TextMeshPro petAttack;
     public GameObject heart;
 
+    public GameObject greyedOut;
+
     public float heartGap = 0.1f;
     public float iconRatio = 0.7f;
 
@@ -31,11 +33,14 @@ public class PetCard : MonoBehaviour, Selectable
 
     private static List<GameObject> beds = new List<GameObject>();
 
+    private float cardOffSet = 0.7f; //the offset ratio so that your stupid finger doesn't block the pet.
+    private float cardSelectRatio = 1.2f; //how big the pet should look when pressed?
+
     void UpdateInput()
     {
         if (selected) {
             Vector2 newPos = Camera.main.ScreenToWorldPoint(InputManager.GetPos());
-            newUnit.transform.position = newPos;
+            newUnit.transform.position = newPos + Vector2.up * (newUnit.transform.localScale.y * cardOffSet);
             if (InputManager.InputRelease()) Unselected();
         }
     }
@@ -47,6 +52,7 @@ public class PetCard : MonoBehaviour, Selectable
         newUnit = Instantiate(unit, (Vector2)Camera.main.ScreenToWorldPoint(InputManager.GetPos()), Quaternion.identity);
         Color transParent = newUnit.GetComponent<SpriteRenderer>().color;
         transParent.a = 0.5f * transParent.a;
+        newUnit.transform.localScale = newUnit.transform.localScale * cardSelectRatio;
         //newUnit.GetComponent<SpriteRenderer>().color = transParent;
 
         foreach (SpriteRenderer rend in newUnit.GetComponentsInChildren<SpriteRenderer>()) {
@@ -62,12 +68,15 @@ public class PetCard : MonoBehaviour, Selectable
     void Release()
     {
         selected = false;
-        if (iAmPet) TryFindOffer();
-        ActiveUnit();
+        if (iAmPet && TryFindOffer()) {
+            ActiveUnit();
+            Destroy(gameObject);
+            PetUtility.WaitAndDo(0.1f, scroller.RerangeCards);
+        }
         //put down the pet once its released
     }
 
-    void TryFindOffer()
+    bool TryFindOffer()
     {
         Bed target = null;
         for (int i = 0; i < beds.Count; i++) {
@@ -80,8 +89,10 @@ public class PetCard : MonoBehaviour, Selectable
             target.Initialize(newUnit);
             newUnit.GetComponent<Pet>().OfferBed(target);
             newUnit.transform.position = target.RequestPos();
+            return true;
         } else {
-            Destroy(newUnit, 0);
+            Destroy(newUnit);
+            return false;
         }
 
     }
@@ -93,6 +104,7 @@ public class PetCard : MonoBehaviour, Selectable
         foreach (SpriteRenderer rend in newUnit.GetComponentsInChildren<SpriteRenderer>()) {
             rend.sortingOrder -= 15;
         }
+        newUnit.transform.localScale = newUnit.transform.localScale / cardSelectRatio;
         newUnit.GetComponent<SpriteRenderer>().color = fullColor;
         newUnit.GetComponent<Rigidbody2D>().simulated = true;
         newUnit.GetComponent<UnitBehaviour>().enabled = true;
@@ -146,7 +158,7 @@ public class PetCard : MonoBehaviour, Selectable
     }
 
     //this value should be decided based on resolution?
-    private float totalTravelRequire = 8f;//must travel atleast 8 pixel to make a decision
+    private float totalTravelRequire = 16f;//must travel atleast 16 pixel to make a decision
     private Vector2 pressPosition;
     //decide if we are creating pets or scroll 
     public void CheckInput()
@@ -170,12 +182,30 @@ public class PetCard : MonoBehaviour, Selectable
     {
         checkingInput = true;
         pressPosition = InputManager.GetPos();
+        ShrinkCard();
+        greyedOut.SetActive(true);
     }
 
     public void Unselected()
     {
+        checkingInput = false;
         if (selected) Release();
-        if (scrolling) scroller.EndScroll();
+        scroller.EndScroll();
+        UnShrinkCard();
+        greyedOut.SetActive(false);
+    }
+
+    float shrinkRatio = 0.85f;
+    float shrinkDuration = 0.05f;
+    private void ShrinkCard()
+    {
+        PetUtility.Coroutine(PetUtility.LinearZoom(transform.localScale, shrinkRatio * Vector3.one, shrinkDuration, transform));
+        //Debug.Log("trying to shrink card");
+    }
+
+    private void UnShrinkCard()
+    {
+        PetUtility.Coroutine(PetUtility.LinearZoom(transform.localScale, Vector3.one, shrinkDuration, transform));
     }
 
     void FreezeScroll() { scrollable = false; }

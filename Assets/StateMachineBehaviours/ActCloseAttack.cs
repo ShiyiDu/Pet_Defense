@@ -71,9 +71,9 @@ public class ActCloseAttack : StateMachineBehaviour
         Vector2 current = gameObject.transform.position;
         //todo: get direction needs to be updated when chasing from behind
         Vector2 newPosition = unit.GetFaceDirection().normalized * attackDistance + current;
-        PetUtility.Coroutine(PetUtility.LinearMove(current, newPosition, 0.15f, gameObject.transform));
+        if (gameObject != null) PetUtility.Coroutine(PetUtility.LinearMove(current, newPosition, 0.15f, gameObject.transform));
         yield return new WaitForSeconds(0.15f);
-        PetUtility.Coroutine(PetUtility.LinearMove(newPosition, current, 0.15f, gameObject.transform));
+        if (gameObject != null) PetUtility.Coroutine(PetUtility.LinearMove(newPosition, current, 0.15f, gameObject.transform));
         yield return new WaitForSeconds(0.15f);
         yield return null;
     }

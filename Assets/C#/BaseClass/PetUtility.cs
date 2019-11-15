@@ -118,15 +118,14 @@ public class PetUtility : MonoBehaviour
         }
         result = (Ghost)FindObjectOfType(typeof(Ghost));
         if (result == null) return null;
-        if (GetFloorNumber(result.transform.position) > currentFloor) return result;
+        Debug.Log("ghost found");
+        if (GetFloorNumber(result.transform.position) < currentFloor) return result;
         else if (GetFloorNumber(result.transform.position) == currentFloor) {
             float dx = result.transform.position.x - from.x;
             if (dx * GetFloorDirection(from).x < 0) return result;
             else return null;
         } else return null;
     }
-
-
 
     /// <summary>
     /// returns the nearest ghost on floor basis
@@ -256,6 +255,9 @@ public class PetUtility : MonoBehaviour
     {
         GameObject newBar = Instantiate(instance.healthBar);
         newBar.GetComponent<HealthBar>().Initialize(unit);
+
+        Vector2 target = new Vector2(unit.transform.position.x, unit.transform.position.y - .65f);
+        newBar.transform.position = target;
     }
 
     //wait for a while and do something
@@ -281,11 +283,12 @@ public class PetUtility : MonoBehaviour
         float timer = 0f;
         while (timer <= duration) {
             Vector2 current = (to - from) * (timer / duration) + from;
+            if (target == null) break;
             target.position = current;
             timer += Time.deltaTime;
             yield return null;
         }
-        target.position = to;
+        if (target != null) target.position = to;
     }
 
     //linearly fade a vector3 object
@@ -294,11 +297,12 @@ public class PetUtility : MonoBehaviour
         float timer = 0f;
         while (timer <= duration) {
             Vector3 current = (end - start) * (timer / duration) + start;
+            if (target == null) break;
             target.localScale = current;
             timer += Time.deltaTime;
             yield return null;
         }
-        target.localScale = end;
+        if (target != null) target.localScale = end;
     }
 
     //this is public just in case we want to get the coroutine object to stop it

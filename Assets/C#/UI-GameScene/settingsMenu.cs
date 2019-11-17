@@ -14,22 +14,21 @@ public class settingsMenu : MonoBehaviour
 
     public GameObject Menu;
     public GameObject SettingsPanel;
-
-
+    public AudioListener listener;
 
     public void Update()
     {
         if (toggle.isOn == true)
         {
             toggleText.text = "Sound On";
-            //enable audio
+            listener.enabled = true;
         }
 
 
         if (toggle.isOn == false)
         {
             toggleText.text = "Sound Off";
-            //disable audio
+            listener.enabled = false;
         }
     }
 

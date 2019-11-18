@@ -10,6 +10,8 @@ public class levelFin : MonoBehaviour
 
     public GameObject winScreen;
     public GameObject loseScreen;
+    public GameObject dayTime;
+    public GameObject nightTime;
 
     public GameObject toTown;
     public GameObject nextLvl;
@@ -21,6 +23,9 @@ public class levelFin : MonoBehaviour
     void Start()
     {
         sceneNumber = 3;
+
+        nightTime.SetActive(true);
+        dayTime.SetActive(false);
 
         //screens
         winScreen.SetActive(false);
@@ -49,8 +54,10 @@ public class levelFin : MonoBehaviour
         winScreen.SetActive(true);
         toTown.gameObject.SetActive(true);
         nextLvl.gameObject.SetActive(true);
+        nightTime.SetActive(false);
+        dayTime.SetActive(true);
 
-        
+
         Pet[] pets = FindObjectsOfType<Pet>();
         for(int i = 0; i <= pets.Length -1; i++)
         {
@@ -63,6 +70,8 @@ public class levelFin : MonoBehaviour
         loseScreen.SetActive(true);
         toTown.gameObject.SetActive(true);
         retry.gameObject.SetActive(true);
+        nightTime.SetActive(false);
+        dayTime.SetActive(true);
 
         Ghost[] ghosts = FindObjectsOfType<Ghost>();
         for (int i = 0; i <= ghosts.Length - 1; i++)

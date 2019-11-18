@@ -26,6 +26,8 @@ public class checkIfFinished : MonoBehaviour
             if (afterTime == true) {
                 EventManager.StartListening(ParameterizedGameEvent.unitDead, checkForUnits);
                 afterTime = false;
+                Debug.Log("last spawn has happened");
+                Debug.Log("listening fo unitDead");
             }
 
         }
@@ -34,21 +36,27 @@ public class checkIfFinished : MonoBehaviour
     //Every time a unit dies, check if there are any ghosts or pets left
     public void checkForUnits(object obj)
     {
-        var ghosts = FindObjectsOfType<Ghost>();
-        var pets = FindObjectsOfType<Pet>();
+        Ghost[] ghosts = FindObjectsOfType<Ghost>();
+        Pet[] pets = FindObjectsOfType<Pet>();
 
-        if (ghosts.Length < 1) {
+        Debug.Log("ghost array:" + ghosts.Length);
+        Debug.Log("pet array:" + pets.Length);
+
+        if (ghosts.Length-1 < 1) {
             EventManager.TriggerEvent(GameEvent.levelFinished);
             EventManager.TriggerEvent(GameEvent.playerWon);
-        } else if (pets.Length < 1) {
+            Debug.Log("player won triggered, level finsihed trigger");
+        } else if (pets.Length-1 < 1) {
             EventManager.TriggerEvent(GameEvent.levelFinished);
             EventManager.TriggerEvent(GameEvent.playerLost);
+            Debug.Log("player lost triggered, level finish triggered");
         }
     }
 
     private void OnDisable()
     {
         EventManager.StopListening(ParameterizedGameEvent.unitDead, checkForUnits);
+        Debug.Log("stopped listening for unit dead");
     }
 
 }

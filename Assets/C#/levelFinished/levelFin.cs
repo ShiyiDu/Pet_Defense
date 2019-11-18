@@ -11,18 +11,15 @@ public class levelFin : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
-    public Button toTown;
-    public Button nextLvl;
-    public Button retry;
+    public GameObject toTown;
+    public GameObject nextLvl;
+    public GameObject retry;
 
     public static int sceneNumber;
-
-    public bool playerWin;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerWin = false;
         sceneNumber = 3;
 
         //screens
@@ -43,27 +40,36 @@ public class levelFin : MonoBehaviour
     private void OnEnable()
     {
         EventManager.StartListening(GameEvent.playerWon, levelWon);
-        EventManager.StartListening(GameEvent.levelFinished, popUp);  
+        EventManager.StartListening(GameEvent.playerLost, levelLost);
+        Debug.Log("start listening for levelWon");
+        Debug.Log("start listening for popUp");
     }
 
     public void levelWon(){
-        playerWin = true;
+        winScreen.SetActive(true);
+        toTown.gameObject.SetActive(true);
+        nextLvl.gameObject.SetActive(true);
+
+        
+        Pet[] pets = FindObjectsOfType<Pet>();
+        for(int i = 0; i <= pets.Length -1; i++)
+        {
+            Destroy(pets[i]);
+        }
     }
 
-    public void popUp()
+    public void levelLost()
     {
-        if (playerWin == true)
+        loseScreen.SetActive(true);
+        toTown.gameObject.SetActive(true);
+        retry.gameObject.SetActive(true);
+
+        Ghost[] ghosts = FindObjectsOfType<Ghost>();
+        for (int i = 0; i <= ghosts.Length - 1; i++)
         {
-            winScreen.SetActive(true);
-            toTown.gameObject.SetActive(true);
-            nextLvl.gameObject.SetActive(true);
+            Destroy(ghosts[i]);
         }
-        else
-        {
-            loseScreen.SetActive(true);
-            toTown.gameObject.SetActive(true);
-            retry.gameObject.SetActive(true);
-        }
+
     }
 
     public void goToTown()
@@ -102,7 +108,7 @@ public class levelFin : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.StopListening(GameEvent.levelFinished, popUp);
-        EventManager.StopListening(GameEvent.playerWon, popUp);
+        EventManager.StopListening(GameEvent.playerLost, levelLost);
+        EventManager.StopListening(GameEvent.playerWon, levelWon);
     }
 }

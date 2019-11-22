@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Security.AccessControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //access the level data through this class
 public class LevelReader : MonoBehaviour
 {
     public GhostTypeSheet ghostSheet;
+    public LevelData[] allLevels;
     public LevelData levelData;
 
     private PetLevel currentLevel;
@@ -26,6 +28,13 @@ public class LevelReader : MonoBehaviour
 
             return levelReader;
         }
+    }
+
+    public static void LoadLevel(int levelNum)
+    {
+        DontDestroyOnLoad(instance.gameObject);
+        instance.levelData = instance.allLevels[levelNum];
+        PetUtility.instance.LevelRestart();
     }
 
     public static PetLevel GetCurrentLevel()

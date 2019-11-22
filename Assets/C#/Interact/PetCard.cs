@@ -168,6 +168,7 @@ public class PetCard : MonoBehaviour, Selectable
         if (delta.magnitude >= totalTravelRequire) {
             if (Mathf.Abs(delta.x) * 1.7 >= Mathf.Abs(delta.y) || !scrollable) { //tan(30) is about 1.7, so prioritize placing pets maybe
                 selected = true;
+                EventManager.TriggerEvent(GameEvent.selectBedStart);
                 Press();
             } else {
                 scrolling = true;
@@ -190,6 +191,7 @@ public class PetCard : MonoBehaviour, Selectable
     {
         checkingInput = false;
         if (selected) Release();
+        EventManager.TriggerEvent(GameEvent.selectBedFinish);
         scroller.EndScroll();
         UnShrinkCard();
         greyedOut.SetActive(false);

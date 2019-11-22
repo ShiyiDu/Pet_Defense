@@ -10,7 +10,7 @@ public class CoinCounter : MonoBehaviour
 
     private void OnEnable()
     {
-           EventManager.StartListening(GameEvent.playerWon, updateScore); //when level is completed, add 100 to score
+           //EventManager.StartListening(GameEvent.levelFinished, updateScore); //when level is completed, add 100 to score
     }
 
     void Start()
@@ -35,6 +35,6 @@ public class CoinCounter : MonoBehaviour
 
     private void OnDisable()
     {
-          EventManager.StopListening(GameEvent.playerWon, updateScore);
+        //  EventManager.StopListening(GameEvent.levelFinished, updateScore);
     }
 }

@@ -15,9 +15,13 @@ public class levelFin : MonoBehaviour
     public GameObject nextLvl;
     public GameObject retry;
 
+    public static int sceneNumber;
+
     // Start is called before the first frame update
     void Start()
     {
+        sceneNumber = 3;
+
         nightTime.SetActive(true);
         dayTime.SetActive(false);
 
@@ -40,6 +44,8 @@ public class levelFin : MonoBehaviour
     {
         EventManager.StartListening(GameEvent.playerWon, levelWon);
         EventManager.StartListening(GameEvent.playerLost, levelLost);
+        Debug.Log("start listening for levelWon");
+        Debug.Log("start listening for popUp");
     }
 
     public void levelWon()
@@ -49,7 +55,11 @@ public class levelFin : MonoBehaviour
         nextLvl.gameObject.SetActive(true);
         nightTime.SetActive(false);
         dayTime.SetActive(true);
-        PetUtility.PauseGame();
+
+        Pet[] pets = FindObjectsOfType<Pet>();
+        for (int i = 0; i <= pets.Length - 1; i++) {
+            Destroy(pets[i].gameObject);
+        }
     }
 
     public void levelLost()
@@ -59,7 +69,11 @@ public class levelFin : MonoBehaviour
         retry.gameObject.SetActive(true);
         nightTime.SetActive(false);
         dayTime.SetActive(true);
-        PetUtility.PauseGame();
+
+        Ghost[] ghosts = FindObjectsOfType<Ghost>();
+        for (int i = 0; i <= ghosts.Length - 1; i++) {
+            Destroy(ghosts[i].gameObject);
+        }
     }
 
     public void goToTown()
@@ -81,8 +95,8 @@ public class levelFin : MonoBehaviour
         nextLvl.gameObject.SetActive(false);
         retry.gameObject.SetActive(false);
 
-        //**update level data here (only line that needs to be added, I updated the other things)
-        SceneManager.LoadScene(3);
+        sceneNumber++;
+        SceneManager.LoadScene(sceneNumber);
     }
 
     public void tryAgain()
@@ -93,7 +107,7 @@ public class levelFin : MonoBehaviour
         nextLvl.gameObject.SetActive(false);
         retry.gameObject.SetActive(false);
 
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(sceneNumber); //relaods current scene
     }
 
     private void OnDisable()

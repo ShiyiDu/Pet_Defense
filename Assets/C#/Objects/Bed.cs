@@ -10,10 +10,12 @@ public class Bed : MonoBehaviour
     public float rightBound = 3f;
     public Vector2 offset = Vector2.zero;
 
-    private SpriteRenderer spriteRenderer;
+    //public Sprite unoccupiedBed;
+    //public Sprite occupiedBed;
 
-    public Sprite unoccupiedBed;
-    public Sprite occupiedBed;
+    public GameObject yellowOutline; //the outline for the unoccupied bed
+
+    private SpriteRenderer spriteRenderer;
 
     private GameObject pet;
 
@@ -64,20 +66,42 @@ public class Bed : MonoBehaviour
         Gizmos.DrawSphere(offset + (Vector2)transform.position, 0.05f);
     }
 
+    void ShowFreeBed()
+    {
+        if (!IsOccupied()) yellowOutline.SetActive(true);
+    }
+
+    void UnshowFreeBed()
+    {
+        yellowOutline.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        EventManager.StartListening(GameEvent.selectBedStart, ShowFreeBed);
+        EventManager.StartListening(GameEvent.selectBedFinish, UnshowFreeBed);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = unoccupiedBed;
+        //spriteRenderer.sprite = unoccupiedBed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsOccupied() == true) {
-            spriteRenderer.sprite = occupiedBed;
-        } else {
-            spriteRenderer.sprite = unoccupiedBed;
-        }
+        //if (IsOccupied() == true) {
+        //    spriteRenderer.sprite = occupiedBed;
+        //} else {
+        //    spriteRenderer.sprite = unoccupiedBed;
+        //}
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening(GameEvent.selectBedStart, ShowFreeBed);
+        EventManager.StopListening(GameEvent.selectBedFinish, UnshowFreeBed);
     }
 }

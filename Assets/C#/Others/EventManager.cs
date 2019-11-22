@@ -116,7 +116,9 @@ public enum GameEvent
     scrollFreezed,
     scrollUnfreezed,
     playerWon,
-    playerLost
+    playerLost,
+    selectBedStart, //the player is selecting the bed and we need to show the avaliable bed
+    selectBedFinish
 }
 
 public enum ParameterizedGameEvent

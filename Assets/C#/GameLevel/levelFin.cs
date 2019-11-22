@@ -15,12 +15,13 @@ public class levelFin : MonoBehaviour
     public GameObject nextLvl;
     public GameObject retry;
 
-    public static int sceneNumber;
+    public static int levelNumber = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        sceneNumber = 3;
+        //sceneNumber = 0;
+        DontDestroyOnLoad(this.gameObject);
 
         nightTime.SetActive(true);
         dayTime.SetActive(false);
@@ -95,8 +96,8 @@ public class levelFin : MonoBehaviour
         nextLvl.gameObject.SetActive(false);
         retry.gameObject.SetActive(false);
 
-        sceneNumber++;
-        SceneManager.LoadScene(sceneNumber);
+        levelNumber++;
+        LevelReader.LoadLevel(levelNumber);
     }
 
     public void tryAgain()
@@ -107,7 +108,7 @@ public class levelFin : MonoBehaviour
         nextLvl.gameObject.SetActive(false);
         retry.gameObject.SetActive(false);
 
-        SceneManager.LoadScene(sceneNumber); //relaods current scene
+        SceneManager.LoadScene(levelNumber); //relaods current scene
     }
 
     private void OnDisable()

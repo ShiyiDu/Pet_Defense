@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/NonLevel/credits.unity
     guid: 9af7b647d6356435c9b70bddf0036702
   - enabled: 1
-    path: Assets/Scenes/toBeDeleted/MainTestLevel.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/LevelScene.unity
+    guid: 5de5e6df8e58b4a8d81a56b811d0e68b
   m_configObjects: {}

@@ -25,7 +25,7 @@ public class MenuPopup : MonoBehaviour
     //Exit to Town Scene
     public void ExitLevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         //Since level isn't finished, it would automatically reset so player can start over
     }
 

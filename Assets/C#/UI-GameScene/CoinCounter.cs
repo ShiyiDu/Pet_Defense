@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CoinCounter : MonoBehaviour
 {
     public Text coinDisplay;
-    private int counter;
+    private static int counter;
 
     private void OnEnable()
     {

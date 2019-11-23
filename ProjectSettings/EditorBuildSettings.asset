@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelScene.unity
     guid: 5de5e6df8e58b4a8d81a56b811d0e68b
+  - enabled: 1
+    path: Assets/Scenes/NonLevel/petShop.unity
+    guid: 4bcb07e54aa68413a8fe15239c517100
   m_configObjects: {}

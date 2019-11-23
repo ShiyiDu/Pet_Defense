@@ -7,14 +7,12 @@ using UnityEngine.UI;
 public class MenuPopup : MonoBehaviour
 {
 
-    public GameObject FadePanel;
     public GameObject Menu;
     public GameObject SettingsPanel;
     public Toggle pauseB;
 
     public void OpenMenu()
     {
-        FadePanel.SetActive(true);
         Menu.SetActive(true);
 
         //pause all game content (ghosts, pets)
@@ -38,7 +36,6 @@ public class MenuPopup : MonoBehaviour
     public void BackToGame()
     {
         Menu.SetActive(false);
-        FadePanel.SetActive(false);
         pauseB.enabled = true;
         //game resumes, same as method in the PauseGame script
         PetUtility.ContinueGame();

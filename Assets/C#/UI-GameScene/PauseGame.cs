@@ -23,15 +23,15 @@ public class PauseGame : MonoBehaviour
     {
         if (toggle.isOn == true) {
 
-            background.sprite = pauseImage;
-            
-            pauseCentreText.SetActive(false);
-            FadePanel.SetActive(false);
+                background.sprite = pauseImage;
 
-            //resume all game content (ghosts, pets) (same as a method in the MenuPopup script)
-            if (!btnLastState) PetUtility.ContinueGame();
-            btnLastState = true;
-            menuB.enabled = true;
+                pauseCentreText.SetActive(false);
+                FadePanel.SetActive(false);
+
+                //resume all game content (ghosts, pets) (same as a method in the MenuPopup script)
+                if (!btnLastState) PetUtility.ContinueGame();
+                btnLastState = true;
+                menuB.enabled = true;
         }
 
 
@@ -49,6 +49,5 @@ public class PauseGame : MonoBehaviour
             menuB.enabled = false;
         }
     }
-
 
 }

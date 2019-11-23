@@ -1547,6 +1547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinDisplay: {fileID: 352070063}
+  theCounter: {fileID: 352070060}
 --- !u!114 &352070063
 MonoBehaviour:
   m_ObjectHideFlags: 0

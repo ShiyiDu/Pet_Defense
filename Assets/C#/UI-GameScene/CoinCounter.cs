@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CoinCounter : MonoBehaviour
 {
     public Text coinDisplay;
-    private static int counter;
+    public static int counter;
 
     private void OnEnable()
     {
@@ -15,9 +15,9 @@ public class CoinCounter : MonoBehaviour
 
     void Start()
     {
-        counter = 0;
-        coinDisplay.text = "";
-        coinDisplay.text = counter.ToString();
+       // counter = 0;
+       // coinDisplay.text = "";
+       // coinDisplay.text = counter.ToString();
     }
 
     // Update is called once per frame

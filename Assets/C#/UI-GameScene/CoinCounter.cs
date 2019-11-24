@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class CoinCounter : MonoBehaviour
 {
-    public Text coinDisplay;
     public static int counter;
 
     private void OnEnable()
@@ -13,12 +12,6 @@ public class CoinCounter : MonoBehaviour
            EventManager.StartListening(GameEvent.levelFinished, updateScore); //when level is completed, add 100 to score
     }
 
-    void Start()
-    {
-       // counter = 0;
-       // coinDisplay.text = "";
-       // coinDisplay.text = counter.ToString();
-    }
 
     // Update is called once per frame
     void Update()
@@ -30,7 +23,7 @@ public class CoinCounter : MonoBehaviour
     private void updateScore()
     {
         counter = counter + 100;
-        coinDisplay.text = counter.ToString();
+        this.GetComponent<UnityEngine.UI.Text>().text = counter.ToString();
     }
 
     private void OnDisable()

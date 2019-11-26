@@ -862,6 +862,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 5717217672075334010, guid: b4a1f1c6a11d3485d8298c9a231e8e25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5717217672075333988, guid: b4a1f1c6a11d3485d8298c9a231e8e25,
         type: 3}
       propertyPath: m_LocalPosition.x

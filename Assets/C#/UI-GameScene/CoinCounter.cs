@@ -7,17 +7,10 @@ public class CoinCounter : MonoBehaviour
 {
     public static int counter;
 
-    private void OnEnable()
+
+    private void OnLevelWasLoaded(int level)
     {
-           EventManager.StartListening(GameEvent.levelFinished, updateScore); //when level is completed, add 100 to score
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
+        EventManager.StartListening(GameEvent.levelFinished, updateScore); //when level is completed, add 100 to score
     }
 
     private void updateScore()

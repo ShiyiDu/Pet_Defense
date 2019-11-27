@@ -11,7 +11,7 @@ public class LevelReader : MonoBehaviour
     public LevelData[] allLevels;
     private static LevelData levelData;
     private static bool levelUpdated;
-
+    private static int currentLevelNumber = 0;
     private static PetLevel currentLevel;
 
     private static LevelReader levelReader;
@@ -31,8 +31,14 @@ public class LevelReader : MonoBehaviour
         }
     }
 
+    public static int GetCurrentLevelNum()
+    {
+        return currentLevelNumber;
+    }
+
     public static void LoadLevel(int levelNum)
     {
+        currentLevelNumber = levelNum;
         levelData = instance.allLevels[levelNum];
         levelUpdated = true;
         PetUtility.instance.LevelRestart();

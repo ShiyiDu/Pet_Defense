@@ -173,7 +173,7 @@ public class TutorialOne : MonoBehaviour
 
     void Start()
     {
-
+        if (LevelReader.GetCurrentLevelNum() != 0) Destroy(gameObject);
     }
 
     // Update is called once per frame

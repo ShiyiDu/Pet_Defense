@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class dontDestroy : MonoBehaviour
+public class destroyCounter : MonoBehaviour
 {
     private void Awake()
     {
-        DontDestroyOnLoad(this.transform);
-        DontDestroyOnLoad(this);
+        Destroy(GameObject.Find("CounterCanvas"));
     }
 }

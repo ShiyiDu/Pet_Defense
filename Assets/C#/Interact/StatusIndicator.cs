@@ -31,6 +31,7 @@ public class StatusIndicator : MonoBehaviour
 
     void HealthChange(object unit)
     {
+        if (!units.ContainsKey((UnitBehaviour)unit)) return;
         float oldHealth = units[((UnitBehaviour)unit)];
         float newHealth = ((UnitBehaviour)unit).GetHealth();
         float difference = newHealth - oldHealth;

@@ -9,9 +9,10 @@ public class LevelReader : MonoBehaviour
 {
     public GhostTypeSheet ghostSheet;
     public LevelData[] allLevels;
-    public LevelData levelData;
+    private static LevelData levelData;
+    private static bool levelUpdated;
 
-    private PetLevel currentLevel;
+    private static PetLevel currentLevel;
 
     private static LevelReader levelReader;
     private static LevelReader instance
@@ -32,22 +33,23 @@ public class LevelReader : MonoBehaviour
 
     public static void LoadLevel(int levelNum)
     {
-        DontDestroyOnLoad(instance.gameObject);
-        instance.levelData = instance.allLevels[levelNum];
+        levelData = instance.allLevels[levelNum];
+        levelUpdated = true;
         PetUtility.instance.LevelRestart();
     }
 
     public static PetLevel GetCurrentLevel()
     {
-        if (instance.currentLevel == null) {
-            instance.currentLevel = new PetLevel();
+        if (currentLevel == null || levelUpdated) {
+            currentLevel = new PetLevel();
             //Debug.Log("ghost to be spawn: " + instance.levelData.spawnInfos.Length);
-            foreach (PetLevel.SpawnInfo info in instance.levelData.spawnInfos) {
-                instance.currentLevel.AddSpawn(info.time, info.type, info.spot);
+            foreach (PetLevel.SpawnInfo info in levelData.spawnInfos) {
+                currentLevel.AddSpawn(info.time, info.type, info.spot);
                 //Debug.Log("add ghost");
             }
+            levelUpdated = false;
         }
-        return (FindObjectOfType<LevelReader>()).currentLevel;
+        return currentLevel;
     }
 
     public static Vector2 GetSpawnPoint(int index)
@@ -63,6 +65,11 @@ public class LevelReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //destroy other instances
+        if (levelData == null) {
+            levelData = allLevels[0];
+            levelUpdated = true;
+        }
     }
 
     // Update is called once per frame

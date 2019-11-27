@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PetLevel
 {
-    List<SpawnInfo> spawns;
+    public List<SpawnInfo> spawns;
     int current;//what is the next ghost to generate?
 
     //a list contain ghost type, generate time, generate spot

@@ -15,6 +15,8 @@ public class levelFin : MonoBehaviour
     public GameObject nextLvl;
     public GameObject retry;
 
+    public static int levelNumber = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,7 @@ public class levelFin : MonoBehaviour
         toTown.gameObject.SetActive(false);
         nextLvl.gameObject.SetActive(false);
         retry.gameObject.SetActive(false);
+
     }
 
     void Update()
@@ -85,7 +88,8 @@ public class levelFin : MonoBehaviour
         Debug.Log("nL");
 
         //update level data here
-        SceneManager.LoadScene(3);
+        levelNumber++;
+        LevelReader.LoadLevel(levelNumber);
     }
 
     public void tryAgain()
@@ -97,7 +101,7 @@ public class levelFin : MonoBehaviour
         retry.gameObject.SetActive(false);
         Debug.Log("again");
 
-        SceneManager.LoadScene(3);
+        LevelReader.LoadLevel(levelNumber);
     }
 
     private void OnDisable()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class checkIfFinished : MonoBehaviour
 {
-    public LevelReader levelReader;
+    //public LevelReader levelReader;
     public float lastSpawn;
     public int length;
 
@@ -18,8 +18,8 @@ public class checkIfFinished : MonoBehaviour
 
     void Update()
     {
-        length = levelReader.levelData.spawnInfos.Length;  //get length of current spawn list
-        lastSpawn = levelReader.levelData.spawnInfos[length - 1].time;
+        length = LevelReader.GetCurrentLevel().spawns.Count;  //get length of current spawn list
+        lastSpawn = LevelReader.GetCurrentLevel().spawns[length - 1].time;
 
         if (lastSpawn <= Time.timeSinceLevelLoad) { //after final spawn time has passed
 
@@ -42,11 +42,11 @@ public class checkIfFinished : MonoBehaviour
         Debug.Log("ghost array:" + ghosts.Length);
         Debug.Log("pet array:" + pets.Length);
 
-        if (ghosts.Length-1 < 1) {
+        if (ghosts.Length - 1 < 1) {
             EventManager.TriggerEvent(GameEvent.levelFinished);
             EventManager.TriggerEvent(GameEvent.playerWon);
             Debug.Log("player won triggered, level finsihed trigger");
-        } else if (pets.Length-1 < 1) {
+        } else if (pets.Length - 1 < 1) {
             EventManager.TriggerEvent(GameEvent.levelFinished);
             EventManager.TriggerEvent(GameEvent.playerLost);
             Debug.Log("player lost triggered, level finish triggered");

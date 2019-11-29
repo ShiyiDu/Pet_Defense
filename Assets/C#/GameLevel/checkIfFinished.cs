@@ -36,21 +36,26 @@ public class checkIfFinished : MonoBehaviour
     //Every time a unit dies, check if there are any ghosts or pets left
     public void checkForUnits(object obj)
     {
-        Ghost[] ghosts = FindObjectsOfType<Ghost>();
-        Pet[] pets = FindObjectsOfType<Pet>();
+        void Check()
+        {
+            Ghost[] ghosts = FindObjectsOfType<Ghost>();
+            Pet[] pets = FindObjectsOfType<Pet>();
 
-        Debug.Log("ghost array:" + ghosts.Length);
-        Debug.Log("pet array:" + pets.Length);
+            Debug.Log("ghost array:" + ghosts.Length);
+            Debug.Log("pet array:" + pets.Length);
 
-        if (ghosts.Length - 1 < 1) {
-            EventManager.TriggerEvent(GameEvent.levelFinished);
-            EventManager.TriggerEvent(GameEvent.playerWon);
-            Debug.Log("player won triggered, level finsihed trigger");
-        } else if (pets.Length - 1 < 1) {
-            EventManager.TriggerEvent(GameEvent.levelFinished);
-            EventManager.TriggerEvent(GameEvent.playerLost);
-            Debug.Log("player lost triggered, level finish triggered");
+            if (ghosts.Length - 1 < 0) {
+                EventManager.TriggerEvent(GameEvent.levelFinished);
+                EventManager.TriggerEvent(GameEvent.playerWon);
+                Debug.Log("player won triggered, level finsihed trigger");
+            } else if (pets.Length - 1 < 0) {
+                EventManager.TriggerEvent(GameEvent.levelFinished);
+                EventManager.TriggerEvent(GameEvent.playerLost);
+                Debug.Log("player lost triggered, level finish triggered");
+            }
         }
+
+        PetUtility.WaitAndDo(0.03f, Check); //because the unit is destroied later
     }
 
     private void OnDisable()

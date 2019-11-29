@@ -13,63 +13,63 @@ MonoBehaviour:
   m_Name: LeoLevel
   m_EditorClassIdentifier: 
   spawnInfos:
+  - time: 1
+    type: 0
+    spot: 0
   - time: 5
+    type: 1
+    spot: 1
+  - time: 10
+    type: 2
+    spot: 2
+  - time: 15
     type: 0
     spot: 0
-  - time: 36
+  - time: 20
     type: 0
+    spot: 1
+  - time: 25
+    type: 1
+    spot: 2
+  - time: 30
+    type: 2
     spot: 0
-  - time: 37
+  - time: 35
+    type: 0
+    spot: 1
+  - time: 40
+    type: 1
+    spot: 2
+  - time: 45
+    type: 2
+    spot: 2
+  - time: 50
     type: 0
     spot: 0
   - time: 55
-    type: 0
-    spot: 0
-  - time: 56
-    type: 0
+    type: 1
+    spot: 1
+  - time: 60
+    type: 2
+    spot: 1
+  - time: 65
+    type: 3
     spot: 0
   - time: 70
+    type: 3
+    spot: 0
+  - time: 75
     type: 1
     spot: 0
-  - time: 71
+  - time: 80
     type: 2
     spot: 0
   - time: 85
-    type: 0
-    spot: 0
-  - time: 86
-    type: 1
-    spot: 0
-  - time: 87
-    type: 2
+    type: 3
     spot: 0
   - time: 90
-    type: 0
-    spot: 0
-  - time: 91
-    type: 1
-    spot: 1
-  - time: 92
-    type: 2
-    spot: 1
-  - time: 100
     type: 3
     spot: 0
-  - time: 101
-    type: 3
-    spot: 0
-  - time: 120
-    type: 1
-    spot: 0
-  - time: 122
-    type: 2
-    spot: 0
-  - time: 124
-    type: 3
-    spot: 0
-  - time: 126
-    type: 3
-    spot: 0
-  - time: 150
+  - time: 95
     type: 1
     spot: 1

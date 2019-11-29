@@ -10,7 +10,7 @@ public class LevelReader : MonoBehaviour
     public GhostTypeSheet ghostSheet;
     public LevelData[] allLevels;
     private static LevelData levelData;
-    private static bool levelUpdated;
+    private static bool levelUpdated; //did the level just got updated and not effective yet?
     private static int currentLevelNumber = 0;
     private static PetLevel currentLevel;
 
@@ -72,12 +72,11 @@ public class LevelReader : MonoBehaviour
     void Start()
     {
         //destroy other instances
-        if (levelData == null) {
-            levelData = allLevels[0];
+        if (!levelUpdated) {
+            levelData = allLevels[currentLevelNumber];
             levelUpdated = true;
-            PetDistributor.Distribute(0);
+            PetDistributor.Distribute(currentLevelNumber);
         }
-        PetDistributor.Distribute(currentLevelNumber);
     }
 
     // Update is called once per frame

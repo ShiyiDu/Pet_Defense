@@ -134,7 +134,7 @@ public abstract class UnitBehaviour : MonoBehaviour
     {
         if (door) door.ReleaseAccess(doorToken); //you must let the door go when you die.
         EventManager.TriggerEvent(ParameterizedGameEvent.unitDead, this);
-        Destroy(gameObject, 0.2f); //leave 0.02 seconds for other script to process the change
+        Destroy(gameObject, 0.02f); //leave 0.02 seconds for other script to process the change
     }
 
     //this is called when the ghost enterd a door

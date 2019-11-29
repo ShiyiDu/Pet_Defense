@@ -75,7 +75,9 @@ public class LevelReader : MonoBehaviour
         if (levelData == null) {
             levelData = allLevels[0];
             levelUpdated = true;
+            PetDistributor.Distribute(0);
         }
+        PetDistributor.Distribute(currentLevelNumber);
     }
 
     // Update is called once per frame

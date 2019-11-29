@@ -8,7 +8,7 @@ public class CardScroller : MonoBehaviour
     public float cardGap = 0.1f; //the gap between each card
     public float rollerStart = 3;
     public float rollerHeight = 10;
-    public int cardNum = 6; //the number of cards we currently have
+    public int cardNum = 8; //the number of cards slots that can be displayed
     private float rollerTop; //the limit of the roller, set during start.
     private float rollerBot;
     private const float bounceConst = 0.2f; //these 2 constant controls the bouncing back speed
@@ -77,6 +77,21 @@ public class CardScroller : MonoBehaviour
     {
         rollerTop = transform.position.y + rollerStart;
         rollerBot = rollerTop - rollerHeight;
+    }
+
+    public void AddCard(PetCard newCard)
+    {
+        newCard.transform.parent = transform;
+    }
+
+    public void ClearCard()
+    {
+        allCards = GetComponentsInChildren<PetCard>();
+        foreach (PetCard card in allCards) {
+            DestroyImmediate(card.gameObject);
+        }
+
+        RerangeCards();
     }
 
     public void RerangeCards()

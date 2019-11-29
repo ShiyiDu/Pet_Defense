@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: e2a5b3f751e8249ee8f5ef080f97a510, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c60ade6d05f374d0faa4b92c7997df5f, type: 3}
   m_Color: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   attackInterval: 1
   damage: 10
   attackRange: 1
-  destination: {x: 10.036548, y: 1.282589}
+  destination: {x: 2.907937, y: 1.282589}
   bullet: {fileID: 0}
   bulletVelocity: 0
   launchingAttack: 0

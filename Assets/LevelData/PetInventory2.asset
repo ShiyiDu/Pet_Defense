@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7b74e8ce152414099ce8b56a15c6e2, type: 3}
   m_Name: PetInventory2
   m_EditorClassIdentifier: 
-  ham: 0
-  pom: 0
-  snake: 0
-  wizard: 0
+  pom: 1
+  ham: 1
+  snake: 1
+  wizard: 1
   fish: 0
   bird: 0
   turtle: 0

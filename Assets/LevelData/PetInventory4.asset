@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c7b74e8ce152414099ce8b56a15c6e2, type: 3}
-  m_Name: PetInventory3
+  m_Name: PetInventory4
   m_EditorClassIdentifier: 
-  pom: 0
+  pom: 1
   ham: 0
   snake: 0
-  wizard: 0
+  wizard: 3
   fish: 0
-  bird: 8
-  turtle: 0
+  bird: 0
+  turtle: 2

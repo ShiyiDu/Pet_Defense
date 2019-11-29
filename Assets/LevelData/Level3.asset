@@ -10,24 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bcc992d92678411fbd74684ce7601cd, type: 3}
-  m_Name: LevelOne
+  m_Name: Level3
   m_EditorClassIdentifier: 
   spawnInfos:
   - time: 2
     type: 0
-    spot: 0
+    spot: 2
   - time: 3
     type: 0
-    spot: 0
-  - time: 12
+    spot: 2
+  - time: 4
     type: 0
-    spot: 0
-  - time: 13
+    spot: 2
+  - time: 5
     type: 0
-    spot: 0
-  - time: 22
+    spot: 2
+  - time: 6
     type: 0
-    spot: 0
-  - time: 23
-    type: 0
-    spot: 0
+    spot: 2

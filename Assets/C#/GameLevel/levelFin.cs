@@ -15,11 +15,19 @@ public class levelFin : MonoBehaviour
     public GameObject nextLvl;
     public GameObject retry;
 
+    public int startLevel; //to fast test levels
+    private static bool startLevelSet = false;
     public static int levelNumber = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (!startLevelSet) {
+            LevelReader.LoadLevel(startLevel);
+            levelNumber = startLevel;
+            startLevelSet = true;
+        }
+
         nightTime.SetActive(true);
         dayTime.SetActive(false);
 

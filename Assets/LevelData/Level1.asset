@@ -9,13 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7b74e8ce152414099ce8b56a15c6e2, type: 3}
-  m_Name: PetInventory3
+  m_Script: {fileID: 11500000, guid: 7bcc992d92678411fbd74684ce7601cd, type: 3}
+  m_Name: Level1
   m_EditorClassIdentifier: 
-  pom: 0
-  ham: 0
-  snake: 0
-  wizard: 0
-  fish: 0
-  bird: 8
-  turtle: 0
+  spawnInfos:
+  - time: 2
+    type: 0
+    spot: 0
+  - time: 3
+    type: 0
+    spot: 0
+  - time: 12
+    type: 0
+    spot: 0
+  - time: 13
+    type: 0
+    spot: 0
+  - time: 22
+    type: 0
+    spot: 0

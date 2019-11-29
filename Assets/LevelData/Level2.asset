@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bcc992d92678411fbd74684ce7601cd, type: 3}
-  m_Name: LevelTwo
+  m_Name: Level2
   m_EditorClassIdentifier: 
   spawnInfos:
   - time: 2
@@ -21,7 +21,7 @@ MonoBehaviour:
     spot: 0
   - time: 5
     type: 0
-    spot: 1
+    spot: 2
   - time: 40
     type: 3
     spot: 0

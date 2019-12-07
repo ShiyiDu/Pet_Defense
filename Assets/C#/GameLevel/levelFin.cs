@@ -14,6 +14,7 @@ public class levelFin : MonoBehaviour
     public GameObject toTown;
     public GameObject nextLvl;
     public GameObject retry;
+    public GameObject resetButton;
 
     public int startLevel; //to fast test levels
     private static bool startLevelSet = false;
@@ -39,6 +40,7 @@ public class levelFin : MonoBehaviour
         toTown.gameObject.SetActive(false);
         nextLvl.gameObject.SetActive(false);
         retry.gameObject.SetActive(false);
+        resetButton.SetActive(false);
 
     }
 
@@ -55,12 +57,25 @@ public class levelFin : MonoBehaviour
 
     public void levelWon()
     {
-        winScreen.SetActive(true);
-        toTown.gameObject.SetActive(true);
-        nextLvl.gameObject.SetActive(true);
-        nightTime.SetActive(false);
-        dayTime.SetActive(true);
-        PetUtility.PauseGame();
+        if (levelNumber < 6)
+        {
+            winScreen.SetActive(true);
+            toTown.gameObject.SetActive(true);
+            nextLvl.gameObject.SetActive(true);
+            nightTime.SetActive(false);
+            dayTime.SetActive(true);
+            PetUtility.PauseGame();
+        }
+        else
+        {
+            //all levels are finished
+            winScreen.SetActive(true);
+            resetButton.SetActive(true);
+            nightTime.SetActive(false);
+            dayTime.SetActive(true);
+            PetUtility.PauseGame();
+        }
+        
     }
 
     public void levelLost()
@@ -110,6 +125,14 @@ public class levelFin : MonoBehaviour
         Debug.Log("again");
 
         LevelReader.LoadLevel(levelNumber);
+    }
+
+    public void restartGame()
+    {
+        //reset level data
+        levelNumber = 0;
+        LevelReader.LoadLevel(levelNumber);
+        SceneManager.LoadScene(0);
     }
 
     private void OnDisable()

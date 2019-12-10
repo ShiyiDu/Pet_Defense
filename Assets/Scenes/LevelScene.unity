@@ -248,83 +248,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16573039}
   m_CullTransparentMesh: 0
---- !u!1 &19916779
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 19916780}
-  - component: {fileID: 19916782}
-  - component: {fileID: 19916781}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &19916780
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19916779}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 35024103}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.86, y: 0.0000040531}
-  m_SizeDelta: {x: 165.16, y: 56.9}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &19916781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19916779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-    m_FontSize: 35
-    m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Restart
---- !u!222 &19916782
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19916779}
-  m_CullTransparentMesh: 0
 --- !u!1 &27311732
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +368,7 @@ GameObject:
   - component: {fileID: 35024105}
   - component: {fileID: 35024104}
   m_Layer: 5
-  m_Name: nextLevel
+  m_Name: restartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,8 +384,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
-  m_Children:
-  - {fileID: 19916780}
+  m_Children: []
   m_Father: {fileID: 930389024}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -538,13 +460,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.80137205, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9a511b4ff3b5340e4a27bc9454cab1c6, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -14755,16 +14677,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hamster
       objectReference: {fileID: 0}
-    - target: {fileID: 8979016249727627478, guid: 2017be828fb474cb6a8f227e23bf923d,
-        type: 3}
-      propertyPath: m_fontMaterial
-      value: 
-      objectReference: {fileID: 750139383}
-    - target: {fileID: 1111234881690115150, guid: 2017be828fb474cb6a8f227e23bf923d,
-        type: 3}
-      propertyPath: m_fontMaterial
-      value: 
-      objectReference: {fileID: 195522497}
     - target: {fileID: 7809194845515548358, guid: 2017be828fb474cb6a8f227e23bf923d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14870,6 +14782,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8979016249727627478, guid: 2017be828fb474cb6a8f227e23bf923d,
+        type: 3}
+      propertyPath: m_fontMaterial
+      value: 
+      objectReference: {fileID: 750139383}
+    - target: {fileID: 1111234881690115150, guid: 2017be828fb474cb6a8f227e23bf923d,
+        type: 3}
+      propertyPath: m_fontMaterial
+      value: 
+      objectReference: {fileID: 195522497}
     - target: {fileID: 1111234881690115184, guid: 2017be828fb474cb6a8f227e23bf923d,
         type: 3}
       propertyPath: m_Mesh
@@ -14922,16 +14844,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pommy
       objectReference: {fileID: 0}
-    - target: {fileID: 5190768430059903050, guid: 99f925fa68c724401addce38de41cb9c,
-        type: 3}
-      propertyPath: m_fontMaterial
-      value: 
-      objectReference: {fileID: 750139383}
-    - target: {fileID: 4321601774090220754, guid: 99f925fa68c724401addce38de41cb9c,
-        type: 3}
-      propertyPath: m_fontMaterial
-      value: 
-      objectReference: {fileID: 195522497}
     - target: {fileID: 6398870151914450522, guid: 99f925fa68c724401addce38de41cb9c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15037,6 +14949,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5190768430059903050, guid: 99f925fa68c724401addce38de41cb9c,
+        type: 3}
+      propertyPath: m_fontMaterial
+      value: 
+      objectReference: {fileID: 750139383}
+    - target: {fileID: 4321601774090220754, guid: 99f925fa68c724401addce38de41cb9c,
+        type: 3}
+      propertyPath: m_fontMaterial
+      value: 
+      objectReference: {fileID: 195522497}
     - target: {fileID: 4321601774090220780, guid: 99f925fa68c724401addce38de41cb9c,
         type: 3}
       propertyPath: m_Mesh

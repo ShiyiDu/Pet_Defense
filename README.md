@@ -1,5 +1,4 @@
 # Pet_Defense
-Project created
 This is a prototype we created in DATT4300, a game development course.
 In the game, the player are given varies types of pets to fight against invading ghosts.
 Currently, we have 7 types of pets player can use and 4 types of ghost to fight against. 
